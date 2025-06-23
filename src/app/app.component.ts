@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './features/landing/components/header/header.component';
@@ -7,6 +8,11 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   imports: [ HeaderComponent,CommonModule, RouterModule],
+
+
+@Component({
+  selector: 'app-root',
+  imports: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
