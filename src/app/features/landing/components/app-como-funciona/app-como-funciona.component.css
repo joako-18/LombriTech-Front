@@ -1,0 +1,162 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.como-funciona-container {
+  font-family: 'Montserrat', sans-serif;
+  height: 100%;
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #F3E9D2 100%);
+  padding-top: 70px;
+  margin: 0;
+  overflow-x: hidden; /* Evita scroll horizontal si la imagen sale del contenedor */
+}
+
+.como-funciona-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; /* Cambiado de max-width a width para usar todo el espacio */
+  margin: 0;
+  padding: 20px 0 20px 80px; /* Eliminado padding derecho completamente */
+  min-height: calc(100vh - 70px);
+  gap: 20px; /* Espacio entre el contenido y la imagen */
+}
+
+.como-funciona-content {
+  flex: 2;
+  max-width: 1000px;
+}
+
+.como-funciona-content h1 {
+  font-size: 5.5rem;
+  text-align: left;
+  font-weight: bold;
+  color: #6E3002;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+.como-funciona-content p {
+  font-size: 2.2rem;
+  text-align: justify;
+  color: #6B4423;
+  margin-bottom: 40px;
+  line-height: 1.6;
+    padding-left: 10px; /* Añadido padding derecho para evitar que el texto se pegue a la imagen */
+  max-width: 900px; /* Limita el ancho del párrafo para mejor legibilidad */
+}
+
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0; /* Eliminado todo el padding */
+  margin: 0; /* Eliminado todo el margen */
+  position: relative;
+}
+
+.image-container img {
+  width: 400px;
+  height: auto;
+  margin: 0; /* Eliminado todo el margen */
+  padding: 0; /* Eliminado todo el padding */
+  position: relative;
+  left: -10px;
+  right: -0px; /* Mueve la imagen 20px hacia la derecha, fuera del contenedor */
+}
+
+.image-container {
+  position: relative;
+  overflow: visible;
+}
+
+
+@media (max-width: 1200px) {
+  .como-funciona-content h1 {
+    font-size: 3.5rem;
+  }
+  
+  .como-funciona-content p {
+    font-size: 1.5rem;
+  }
+  
+  .image-container img {
+    width: 350px;
+    right: -15px; /* Ajustado proporcionalmente */
+  }
+}
+
+@media (max-width: 900px) {
+  .como-funciona-content h1 {
+    font-size: 3rem;
+  }
+  
+  .como-funciona-content p {
+    font-size: 1.3rem;
+  }
+  
+  .image-container img {
+    width: 300px;
+    right: -10px; /* Ajustado proporcionalmente */
+  }
+  
+  .como-funciona-flex {
+    padding: 20px 0 20px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .como-funciona-flex {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+    gap: 40px;
+  }
+  
+  .como-funciona-content {
+    max-width: 100%;
+    padding-right: 0;
+  }
+  
+  .como-funciona-content h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    white-space: normal;
+  }
+  
+  .como-funciona-content p {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+  
+  .image-container {
+    justify-content: center;
+  }
+  
+  .image-container img {
+    width: 250px;
+    right: 0; /* Centrado en móviles */
+    position: static; /* Vuelve a posicionamiento normal en móviles */
+  }
+}
+
+@media (max-width: 480px) {
+  .como-funciona-content h1 {
+    font-size: 2rem;
+  }
+  
+  .como-funciona-content p {
+    font-size: 1rem;
+  }
+  
+  .image-container img {
+    width: 200px;
+  }
+}
