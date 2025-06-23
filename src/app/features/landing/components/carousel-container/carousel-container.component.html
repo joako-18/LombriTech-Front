@@ -1,0 +1,46 @@
+
+<body>
+<div 
+  class="carousel-container" 
+  (mouseenter)="onMouseEnter()" 
+  (mouseleave)="onMouseLeave()"
+  (keydown)="onKeyDown($event)"
+  tabindex="0"
+  role="region"
+  aria-label="Carrusel de información sobre vermicompostaje">
+  
+  <div class="carousel-content">
+    <div class="slide" [class.active]="currentSlide === 0">
+      <app-que-es-vermicomposta></app-que-es-vermicomposta>
+    </div>
+
+    <div class="slide" [class.active]="currentSlide === 1">
+      <app-app-como-funciona></app-app-como-funciona>
+    </div>
+
+  </div>
+
+  <div class="nav-controls">
+  </div>
+  <div class="pagination-indicators">
+    <div 
+      *ngFor="let component of components; let i = index" 
+      class="indicator" 
+      [class.active]="currentSlide === i"
+      (click)="goToSlide(i)"
+      [attr.aria-label]="'Ir a slide: ' + component.title"
+      role="button"
+      tabindex="0">
+      
+  
+      <div class="indicator-progress" 
+        [style.width.%]="currentSlide === i && isAutoplay ? progressWidth : (currentSlide === i ? 100 : 0)">
+      </div>
+      
+      <div class="indicator-tooltip">
+        <strong>{{ component.title }}</strong>
+        <small *ngIf="component.description">{{ component.description }}</small>
+      </div>
+    </div>
+  </div>
+</div>

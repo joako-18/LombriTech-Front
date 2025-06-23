@@ -1,0 +1,53 @@
+<header class="header">
+  <div class="header-container">
+    <a href="" class="logo">
+        <img src="assets/images/lombritechlogo.png" alt="LombriTech Logo" class="logo-image">
+    </a>
+
+    <nav class="navigation">
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/acerca-de" class="nav-link" routerLinkActive="active">
+            Acerca de nosotros
+          </a>
+        </li>
+        <li class="nav-item">
+           <a href="/login" class="btn btn-outline">Iniciar sesión</a>
+     
+        </li>
+        <li class="nav-item">
+          <a href="/registro" class="btn btn-primary">Registrarse</a>
+        </li>
+        </ul> 
+    </nav>
+
+    <button class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+      ☰
+    </button>
+  </div>
+
+  <div class="mobile-menu" [class.active]="mobileMenuOpen">
+    <ul class="mobile-nav-menu">
+      <li class="mobile-nav-item">
+        <a href="/" class="mobile-nav-link" (click)="closeMobileMenu()">Home</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="/acerca-de" class="mobile-nav-link" (click)="closeMobileMenu()">Acerca de nosotros</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="/servicios" class="mobile-nav-link" (click)="closeMobileMenu()">Iniciar sesión</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="/login" class="mobile-nav-link" (click)="closeMobileMenu()">Iniciar sesión</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a href="/registro" class="mobile-nav-link" (click)="closeMobileMenu()">Registrarse</a>
+      </li>
+    </ul>
+  </div>
+</header>

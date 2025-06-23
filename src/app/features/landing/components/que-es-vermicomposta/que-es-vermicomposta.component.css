@@ -1,0 +1,71 @@
+.que-es-vermicomposta-container {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding:0;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #F3E9D2 100%);
+  box-sizing: border-box;
+}
+
+.que-es-vermicomposta-container {
+  padding-top: 70px; 
+  box-sizing: border-box;
+}
+
+.que-es-vermicomposta-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1400px;
+  padding: 20px 20px;
+  padding-top: 70px;
+  min-height: calc(100vh - 80px);
+  gap: 60px;
+}
+
+.que-es-vermicomposta-content {
+  flex: 2;
+  max-width: 1000px;
+  padding: 20px 60px;
+}
+
+.que-es-vermicomposta-content h1 {
+  font-size: 5.5rem;
+  text-align: left;
+  font-weight: bold;
+  color: #6E3002;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.que-es-vermicomposta-content p{
+  font-size: 2rem;
+  text-align: justify;
+  color: #6B4423;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.que-es-vermicomposta-flex {
+  display: flex;
+  align-items: center;
+  gap:0px; 
+}
+
+.image-container img { 
+  padding-top: 80px; 
+  width: 730px;
+  height: auto;
+  transform: rotate(-330deg);
+}
+
