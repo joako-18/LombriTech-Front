@@ -1,0 +1,227 @@
+
+<html lang="es">
+<body>
+  <button type="button" class="home-btn" (click)="volver()">
+          <div class="ImagenHome">
+          <img src="assets/home1.svg" alt="Home Icon" class="home-icon">
+          <span class="home-text">Regresar a home</span>
+        </div>
+          </button>
+<div class="registro-container">
+  <div class="background-image">
+    <img src="assets/images/gusanosbackground.png" alt="Registro Background" class="background-img">
+  </div>
+      <div class="registro-card">
+        <div class="logo">
+          <img src="assets/images/lombritechlogo2.png" alt="LombriTech Logo" class="logo-image">
+        </div>
+
+        <h2 class="titulo">
+          @if (currentStep === 1) {
+            Información Personal
+          } @else {
+            Cuenta y Contraseña
+          }
+        </h2>
+        
+        <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+          @if (currentStep === 1) {
+            <div class="step-content">
+              <div class="form-group">
+                <label for="tipoUsuario">Tipo de usuario</label>
+                <select 
+                  id="tipoUsuario"
+                  formControlName="tipoUsuario" 
+                  class="form-select"
+                  [class.error]="registroForm.get('tipoUsuario')?.invalid && registroForm.get('tipoUsuario')?.touched"
+                >
+                  <option value="" disabled>Selecciona tu tipo de usuario</option>
+                  <option value="investigador">Investigador</option>
+                  <option value="alumno">Alumno</option>
+                </select>
+                @if (registroForm.get('tipoUsuario')?.invalid && registroForm.get('tipoUsuario')?.touched) {
+                  <div class="error-message">
+                    Debes seleccionar un tipo de usuario
+                  </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input 
+                  id="nombre"
+                  type="text" 
+                  formControlName="nombre" 
+                  class="form-input"
+                  [class.error]="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched"
+                  placeholder="Ingresa tu nombre"
+                />
+                @if (registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched) {
+                  <div class="error-message">
+                    El nombre es requerido
+                  </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="apellidoPaterno">Apellido paterno</label>
+                <input 
+                  id="apellidoPaterno"
+                  type="text" 
+                  formControlName="apellidoPaterno" 
+                  class="form-input"
+                  [class.error]="registroForm.get('apellidoPaterno')?.invalid && registroForm.get('apellidoPaterno')?.touched"
+                  placeholder="Apellido paterno"
+                />
+                @if (registroForm.get('apellidoPaterno')?.invalid && registroForm.get('apellidoPaterno')?.touched) {
+                  <div class="error-message">
+                    El apellido paterno es requerido
+                  </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="apellidoMaterno">Apellido materno</label>
+                <input 
+                  id="apellidoMaterno"
+                  type="text" 
+                  formControlName="apellidoMaterno" 
+                  class="form-input"
+                  [class.error]="registroForm.get('apellidoMaterno')?.invalid && registroForm.get('apellidoMaterno')?.touched"
+                  placeholder="Apellido materno"
+                />
+                @if (registroForm.get('apellidoMaterno')?.invalid && registroForm.get('apellidoMaterno')?.touched) {
+                  <div class="error-message">
+                    El apellido materno es requerido
+                  </div>
+                }
+              </div>
+   <div class="login-link">
+                ¿Ya tienes una cuenta? <a href="#" (click)="irALogin($event)">Inicia sesión</a>
+              </div>
+<div class="button-group">
+  <button
+    type="button"
+    class="next-btn"
+    [disabled]="!isStep1Valid()"
+    [class.disabled]="!isStep1Valid()"
+    (click)="nextStep()"
+  >
+    Continuar →
+  </button>
+</div>
+              
+            </div>
+          }
+
+          @if (currentStep === 2) {
+            <div class="step-content">
+              <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input 
+                  id="email"
+                  type="email" 
+                  formControlName="email" 
+                  class="form-input"
+                  [class.error]="registroForm.get('email')?.invalid && registroForm.get('email')?.touched"
+                  placeholder="tu@email.com"
+                />
+                @if (registroForm.get('email')?.invalid && registroForm.get('email')?.touched) {
+                  <div class="error-message">
+                    @if (registroForm.get('email')?.errors?.['required']) {
+                      <span>El email es requerido</span>
+                    }
+                    @if (registroForm.get('email')?.errors?.['email']) {
+                      <span>Ingresa un email válido</span>
+                    }
+                  </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="contraseña">Contraseña</label>
+                <input 
+                  id="contraseña"
+                  type="password" 
+                  formControlName="contraseña" 
+                  class="form-input"
+                  [class.error]="registroForm.get('contraseña')?.invalid && registroForm.get('contraseña')?.touched"
+                  placeholder="Mínimo 6 caracteres"
+                />
+                @if (registroForm.get('contraseña')?.invalid && registroForm.get('contraseña')?.touched) {
+                  <div class="error-message">
+                    @if (registroForm.get('contraseña')?.errors?.['required']) {
+                      <span>La contraseña es requerida</span>
+                    }
+                    @if (registroForm.get('contraseña')?.errors?.['minlength']) {
+                      <span>La contraseña debe tener al menos 6 caracteres</span>
+                    }
+                  </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="confirmarContraseña">Confirmar contraseña</label>
+                <input 
+                  id="confirmarContraseña"
+                  type="password" 
+                  formControlName="confirmarContraseña" 
+                  class="form-input"
+                  [class.error]="registroForm.get('confirmarContraseña')?.invalid && registroForm.get('confirmarContraseña')?.touched"
+                  placeholder="Confirma tu contraseña"
+                />
+                @if (registroForm.get('confirmarContraseña')?.invalid && registroForm.get('confirmarContraseña')?.touched) {
+                  <div class="error-message">
+                    @if (registroForm.get('confirmarContraseña')?.errors?.['required']) {
+                      <span>Confirma tu contraseña</span>
+                    }
+                  </div>
+                }
+                @if (registroForm.errors?.['passwordMismatch'] && registroForm.get('confirmarContraseña')?.touched) {
+                  <div class="error-message">
+                    Las contraseñas no coinciden
+                  </div>
+                }
+              </div>
+
+
+              <div class="button-group">
+               
+
+                <button 
+                  type="submit" 
+                  class="submit-btn"
+                  [disabled]="registroForm.invalid"
+                  [class.disabled]="registroForm.invalid"
+                >
+                  Registrarse
+                </button>
+                  <button 
+                  type="button" 
+                  class="back-step-btn"
+                  (click)="previousStep()"
+                >
+                  ← Atrás
+                </button>
+
+
+              </div>
+            </div>
+          }
+        </form>
+      </div>
+       <app-user-alert
+        [isVisible]="showSuccessAlert"
+        [message]="'¡Te has registrado exitosamente!'"
+        [buttonText]="'Continuar'"
+        (accept)="onAlertAccept()"
+        (close)="onAlertClose()">
+      </app-user-alert>
+      <app-user-alert-problem
+  [isVisible]="showProblemAlert"
+  (accept)="onProblemAlertAccept()"
+  (close)="onProblemAlertAccept()"
+  mensaje="Ocurrió un error durante el registro.">
+</app-user-alert-problem>
+    </div></body>
+    <html>

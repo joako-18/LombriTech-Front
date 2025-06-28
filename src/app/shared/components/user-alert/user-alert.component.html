@@ -1,0 +1,18 @@
+<div class="alert-overlay" *ngIf="isVisible" (click)="onOverlayClick($event)">
+  <div class="alert-container" (click)="$event.stopPropagation()">
+    <!-- Círculo blanco con la imagen -->
+    <div class="alert-content">
+      <div class="celebration-icon">
+        <img src="assets/images/gusanocelebration.png" alt="Celebration Icon" />
+      </div>
+    </div>
+    
+    <!-- Contenedor para texto y botón -->
+    <div class="alert-text-section">
+      <h2 class="alert-title">{{ message }}</h2>
+      <button class="accept-button" (click)="onAccept()">
+        {{ buttonText }}
+      </button>
+    </div>
+  </div>
+</div>
