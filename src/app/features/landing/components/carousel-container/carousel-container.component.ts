@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { QueEsVermicompostaComponent } from '../que-es-vermicomposta/que-es-vermicomposta.component';
 import { AppComoFuncionaComponent } from '../app-como-funciona/app-como-funciona.component';
-import { Router } from '@angular/router';
+import { BeneficiosComponent } from '../beneficios/beneficios.component';
+import { ProyectoComponent } from '../proyecto/proyecto.component';
 
 
 interface SlideComponent {
@@ -19,6 +20,8 @@ interface SlideComponent {
     RouterModule,
     QueEsVermicompostaComponent,
     AppComoFuncionaComponent,
+    BeneficiosComponent,
+    ProyectoComponent,
   ],
   templateUrl: './carousel-container.component.html',
   styleUrl: './carousel-container.component.css'
@@ -49,6 +52,11 @@ export class CarouselContainerComponent implements OnInit, OnDestroy {
       title: 'Beneficios',
       description: 'Ventajas del sistema LombriTech',
       component: 'beneficios'
+    },
+    {
+      title: 'Proyecto',
+      description: 'Conoce nuestro proyecto y objetivos',
+      component: 'proyecto'
     }
   ];
 
