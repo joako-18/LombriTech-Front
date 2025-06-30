@@ -1,0 +1,58 @@
+.body {
+    background-color: #F3E9D2;
+    height: 100vh;
+    text-align: justify;
+    font-family:'Montserrat', sans-serif ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title {
+    color: #6E3002;
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.text {
+    width: 90%;
+}
+
+img {
+    width: 370px;
+    height: 200px;
+}
+
+p {
+    color: #6E3002;
+    font-size: 30px;
+    line-height: 1.5;
+    padding: 0 20px;
+    font-weight: 500;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+    width: 90%;
+}
+
+.info p {
+    color: #f0f0f0;
+}
+
+.card {
+    background-color: #6E3002;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+}

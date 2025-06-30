@@ -1,0 +1,35 @@
+.body {
+    height: 100%;
+    width: 100%;
+    background-color: #F3E9D2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+}
+
+h1 {
+    color: #6E3002;
+    font-size: 6rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+p {
+    color: #6E3002;
+    font-size: 3rem;
+    text-align: justify;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+img {
+    width: 500px;
+    height: auto;
+}

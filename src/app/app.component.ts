@@ -21,6 +21,3 @@ export class AppComponent {
     return !['/login', '/registro', '/dashboard'].includes(this.router.url);
   }
 }
-
-
-
