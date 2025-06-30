@@ -48,7 +48,7 @@
   color: #6B4423;
   margin-bottom: 40px;
   line-height: 1.6;
-    padding-left: 10px; /* Añadido padding derecho para evitar que el texto se pegue a la imagen */
+  padding-left: 10px; /* Añadido padding derecho para evitar que el texto se pegue a la imagen */
   max-width: 900px; /* Limita el ancho del párrafo para mejor legibilidad */
 }
 

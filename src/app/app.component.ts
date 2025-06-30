@@ -18,7 +18,6 @@ export class AppComponent {
   constructor(private router: Router) {}
 
   showHeader() {
-    // Oculta el header en rutas de login, registro y dashboard
     return !['/login', '/registro', '/dashboard'].includes(this.router.url);
   }
 }
