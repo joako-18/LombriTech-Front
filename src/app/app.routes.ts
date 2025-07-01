@@ -15,6 +15,6 @@ export const routes: Routes = [
     {path: 'como-funciona', component: AppComoFuncionaComponent },
     {path: 'beneficios', component: BeneficiosComponent },
     {path: 'proyecto', component: ProyectoComponent },
-    {path: 'quien-somos', component: QuienSomosComponent }
-    {path: 'user-alert', component: UserAlertComponent },
+    {path: 'quien-somos', component: QuienSomosComponent },
+    {path: 'user-alert', component: UserAlertComponent }
 ];
