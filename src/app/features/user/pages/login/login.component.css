@@ -1,0 +1,82 @@
+.body {
+    height: 100vh;
+    background-image: url('/assets/images/gusanosbackground.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+    height: 600px;
+    padding: 40px 20px;
+    background-color: #F3E9D2;
+    border-radius: 15px;
+    gap: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* sombra elegante */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.card img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.card label {
+    color: #622300;
+    font-size: 18px;
+    font-weight: 600;
+    align-self: flex-start;
+    margin-left: 10%;
+}
+
+.card input {
+    width: 80%;
+    height: 35px;
+    border-radius: 20px;
+    border: 1px solid #E9CF93;
+    padding: 0 15px;
+    background-color: #E9CF93;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.card input:focus {
+    outline: none;
+    border-color: #622300;
+    background-color: #fdf6e3;
+}
+
+.card button {
+    width: 80%;
+    height: 45px;
+    background-color: #321303;
+    color: #F3E9D2;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.card button:hover {
+    background-color: #4a1f09;
+    transform: scale(1.03);
+}
