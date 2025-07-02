@@ -7,6 +7,7 @@ import { BeneficiosComponent } from './features/landing/components/beneficios/be
 import { ProyectoComponent } from './features/landing/components/proyecto/proyecto.component';
 import { QuienSomosComponent } from './features/landing/pages/quien-somos/quien-somos.component';
 import { UserAlertComponent } from './shared/components/user-alert/user-alert.component';
+import { LoginComponent } from './features/user/pages/login/login.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -16,5 +17,6 @@ export const routes: Routes = [
     {path: 'beneficios', component: BeneficiosComponent },
     {path: 'proyecto', component: ProyectoComponent },
     {path: 'quien-somos', component: QuienSomosComponent },
-    {path: 'user-alert', component: UserAlertComponent }
+    {path: 'user-alert', component: UserAlertComponent },
+    {path: 'login', component: LoginComponent }
 ];
