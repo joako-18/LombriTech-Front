@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 350px 1fr;
   height: 100vh;
-  background-color: #652e00;
+  background-color: #6E3002;
 }
 
 app-navigate {
