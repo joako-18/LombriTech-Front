@@ -1,0 +1,72 @@
+<div class="dashboard">
+  <app-navigate></app-navigate>
+
+  <div class="main-content">
+    <h1>Datos en tiempo real</h1>
+    <div class="cards-container">
+      <app-real-time-card
+        title="Humedad"
+        [value]="0"
+        unit="%"
+        color="#4682A9">
+      </app-real-time-card>
+
+      <app-real-time-card
+        title="Conductividad eléctrica"
+        [value]="0"
+        unit="EC"
+        color="#d79e39">
+      </app-real-time-card>
+
+      <app-real-time-card
+        title="Temperatura"
+        [value]="0"
+        unit="°C"
+        color="#e1533c">
+      </app-real-time-card>
+
+      <app-real-time-card
+        title="Ph"
+        [value]="0"
+        unit=""
+        color="#217c61">
+      </app-real-time-card>
+    </div>
+    <div class="graphs-container">
+        <div class="left-graph">
+            <app-graph-card
+            title="Temperatura y Ph"
+            [labels]="['Día 1', 'Día 2', 'Día 3', 'Día 4']"
+            [datasets]="[
+                { data: [20, 21, 19, 22], label: 'Temperatura', backgroundColor: '#d79e39' },
+                { data: [6.5, 6.8, 7.1, 6.9], label: 'Ph', backgroundColor: '#3ed699' }
+            ]"
+            bgColor="#843a16">
+            </app-graph-card>
+        </div>
+
+        <div class="right-graphs">
+            <app-graph-card
+            title="Ph y conductividad eléctrica"
+            [labels]="['Día 1', 'Día 2', 'Día 3', 'Día 4']"
+            [datasets]="[
+                { data: [1, 2, 2.5, 2], label: 'Conductividad eléctrica', backgroundColor: '#000' },
+                { data: [6.5, 6.8, 7.1, 6.9], label: 'Ph', backgroundColor: '#3ed699' }
+            ]"
+            bgColor="#d79e39">
+            </app-graph-card>
+
+            <app-graph-card
+            title="Temperatura y humedad"
+            [labels]="['Día 1', 'Día 2', 'Día 3', 'Día 4']"
+            [datasets]="[
+                { data: [80, 82, 79, 81], label: 'Humedad', backgroundColor: '#7ed6df' },
+                { data: [20, 21, 22, 19], label: 'Temperatura', backgroundColor: '#e1533c' }
+            ]"
+            bgColor="#217c61">
+            </app-graph-card>
+        </div>
+    </div>
+
+  </div>
+</div>
