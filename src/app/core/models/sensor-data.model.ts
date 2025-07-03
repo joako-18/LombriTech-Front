@@ -1,10 +1,10 @@
 export interface SensorData {
 ph:number;
 turbidez:number;
-humidity:number;
+humedad:number;
 }
 
 export interface SensorDataResponse {
     timestamp: string;
-    data: SensorData;
+    datos: SensorData;
 }

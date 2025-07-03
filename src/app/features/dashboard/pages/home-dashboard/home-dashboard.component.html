@@ -2,7 +2,10 @@
   <app-navigate></app-navigate>
 
   <div class="main-content">
-    <h1>Datos en tiempo real</h1>
+    <div class="title">
+      <img src="assets/images/icon-tiemporeal.png" alt="icon-tiemporeal">
+      <h1>Datos en tiempo real</h1>
+    </div>
     <div class="cards-container">
       <app-real-time-card
         title="Humedad"
@@ -46,12 +49,11 @@
 
         <div class="right-graphs">
             <app-graph-card
-            title="Ph y conductividad eléctrica"
-            [labels]="['Día 1', 'Día 2', 'Día 3', 'Día 4']"
-            [datasets]="[
-                { data: [1, 2, 2.5, 2], label: 'Conductividad eléctrica', backgroundColor: '#000' },
-                { data: [6.5, 6.8, 7.1, 6.9], label: 'Ph', backgroundColor: '#3ed699' }
-            ]"
+            title="Ph"
+            [labels]="labels"
+            [datasets]="getMultipleDataSets([
+                { label: 'Ph', data: phData, color: '#054977'  },
+            ])"
             bgColor="#d79e39">
             </app-graph-card>
 
