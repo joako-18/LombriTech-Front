@@ -21,11 +21,18 @@ export class HomeDashboardComponent implements OnInit {
   constructor(private sensorService: SensorService) {}
 
   ngOnInit(): void {
-    this.sensorService.obtenerDatos().subscribe((data: SensorDataResponse) => {
+   
+  this.sensorService.obtenerDatos().subscribe((data: SensorDataResponse) => {
+    console.log('Respuesta recibida:', data);
+    if (data && data.datos) {
       this.labels.push(this.formatTimestamp(data.timestamp));
-      this.phData.push(data.data.ph);
-      this.humedadData.push(data.data.humidity);
-    });
+      this.phData.push(data.datos.ph);
+      this.humedadData.push(data.datos.humedad);
+    } else {
+      console.error('data.datos es undefined o null:', data);
+    }
+  });
+
   }
 
   private formatTimestamp(timestamp: string): string {
@@ -40,4 +47,6 @@ export class HomeDashboardComponent implements OnInit {
   getMultipleDataSets(ds: { label: string; data: number[]; color: string }[]) {
     return ds.map(e => ({ data: e.data, label: e.label, backgroundColor: e.color }));
   }
+
+
 }

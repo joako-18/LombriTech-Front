@@ -7,11 +7,14 @@ import { SensorDataResponse } from '../models/sensor-data.model';
   providedIn: 'root',
 })
 export class SensorService {
-  private apiUrl = 'https://localhost/datos'; 
+  private apiUrl = 'http://localhost:3000/datos'; 
 
   constructor(private http: HttpClient) {}
 
   obtenerDatos(): Observable<SensorDataResponse> {
     return this.http.get<SensorDataResponse>(this.apiUrl);
   }
+
+
+
 }
