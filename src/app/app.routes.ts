@@ -8,6 +8,7 @@ import { ProyectoComponent } from './features/landing/components/proyecto/proyec
 import { QuienSomosComponent } from './features/landing/pages/quien-somos/quien-somos.component';
 import { UserAlertComponent } from './shared/components/user-alert/user-alert.component';
 import { LoginComponent } from './features/user/pages/login/login.component';
+import { HomeDashboardComponent } from './features/dashboard/pages/home-dashboard/home-dashboard.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -18,5 +19,6 @@ export const routes: Routes = [
     {path: 'proyecto', component: ProyectoComponent },
     {path: 'quien-somos', component: QuienSomosComponent },
     {path: 'user-alert', component: UserAlertComponent },
-    {path: 'login', component: LoginComponent }
+    {path: 'login', component: LoginComponent },
+    {path: 'home-dashboard', component: HomeDashboardComponent },
 ];
