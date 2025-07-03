@@ -1,0 +1,8 @@
+<div class="graph-card" [ngStyle]="{ 'background-color': bgColor }">
+  <div class="title">{{ title }}</div>
+  <canvas baseChart
+    [data]="{ labels: labels, datasets: datasets }"
+    [type]="chartType"
+    [options]="{ responsive: true }">
+  </canvas>
+</div>

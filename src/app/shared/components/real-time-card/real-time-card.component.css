@@ -1,0 +1,30 @@
+.card {
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  width: 150px;
+  color: #fff;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.card-value {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.unit {
+  font-size: 14px;
+  margin-left: 4px;
+}
