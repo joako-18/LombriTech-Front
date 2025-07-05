@@ -17,4 +17,34 @@ export class GraphCardComponent {
   @Input() bgColor: string = '#fff';
 
   public chartType: ChartType = 'bar';
+
+  public chartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      labels: {
+        color: 'white'  // ❄️ Color de texto en la leyenda
+      }
+    }
+  },
+  scales: {
+    x: {
+      ticks: {
+        color: 'white'  // ❄️ Color etiquetas eje X
+      },
+      grid: {
+        color: 'rgba(255, 255, 255, 0.2)'  // ❄️ Líneas de cuadrícula eje X
+      }
+    },
+    y: {
+      ticks: {
+        color: 'white'  // ❄️ Color etiquetas eje Y
+      },
+      grid: {
+        color: 'rgba(255, 255, 255, 0.2)'  // ❄️ Líneas de cuadrícula eje Y
+      }
+    }
+  }
+};
+
 }
