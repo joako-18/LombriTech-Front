@@ -1,0 +1,23 @@
+<div class="body">
+    <app-navigate></app-navigate>
+    <div class="content">
+        <h1>Vista de Conductividad electrica</h1>
+        <div class="graphics">
+            <app-graph-card 
+            title="Conductividad electrica"
+            [labels]="labels"
+            [datasets]="getMultipleDataSets([
+                { label: 'Humedad', data: humedadData, color: '#d79e39'  },
+            ])"
+            bgColor="#E7A439">
+            </app-graph-card>
+            <app-graph-card
+            title="Conductividad electrica"
+            [labels]="labels"
+            [datasets]="getMultipleDataSets([
+                { label: 'Humedad', data: humedadData, color: '#d79e39'  },
+            ])"
+            bgColor="#E7A439">
+            </app-graph-card>
+        </div>
+</div>

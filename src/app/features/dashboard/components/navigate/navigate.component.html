@@ -1,30 +1,40 @@
 <nav class="sidebar">
-  <div class="logo"><img src="assets/images/lombritechlogo2.png" alt="logo2"></div>
+  <div class="logo">
+    <img src="assets/images/lombritechlogo2.png" alt="logo2">
+  </div>
 
   <ul class="nav-links">
-    <li class="active">
+    <li class="active" (click)="navigate('/home-dashboard')">
       <img src="assets/images/icon-home.png" alt="icon-home">
       <span>Home</span>
     </li>
 
-    <li class="section-title">
-      <img src="assets/images/icon-estadistica.png" alt="icon-estadisticas">Estadísticas</li>
-    <li>
-      <img src="assets/images/icon-ph.png" alt="icon-ph">
-      <span>Ph</span>
+    <li class="dropdown" [class.open]="mostrarEstadisticas" (click)="toggleEstadisticas()">
+      <img src="assets/images/icon-estadistica.png" alt="icon-estadisticas">
+      <span>Estadísticas</span>
+      <span class="arrow">&#9662;</span>
     </li>
-    <li>
-      <img src="assets/images/icon-humedad.png" alt="icon-humedad">
-      <span>Humedad</span>
-    </li>
-    <li>
-      <img src="assets/images/icon-temperatura.png" alt="icon-temperatura">
-      <span>Temperatura</span>
-    </li>
-    <li>
-      <img src="assets/images/icon-electrica.png" alt="icon-conductividad">
-      <span>Conductividad</span>
-    </li>
+
+    <div class="submenu-wrapper" [class.collapsed]="!mostrarEstadisticas">
+      <ul class="submenu">
+        <li (click)="navigate('/vista-ph')">
+          <img src="assets/images/icon-ph.png" alt="icon-ph">
+          <span>Ph</span>
+        </li>
+        <li (click)="navigate('/vista-humedad')">
+          <img src="assets/images/icon-humedad.png" alt="icon-humedad">
+          <span>Humedad</span>
+        </li>
+        <li (click)="navigate('/vista-temperatura')">
+          <img src="assets/images/icon-temperatura.png" alt="icon-temperatura">
+          <span>Temperatura</span>
+        </li>
+        <li (click)="navigate('/vista-conductividad')">
+          <img src="assets/images/icon-electrica.png" alt="icon-conductividad">
+          <span>Conductividad</span>
+        </li>
+      </ul>
+    </div>
 
     <li class="section-break"></li>
 

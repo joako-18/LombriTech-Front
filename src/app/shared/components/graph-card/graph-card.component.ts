@@ -17,4 +17,34 @@ export class GraphCardComponent {
   @Input() bgColor: string = '#fff';
 
   public chartType: ChartType = 'bar';
+
+  public chartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      labels: {
+        color: 'white'  //
+      }
+    }
+  },
+  scales: {
+    x: {
+      ticks: {
+        color: 'white'  //
+      },
+      grid: {
+        color: 'rgba(255, 255, 255, 0.2)'  //
+      }
+    },
+    y: {
+      ticks: {
+        color: 'white'
+      },
+      grid: {
+        color: 'rgba(255, 255, 255, 0.2)'
+      }
+    }
+  }
+};
+
 }
