@@ -23,25 +23,25 @@ export class GraphCardComponent {
   plugins: {
     legend: {
       labels: {
-        color: 'white'  // ❄️ Color de texto en la leyenda
+        color: 'white'  //
       }
     }
   },
   scales: {
     x: {
       ticks: {
-        color: 'white'  // ❄️ Color etiquetas eje X
+        color: 'white'  //
       },
       grid: {
-        color: 'rgba(255, 255, 255, 0.2)'  // ❄️ Líneas de cuadrícula eje X
+        color: 'rgba(255, 255, 255, 0.2)'  //
       }
     },
     y: {
       ticks: {
-        color: 'white'  // ❄️ Color etiquetas eje Y
+        color: 'white'
       },
       grid: {
-        color: 'rgba(255, 255, 255, 0.2)'  // ❄️ Líneas de cuadrícula eje Y
+        color: 'rgba(255, 255, 255, 0.2)'
       }
     }
   }
