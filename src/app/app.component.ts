@@ -19,6 +19,6 @@ export class AppComponent {
 
   showHeader() {
     return !['/login', '/registro', '/home-dashboard', '/vista-conductividad', 
-      '/vista-temperatura', '/vista-humedad', '/vista-ph', '/controles'].includes(this.router.url);
+      '/vista-temperatura', '/vista-humedad', '/vista-ph', '/controles', '/configuracion'].includes(this.router.url);
   }
 }
