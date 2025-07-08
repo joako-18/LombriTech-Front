@@ -12,6 +12,7 @@ import { VistaConductividadComponent } from './features/dashboard/pages/vista-co
 import { VistaTemperaturaComponent } from './features/dashboard/pages/vista-temperatura/vista-temperatura.component';
 import { VistaHumedadComponent } from './features/dashboard/pages/vista-humedad/vista-humedad.component';
 import { VistaPhComponent } from './features/dashboard/pages/vista-ph/vista-ph.component';
+import { ControlesComponent } from './features/dashboard/pages/controles/controles.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -28,4 +29,5 @@ export const routes: Routes = [
     {path: 'vista-temperatura', component: VistaTemperaturaComponent },
     {path: 'vista-humedad', component: VistaHumedadComponent },
     {path: 'vista-ph', component: VistaPhComponent },
+    {path: 'controles', component: ControlesComponent },
 ];
