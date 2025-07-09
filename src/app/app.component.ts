@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HeaderComponent } from './features/landing/components/header/header.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 import { Router } from '@angular/router';
 
 
@@ -19,6 +19,6 @@ export class AppComponent {
 
   showHeader() {
     return !['/login', '/registro', '/home-dashboard', '/vista-conductividad', 
-      '/vista-temperatura', '/vista-humedad', '/vista-ph'].includes(this.router.url);
+      '/vista-temperatura', '/vista-humedad', '/vista-ph','/vista-admin'].includes(this.router.url);
   }
 }

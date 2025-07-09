@@ -1,9 +1,10 @@
-/* Asegurar que el body y html ocupen toda la altura */
+
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
+  background: none;
   overflow-x: hidden;
 }
 
@@ -17,23 +18,40 @@ html, body {
   position: relative;
 }
 
-
-.background-image {
+.modal-registro {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(8px);  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.background-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+.registro-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  position: relative;
+  max-width: 500px;
+  width: 90%;
 }
+
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+
 
 .registro-card {
   background: linear-gradient(200deg, rgba(110, 48, 2, 0.95), rgba(79, 35, 11, 0.95));
