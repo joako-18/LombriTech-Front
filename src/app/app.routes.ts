@@ -34,9 +34,7 @@ export const routes: Routes = [
     {path: 'vista-temperatura', component: VistaTemperaturaComponent },
     {path: 'vista-humedad', component: VistaHumedadComponent },
     {path: 'vista-ph', component: VistaPhComponent },
-
-    {path: 'vista-admin', component: VistaAdminComponent }
-
+    {path: 'vista-admin', component: VistaAdminComponent },
     {path: 'controles', component: ControlesComponent },
     {path: 'configuracion', component: ConfiguracionComponent },
 
