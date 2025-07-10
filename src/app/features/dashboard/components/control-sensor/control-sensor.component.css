@@ -1,0 +1,98 @@
+.sensor-card {
+  padding: 20px;
+  border-radius: 10px;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: auto;
+  height: 450px;
+}
+
+.sensor-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+
+.sensor-card img {
+  width: 30px;
+  height: 30px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.row input[type="number"] {
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f4e8cb;
+  color: #333;
+  width: 100px;
+}
+
+/* Switch toggle personalizado */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2e7d32;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+label {
+  font-size: 27px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+strong, span {
+  font-size: 27px;
+  font-weight: 600;
+  font-family: 'Segoe UI', sans-serif;
+}

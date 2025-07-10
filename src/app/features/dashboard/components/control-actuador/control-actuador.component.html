@@ -1,0 +1,32 @@
+<div class="card-actuador">
+  <h3>Aspersores</h3>
+  <p><strong>Nivel de agua:</strong></p>
+  <div class="nivel-agua">
+    <div class="leyenda">
+      <span style="color: green;">Alto -</span>
+      <span style="color: orange;">Medio -</span>
+      <span style="color: red;">Bajo -</span>
+    </div>
+
+    <div class="indicador">
+      <div class="relleno" [ngStyle]="{ height: nivelAgua + '%' }"></div>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="switch-row">
+      <label>Activar aspersores:</label>
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="aspersoresActivos">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="switch-row">
+      <label>Estado del aspersor:</label>
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="estadoAspersor">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+</div>
