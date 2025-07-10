@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Output,EventEmitter } from '@angular/core';
 import { UserAlertComponent } from '../../../../shared/components/user-alert/user-alert.component';
 import { UserAlertProblemComponent } from '../../../../shared/components/user-alert-problem/user-alert-problem.component';
 @Component({
@@ -17,6 +18,14 @@ export class RegistroComponent {
   showProblemAlert: boolean = false;
   isSubmitting: boolean = false;
 
+
+  @Output() cerrar = new EventEmitter<void>();
+
+
+
+cerrarModal() {
+  this.cerrar.emit();
+}
   constructor(private fb: FormBuilder, private router: Router) {
     this.registroForm = this.fb.group({
       // Paso 1: Información Personal
@@ -145,6 +154,7 @@ export class RegistroComponent {
     this.router.navigate(['/home']);
     console.log('Volver al inicio');
   }
+
 
 
   get nombreCompleto(): string {

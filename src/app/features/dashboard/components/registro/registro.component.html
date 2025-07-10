@@ -1,17 +1,16 @@
 
 <html lang="es">
 <body>
-  <button type="button" class="home-btn" (click)="volver()">
-          <div class="ImagenHome">
-          <img src="assets/home1.svg" alt="Home Icon" class="home-icon">
-          <span class="home-text">Regresar a home</span>
-        </div>
-          </button>
+ 
 <div class="registro-container">
+
+
   <div class="background-image">
-    <img src="assets/images/gusanosbackground.png" alt="Registro Background" class="background-img">
+
   </div>
+  <div class="modal-registro">
       <div class="registro-card">
+          <button class="close-button" (click)="cerrarModal()">✖</button>
         <div class="logo">
           <img src="assets/images/lombritechlogo2.png" alt="LombriTech Logo" class="logo-image">
         </div>
@@ -223,5 +222,5 @@
   (close)="onProblemAlertAccept()"
   mensaje="Ocurrió un error durante el registro.">
 </app-user-alert-problem>
-    </div></body>
+   </div> </div></body>
     <html>
