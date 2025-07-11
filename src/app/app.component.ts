@@ -18,8 +18,8 @@ export class AppComponent {
   constructor(private router: Router) {}
 
   showHeader() {
-    return !['/login', '/registro', '/home-dashboard', '/vista-conductividad', 
-      '/vista-temperatura', '/vista-humedad', '/vista-ph','/vista-admin', '/configuracion'].includes(this.router.url);
+    return !['/login', '/home-dashboard', '/vista-conductividad', 
+      '/vista-temperatura', '/vista-humedad', '/vista-ph','/vista-admin', '/configuracion', '/vista-controles'].includes(this.router.url);
 
   }
 }
