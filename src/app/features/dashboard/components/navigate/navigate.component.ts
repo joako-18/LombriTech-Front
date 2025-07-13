@@ -1,21 +1,33 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navigate',
+ imports: [CommonModule],
   templateUrl: './navigate.component.html',
   styleUrls: ['./navigate.component.css']
 })
 export class NavigateComponent {
-  mostrarEstadisticas = true;
+  sidebarOpen = false;
+  mostrarEstadisticas = false;
+
+  constructor(public router: Router) {}
+
+  toggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  closeSidebar(): void {
+    this.sidebarOpen = false;
+  }
 
   toggleEstadisticas(): void {
     this.mostrarEstadisticas = !this.mostrarEstadisticas;
   }
 
-  constructor(private router: Router) {}
-
-  navigate(route: string): void {
-    this.router.navigate([route]);
+  navigate(ruta: string): void {
+    this.router.navigate([ruta]);
+    this.closeSidebar(); // Cierra en móvil
   }
 }
