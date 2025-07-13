@@ -1,0 +1,49 @@
+<div class="body">
+  <app-navigate></app-navigate>
+  <div class="container">
+    <div class="header">
+        <img src="assets/images/icon-configuracion.png" alt="Configuración">
+        <h1>Configuración</h1>
+    </div>
+
+    <div class="content-2">
+      <div class="datos-personales">
+        <h2>Datos personales</h2>
+        <div class="row">
+          <label>Nombre:</label>
+          <h3>{{ nombre }}</h3>
+        </div>
+        <div class="row">
+          <label>Correo:</label>
+          <h3>{{ correo }}</h3>
+        </div>
+        <div class="row">
+          <label>Rol:</label>
+          <h3>{{ rol }}</h3>
+        </div>
+        <hr>
+      </div>
+
+      <div class="alertas">
+        <h2>Enviar alerta</h2>
+        <div class="row">
+          <img src="assets/images/icon-telegram.png" alt="Telegram">
+          <p>{{ numeroTelegram }}</p>
+          <div class="edit">
+            <img src="assets/images/icon-editar.png" alt="editar">
+            <img src="assets/images/icon-apagar.png" alt="apagar">
+          </div>
+        </div>
+        <div class="row">
+          <img src="assets/images/icon-correo.png" alt="correo">
+          <p>{{ direccionCorreo }}</p>
+          <div class="edit">
+            <img src="assets/images/icon-editar.png" alt="editar">
+            <img src="assets/images/icon-apagar.png" alt="apagar">
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>

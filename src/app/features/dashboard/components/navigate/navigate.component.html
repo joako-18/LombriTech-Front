@@ -37,7 +37,7 @@
           <span>Temperatura</span>
         </li>
         <li (click)="navigate('/vista-conductividad')">
-          <img src="assets/images/icon-electrica.png" alt="icon-conductividad" />
+          <img src="assets/images/icon-conductividad.png"alt="icon-conductividad" />
           <span>Conductividad</span>
         </li>
       </ul>
@@ -46,13 +46,19 @@
     <li class="section-break"></li>
 
     <li (click)="navigate('/controles')">
+
       <img src="assets/images/icon-controles.png" alt="icon-controles" />
       <span>Controles</span>
     </li>
 
-    <li (click)="navigate('/vista-admin')">
-      <img src="assets/images/icon-configuracion.png" alt="icon-configuracion" />
+    <li (click)="navigate('/configuracion')"> 
+      <img src="assets/images/icon-configuracion.png" alt="icon-configuracion">
+
       <span>Configuración</span>
+    </li>
+    <li (click)="navigate('/vista-admin')"> 
+      <img src="assets/images/icon-administrador.png" alt="icon-administrador">
+      <span>Administración</span>
     </li>
   </ul>
 
