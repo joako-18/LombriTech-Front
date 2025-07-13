@@ -35,7 +35,7 @@ export const routes: Routes = [
     {path: 'vista-humedad', component: VistaHumedadComponent },
     {path: 'vista-ph', component: VistaPhComponent },
     {path: 'vista-admin', component: VistaAdminComponent },
-    {path: 'controles', component: ControlesComponent },
+    {path: 'vista-controles', component: ControlesComponent },
     {path: 'configuracion', component: ConfiguracionComponent },
 
 ];
