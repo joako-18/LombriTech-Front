@@ -5,9 +5,11 @@ import { GraphCardComponent } from '../../../../shared/components/graph-card/gra
 import { SensorData } from '../../../../core/models/sensor-data.model';
 import { SensorDataResponse } from '../../../../core/models/sensor-data.model';
 import { SensorService } from '../../../../core/services/sensor.service';
+import { ModalInicioComponent } from "../../components/modal-inicio/modal-inicio.component";
+import { ModalFinalComponent } from "../../components/modal-final/modal-final.component";
 @Component({
   selector: 'app-home-dashboard',
-  imports: [NavigateComponent, RealTimeCardComponent, GraphCardComponent],
+  imports: [NavigateComponent, RealTimeCardComponent, GraphCardComponent, ModalInicioComponent, ModalFinalComponent],
   templateUrl: './home-dashboard.component.html',
   styleUrl: './home-dashboard.component.css'
 })
@@ -48,5 +50,25 @@ export class HomeDashboardComponent implements OnInit {
     return ds.map(e => ({ data: e.data, label: e.label, backgroundColor: e.color }));
   }
 
+  isSamplingModalVisible: boolean = false;
 
+  openSamplingModal(): void {
+    this.isSamplingModalVisible = true;
+  }
+
+  handleInitiateSampling(data: { description: string, worms: number, compost: number }): void {
+    console.log('Iniciando muestreo con los siguientes datos:', data);
+    this.isSamplingModalVisible = false;
+  }
+
+  isEndSamplingModalVisible: boolean = false;
+
+  openEndSamplingModal(): void {
+    this.isEndSamplingModalVisible = true;
+  }
+
+  handleEndSampling(data: { worms: number, compost: number, leachate: number }): void {
+    console.log('Terminando muestreo con los siguientes resultados:', data);
+    this.isEndSamplingModalVisible = false;
+  }
 }

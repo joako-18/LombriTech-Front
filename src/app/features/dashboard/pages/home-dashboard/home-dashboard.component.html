@@ -48,6 +48,22 @@
       </app-real-time-card>
     </div>
     <div class="graphs-container">
+       <div class="buttons">
+            <button (click)="openSamplingModal()">Iniciar medición</button>
+            <app-modal-inicio
+            [showModal]="isSamplingModalVisible"
+            [title]="'Muestreo de Campo'"
+            (initiateSampling)="handleInitiateSampling($event)"
+            (closeModal)="isSamplingModalVisible = false"
+            ></app-modal-inicio>
+            <button (click)="openEndSamplingModal()" class="secondary-button">Detener medición</button>
+            <app-modal-final
+            [showModal]="isEndSamplingModalVisible"
+            [title]="'Resultados del muestreo - 01'"
+            (endSampling)="handleEndSampling($event)"
+            (closeModal)="isEndSamplingModalVisible = false">
+            ></app-modal-final>
+          </div>
         <div class="left-graph">
             <app-graph-card
             title="Humedad"

@@ -1,0 +1,157 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  font-family: 'Inter', sans-serif;
+}
+
+.modal-content {
+  background-color: #6E3002;
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 450px;
+  width: 90%;
+  color: #f9f1dc;
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-title {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  color: #f9f1dc;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.input-group label {
+  font-size: 18px;
+  font-weight: 500;
+  color: #f9f1dc;
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"] {
+  padding: 12px 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f4e8cb;
+  color: #333;
+  font-size: 18px;
+  outline: none;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.input-group input[type="text"]::placeholder,
+.input-group input[type="number"]::placeholder {
+  color: #888;
+}
+
+.input-group input[type="text"]:focus,
+.input-group input[type="number"]:focus {
+  background-color: #f0e1c0;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 0 3px rgba(244, 232, 203, 0.5);
+}
+
+.end-button {
+  background-color: #E75930;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 15px;
+  align-self: center;
+  width: fit-content;
+}
+
+.end-button:hover {
+  background-color: #d74a2a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.end-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media screen and (max-width: 768px) {
+  .modal-content {
+    padding: 25px 30px;
+    gap: 20px;
+  }
+
+  .modal-title {
+    font-size: 28px;
+  }
+
+  .input-group label {
+    font-size: 16px;
+  }
+
+  .input-group input {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+
+  .end-button {
+    padding: 12px 25px;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .modal-content {
+    padding: 20px 25px;
+    gap: 18px;
+    width: 95%;
+  }
+
+  .modal-title {
+    font-size: 24px;
+  }
+
+  .input-group label {
+    font-size: 15px;
+  }
+
+  .input-group input {
+    padding: 8px 10px;
+    font-size: 15px;
+  }
+
+  .end-button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+}

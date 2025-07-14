@@ -24,23 +24,30 @@
 .graphs-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto 1fr;
   gap: 20px;
   background-color: #f9f1dc;
   border-radius: 20px;
   padding: 30px;
 }
 
-.left-graph,
-.right-graphs {
+.left-graph {
+  grid-column: 1;
+  grid-row: 2;
   background-color: #f9f1dc;
   padding: 20px;
   border-radius: 20px;
 }
 
 .right-graphs {
+  grid-column: 2;
+  grid-row: 2; 
+  background-color: #f9f1dc;
+  padding: 20px;
+  border-radius: 20px;
   display: grid;
   grid-template-rows: 1fr 1fr;
-  gap: 60px;
+  gap: 50px;
 }
 
 .title {
@@ -52,7 +59,49 @@
 
 h1 {
   color: antiquewhite;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+
+.buttons {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-bottom: 0;
+  flex-wrap: wrap;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.buttons button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.buttons button:not(.secondary-button) {
+  background-color: #4CAF50;
+}
+
+.buttons .secondary-button {
+  background-color: #F44336;
 }
 
 @media screen and (max-width: 1024px) {
@@ -62,12 +111,26 @@ h1 {
 
   .graphs-container {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr 1fr;
+    gap: 20px; /* Adjusted gap */
+  }
+
+  .left-graph {
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .right-graphs {
-    grid-template-rows: unset;
-    grid-template-columns: 1fr;
+    grid-column: 1;
+    grid-row: 3;
+    grid-template-rows: 1fr 1fr;
     gap: 30px;
+  }
+
+  .buttons {
+    grid-column: 1;
+    grid-row: 1;
+    justify-content: center;
   }
 }
 
@@ -93,6 +156,18 @@ h1 {
 
   .graphs-container {
     padding: 16px;
+    grid-template-rows: auto auto 1fr 1fr;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .buttons button {
+    width: 100%;
+    max-width: 200px;
   }
 }
 
