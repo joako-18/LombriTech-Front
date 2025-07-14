@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class NavigateComponent {
   sidebarOpen = false;
-  mostrarEstadisticas = false;
+  mostrarEstadisticas = true;
 
   constructor(public router: Router) {}
 
