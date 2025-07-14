@@ -16,6 +16,7 @@ import { VistaAdminComponent } from './features/dashboard/pages/vista-admin/vist
 import { RegistroComponent } from './features/dashboard/components/registro/registro.component';
 import { ControlesComponent } from './features/dashboard/pages/controles/controles.component';
 import { ConfiguracionComponent } from './features/dashboard/pages/configuracion/configuracion.component';
+import { VistaErrorComponent } from './shared/components/vista-error/vista-error.component';
 
 
 export const routes: Routes = [
@@ -37,5 +38,6 @@ export const routes: Routes = [
     {path: 'vista-admin', component: VistaAdminComponent },
     {path: 'vista-controles', component: ControlesComponent },
     {path: 'configuracion', component: ConfiguracionComponent },
+    {path: 'vista-error', component: VistaErrorComponent }
 
 ];

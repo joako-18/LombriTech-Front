@@ -19,7 +19,8 @@ export class AppComponent {
 
   showHeader() {
     return !['/login', '/home-dashboard', '/vista-conductividad', 
-      '/vista-temperatura', '/vista-humedad', '/vista-ph','/vista-admin', '/configuracion', '/vista-controles'].includes(this.router.url);
+      '/vista-temperatura', '/vista-humedad', '/vista-ph','/vista-admin',
+      '/configuracion', '/vista-controles', '/vista-error'].includes(this.router.url);
 
   }
 }
