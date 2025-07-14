@@ -6,9 +6,11 @@
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  width: auto;
-  height: 450px;
+  gap: 32px;
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .sensor-card h3 {
@@ -16,35 +18,48 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
-  font-size: 30px;
+  font-size: 28px;
+  flex-wrap: wrap;
 }
 
 .sensor-card img {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.controles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 20px;
 }
 
 .row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .row input[type="number"] {
-  padding: 6px;
+  padding: 6px 8px;
   border: none;
   border-radius: 4px;
   background-color: #f4e8cb;
   color: #333;
-  width: 100px;
+  width: 120px;
+  font-size: 16px;
+  flex: 1;
+  min-width: 100px;
 }
 
-/* Switch toggle personalizado */
 .switch {
   position: relative;
   display: inline-block;
-  width: 40px;
+  width: 42px;
   height: 22px;
 }
 
@@ -87,12 +102,119 @@ input:checked + .slider:before {
 }
 
 label {
-  font-size: 27px;
+  font-size: 24px;
   font-family: 'Segoe UI', sans-serif;
 }
 
 strong, span {
-  font-size: 27px;
+  font-size: 24px;
   font-weight: 600;
   font-family: 'Segoe UI', sans-serif;
+}
+
+@media screen and (max-width: 1024px) {
+  .sensor-card {
+    gap: 28px;
+    padding: 16px;
+  }
+
+  .sensor-card h3 {
+    font-size: 24px;
+  }
+
+  label, strong, span {
+    font-size: 20px;
+  }
+
+  .row input[type="number"] {
+    width: 100%;
+    max-width: 120px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sensor-card {
+    gap: 24px;
+    padding: 14px;
+  }
+
+  .sensor-card h3 {
+    font-size: 22px;
+  }
+
+  label, strong, span {
+    font-size: 18px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .row input[type="number"] {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .sensor-card h3 {
+    font-size: 20px;
+  }
+
+  label, strong, span {
+    font-size: 16px;
+  }
+
+  .switch {
+    width: 36px;
+    height: 20px;
+  }
+
+  .slider:before {
+    width: 14px;
+    height: 14px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(16px);
+  }
+
+  .row input[type="number"] {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .sensor-card {
+    gap: 20px;
+    padding: 12px;
+  }
+
+  .sensor-card h3 {
+    font-size: 18px;
+  }
+
+  label, strong, span {
+    font-size: 14px;
+  }
+
+  .row input[type="number"] {
+    font-size: 13px;
+    padding: 4px;
+  }
+
+  .slider:before {
+    width: 12px;
+    height: 12px;
+  }
+
+  .switch {
+    width: 32px;
+    height: 18px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(14px);
+  }
 }

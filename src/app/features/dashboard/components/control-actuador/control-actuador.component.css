@@ -4,12 +4,14 @@
   border-radius: 10px;
   font-family: 'Segoe UI', sans-serif;
   color: #f0f0f0;
-  width: 620px;
-  height: 450px;
+  width: 100%;
+  max-width: 620px;
+  height: auto;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+  box-sizing: border-box;
 }
 
 .card-actuador h3 {
@@ -23,13 +25,15 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .leyenda {
   font-size: 14px;
-  margin-bottom: 4px;
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
 .indicador {
@@ -54,13 +58,14 @@
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 .switch-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .switch {
@@ -115,4 +120,108 @@ strong, span {
   font-size: 27px;
   font-weight: 600;
   font-family: 'Segoe UI', sans-serif;
+}
+
+@media screen and (max-width: 1024px) {
+  .card-actuador {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .card-actuador h3 {
+    font-size: 26px;
+  }
+
+  label,
+  strong,
+  span {
+    font-size: 22px;
+  }
+
+  .switch {
+    width: 38px;
+    height: 20px;
+  }
+
+  .slider:before {
+    width: 16px;
+    height: 16px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(18px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card-actuador {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .card-actuador h3 {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  label,
+  strong,
+  span {
+    font-size: 18px;
+  }
+
+  .nivel-agua {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .switch-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .leyenda {
+    text-align: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .indicador {
+    width: 100px;
+    height: 140px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card-actuador h3 {
+    font-size: 20px;
+  }
+
+  label,
+  strong,
+  span {
+    font-size: 16px;
+  }
+
+  .switch {
+    width: 36px;
+    height: 18px;
+  }
+
+  .slider:before {
+    width: 14px;
+    height: 14px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(16px);
+  }
+
+  .indicador {
+    width: 80px;
+    height: 120px;
+  }
 }

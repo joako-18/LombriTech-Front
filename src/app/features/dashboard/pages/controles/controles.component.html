@@ -1,10 +1,14 @@
 <div class="body">
-    <app-navigate></app-navigate>
-    <div class="main-content">
+  <app-navigate></app-navigate>
+
+  <div class="main-content">
+    <!-- Título de la sección -->
     <div class="title">
       <img src="assets/images/icon-tiemporeal.png" alt="icon-tiemporeal">
       <h1>Datos en tiempo real</h1>
     </div>
+
+    <!-- Tarjetas de datos en tiempo real -->
     <div class="cards-container">
       <app-real-time-card
         title="Humedad"
@@ -34,27 +38,32 @@
         color="#217c61">
       </app-real-time-card>
     </div>
+
+    <!-- Sección de controles -->
     <div class="controles">
-    <h1>Control de Parámetros</h1>
-    <div class="seleccion">
+      <h1>Control de Parámetros</h1>
+
+      <!-- Selector de sensor -->
+      <div class="seleccion">
         <h3>Tipo de Sensor:</h3>
         <select [(ngModel)]="tipoSensorSeleccionado">
-        <option value="Humedad">Humedad</option>
-        <option value="Temperatura">Temperatura</option>
-        <option value="Conductividad">Conductividad</option>
-        <option value="Ph">Ph</option>
+          <option value="Humedad">Humedad</option>
+          <option value="Temperatura">Temperatura</option>
+          <option value="Conductividad">Conductividad</option>
+          <option value="Ph">Ph</option>
         </select>
         <h3>Actuadores</h3>
-    </div>
+      </div>
 
-    <div class="parametros-control">
+      <!-- Contenedor del sensor y el actuador -->
+      <div class="parametros-control">
         <app-control-sensor
           [sensor]="tipoSensorSeleccionado"
           [bgColor]="colores[tipoSensorSeleccionado]">
         </app-control-sensor>
 
         <app-control-actuador></app-control-actuador>
+      </div>
+    </div>
   </div>
-</div>
-
 </div>
