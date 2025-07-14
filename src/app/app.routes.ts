@@ -17,6 +17,7 @@ import { RegistroComponent } from './features/dashboard/components/registro/regi
 import { ControlesComponent } from './features/dashboard/pages/controles/controles.component';
 import { ConfiguracionComponent } from './features/dashboard/pages/configuracion/configuracion.component';
 import { VistaErrorComponent } from './shared/components/vista-error/vista-error.component';
+import { VistaTurbidezComponent } from './features/dashboard/pages/vista-turbidez/vista-turbidez.component';
 
 
 export const routes: Routes = [
@@ -38,6 +39,7 @@ export const routes: Routes = [
     {path: 'vista-admin', component: VistaAdminComponent },
     {path: 'vista-controles', component: ControlesComponent },
     {path: 'configuracion', component: ConfiguracionComponent },
-    {path: 'vista-error', component: VistaErrorComponent }
+    {path: 'vista-error', component: VistaErrorComponent },
+    {path: 'vista-turbidez', component: VistaTurbidezComponent },
 
 ];
