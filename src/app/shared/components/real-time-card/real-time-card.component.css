@@ -21,6 +21,16 @@
   font-size: 20px;
   font-weight: lighter;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.card-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .card-value {
@@ -45,6 +55,11 @@
   .unit {
     font-size: 12px;
   }
+
+  .card-icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -64,6 +79,11 @@
   .unit {
     font-size: 12px;
   }
+
+  .card-icon {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -81,5 +101,10 @@
 
   .unit {
     font-size: 11px;
+  }
+
+  .card-icon {
+    width: 16px;
+    height: 16px;
   }
 }

@@ -1,4 +1,11 @@
 <div class="card" [ngStyle]="{ 'background-color': color }">
-  <div class="card-title">{{ title }}</div>
+  <div class="card-title">
+    <img
+      *ngIf="icon"
+      class="card-icon"
+      [src]="icon"
+      alt="Icono de la tarjeta">  
+    {{ title }}
+  </div>
   <div class="card-value">{{ value }} <span class="unit">{{ unit }}</span></div>
 </div>

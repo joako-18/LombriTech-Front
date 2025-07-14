@@ -36,6 +36,14 @@
   gap: 4px;
 }
 
+.leyenda span {
+  text-shadow:
+                -0.5px -0.5px 0 #333,
+                 0.5px -0.5px 0 #333,
+                -0.5px  0.5px 0 #333,
+                 0.5px  0.5px 0 #333;
+}
+
 .indicador {
   width: 150px;
   height: 170px;

@@ -13,4 +13,5 @@ export class RealTimeCardComponent {
   @Input() value: number | string = '';
   @Input() unit: string = '';
   @Input() color: string = '#ccc';
+  @Input() icon: string = '';
 }
