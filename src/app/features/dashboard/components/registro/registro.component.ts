@@ -31,8 +31,8 @@ cerrarModal() {
       // Paso 1: Información Personal
       tipoUsuario: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
-      apellidoPaterno: ['', [Validators.required]],
-      apellidoMaterno: ['', [Validators.required]],
+      apellido: ['', [Validators.required]],
+  
       
       // Paso 2: Cuenta
       email: ['', [Validators.required, Validators.email]],
@@ -55,10 +55,9 @@ cerrarModal() {
   isStep1Valid(): boolean {
     const tipoUsuario = this.registroForm.get('tipoUsuario');
     const nombre = this.registroForm.get('nombre');
-    const apellidoPaterno = this.registroForm.get('apellidoPaterno');
-    const apellidoMaterno = this.registroForm.get('apellidoMaterno');
+    const apellido = this.registroForm.get('apellido');
     
-    return !!(tipoUsuario?.valid && nombre?.valid && apellidoPaterno?.valid && apellidoMaterno?.valid);
+    return !!(tipoUsuario?.valid && nombre?.valid && apellido?.valid);
   }
 
   nextStep() {
@@ -159,8 +158,7 @@ cerrarModal() {
 
   get nombreCompleto(): string {
     const nombre = this.registroForm.get('nombre')?.value || '';
-    const apellidoPaterno = this.registroForm.get('apellidoPaterno')?.value || '';
-    const apellidoMaterno = this.registroForm.get('apellidoMaterno')?.value || '';
-    return `${nombre} ${apellidoPaterno} ${apellidoMaterno}`.trim();
+    const apellido = this.registroForm.get('apellido')?.value || '';
+    return `${nombre} ${apellido}`.trim();
   }
 }
