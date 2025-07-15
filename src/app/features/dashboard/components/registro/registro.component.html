@@ -63,40 +63,20 @@
               </div>
 
               <div class="form-group">
-                <label for="apellidoPaterno">Apellido paterno</label>
+                <label for="apellido">Apellido</label>
                 <input 
-                  id="apellidoPaterno"
+                  id="apellido"
                   type="text" 
-                  formControlName="apellidoPaterno" 
+                  formControlName="apellido" 
                   class="form-input"
-                  [class.error]="registroForm.get('apellidoPaterno')?.invalid && registroForm.get('apellidoPaterno')?.touched"
-                  placeholder="Apellido paterno"
+                  [class.error]="registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched"
+                  placeholder="Apellido"
                 />
-                @if (registroForm.get('apellidoPaterno')?.invalid && registroForm.get('apellidoPaterno')?.touched) {
+                @if (registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched) {
                   <div class="error-message">
-                    El apellido paterno es requerido
+                    Los apellidos son requeridos
                   </div>
                 }
-              </div>
-
-              <div class="form-group">
-                <label for="apellidoMaterno">Apellido materno</label>
-                <input 
-                  id="apellidoMaterno"
-                  type="text" 
-                  formControlName="apellidoMaterno" 
-                  class="form-input"
-                  [class.error]="registroForm.get('apellidoMaterno')?.invalid && registroForm.get('apellidoMaterno')?.touched"
-                  placeholder="Apellido materno"
-                />
-                @if (registroForm.get('apellidoMaterno')?.invalid && registroForm.get('apellidoMaterno')?.touched) {
-                  <div class="error-message">
-                    El apellido materno es requerido
-                  </div>
-                }
-              </div>
-   <div class="login-link">
-                ¿Ya tienes una cuenta? <a href="#" (click)="irALogin($event)">Inicia sesión</a>
               </div>
 <div class="button-group">
   <button
