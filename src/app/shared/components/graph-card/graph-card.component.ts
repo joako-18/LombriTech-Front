@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ChartConfiguration, ChartType } from 'chart.js';
+import { ChartType } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
 import { CommonModule } from '@angular/common';
 
@@ -13,10 +13,9 @@ import { CommonModule } from '@angular/common';
 export class GraphCardComponent {
   @Input() title: string = 'Gráfica';
   @Input() labels: string[] = [];
-  @Input() datasets: ChartConfiguration<'bar'>['data']['datasets'] = [];
+ @Input() datasets: any= [];
   @Input() bgColor: string = '#fff';
-
-  public chartType: ChartType = 'bar';
+  @Input() chartType: ChartType = 'bar';
 
   public chartOptions = {
   responsive: true,

@@ -85,4 +85,56 @@ export class HomeDashboardComponent implements OnInit {
   }
 }
 
+correlationMatrixData = [
+  {
+    label: 'Correlaciones',
+    data: [
+      { x: 0, y: 0, r: 10 }, // Ph vs Ph
+      { x: 1, y: 0, r: 6 },  // Humedad vs Ph
+      { x: 2, y: 0, r: 7 },  // Temp vs Ph
+      { x: 3, y: 0, r: 5 },  // Conductividad vs Ph
+      { x: 1, y: 2, r: 8 },  // Temp vs Humedad
+      { x: 2, y: 3, r: 9 }   // Temp vs Conductividad
+    ],
+    backgroundColor: 'rgba(255, 99, 132, 0.5)'
+  }
+];
+
+scatterPhTemp = [
+  {
+    label: 'Ph vs Temperatura',
+    data: [
+      { x: 6.8, y: 22 },
+      { x: 7.2, y: 23 },
+      { x: 8.3, y: 24 }
+    ],
+    backgroundColor: 'rgba(255, 206, 86, 0.7)'
+  }
+];
+
+scatterHumTemp = [
+  {
+    label: 'Humedad vs Temperatura',
+    data: [
+      { x: 60, y: 22 },
+      { x: 62, y: 23 },
+      { x: 65, y: 24 }
+    ],
+    backgroundColor: 'rgba(54, 162, 235, 0.7)'
+  }
+];
+
+scatterPhCond = [
+  {
+    label: 'Ph vs Conductividad',
+    data: [
+      { x: 6.5, y: 0.4 },
+      { x: 7.0, y: 0.6 },
+      { x: 8.0, y: 0.9 }
+    ],
+    backgroundColor: 'rgba(75, 192, 192, 0.7)'
+  }
+];
+
+
 }

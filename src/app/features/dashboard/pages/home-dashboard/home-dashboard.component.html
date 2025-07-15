@@ -73,38 +73,42 @@
             (closeModal)="isEndSamplingModalVisible = false">
             ></app-modal-final>
           </div>
-        <div class="left-graph">
-            <app-graph-card
-            title="Humedad"
-            [labels]="labels"
-            [datasets]="getMultipleDataSets([
-                { label: 'Humedad', data: humedadData, color: '#d79e39'  },
-            ])"
-            bgColor="#4682A9">
-            </app-graph-card>
-        </div>
+        <div class="correlation-section">
+  <app-graph-card
+    title="Matriz de correlación de sensores"
+    [labels]="[]"
+    [datasets]="correlationMatrixData"
+    [chartType]="'bubble'"
+    [bgColor]="'#B949B9'">
+  </app-graph-card>
+</div>
 
-        <div class="right-graphs">
-            <app-graph-card
-            title="Ph"
-            [labels]="labels"
-            [datasets]="getMultipleDataSets([
-                { label: 'Ph', data: phData, color: '#054977'  },
-            ])"
-            bgColor="#d79e39">
-            </app-graph-card>
+<div class="scatter-section">
+  <app-graph-card
+    title="Ph vs Temperatura"
+    [labels]="[]"
+    [datasets]="scatterPhTemp"
+    [chartType]="'scatter'"
+    [bgColor]="'#e1533c'">
+  </app-graph-card>
 
-            <app-graph-card
-            title="Temperatura y humedad"
-            [labels]="['Día 1', 'Día 2', 'Día 3', 'Día 4']"
-            [datasets]="[
-                { data: [80, 82, 79, 81], label: 'Humedad', backgroundColor: '#7ed6df' },
-                { data: [20, 21, 22, 19], label: 'Temperatura', backgroundColor: '#e1533c' }
-            ]"
-            bgColor="#217c61">
-            </app-graph-card>
+  <app-graph-card
+    title="Humedad vs Temperatura"
+    [labels]="[]"
+    [datasets]="scatterHumTemp"
+    [chartType]="'scatter'"
+    [bgColor]="'#4682A9'">
+  </app-graph-card>
+
+  <app-graph-card
+    title="Ph vs Conductividad"
+    [labels]="[]"
+    [datasets]="scatterPhCond"
+    [chartType]="'scatter'"
+    [bgColor]="'#217c61'">
+  </app-graph-card>
+</div>
         </div>
     </div>
 
   </div>
-</div>

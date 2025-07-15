@@ -1,23 +1,33 @@
 <div class="body">
-    <app-navigate></app-navigate>
-    <div class="content">
-        <h1>Vista de Ph</h1>
-        <div class="graphics">
-            <app-graph-card 
-            title="Ph"
-            [labels]="labels"
-            [datasets]="getMultipleDataSets([
-                { label: 'Humedad', data: humedadData, color: '#d79e39'  },
-            ])"
-            bgColor="#2F734C">
-            </app-graph-card>
-            <app-graph-card
-            title="Ph"
-            [labels]="labels"
-            [datasets]="getMultipleDataSets([
-                { label: 'Humedad', data: humedadData, color: '#d79e39'  },
-            ])"
-            bgColor="#2F734C">
-            </app-graph-card>
-        </div>
+  <app-navigate></app-navigate>
+  <div class="content">
+    <h1>Vista de Ph</h1>
+    <div class="graphics">
+      <app-graph-card 
+        title="Histograma de Ph"
+        [labels]="labels"
+        [datasets]="getHistogramDataSet(phData, '#4A90E2')"
+        bgColor="#2F734C"
+        [chartType]="'bar'">
+      </app-graph-card>
+
+      <app-graph-card
+        title="Boxplot de Humedad"
+        [labels]="['Humedad']"
+        [datasets]="getBoxplotDataSet(humedadData, '#e67e22')"
+        bgColor="#2F734C"
+        [chartType]="'boxplot'">
+      </app-graph-card>
+
+      <app-graph-card
+        title="Gráfica temporal de Ph"
+        [labels]="labels"
+        [datasets]="getMultipleDataSets([
+          { label: 'Ph', data: phData, color: '#9b59b6' },
+        ])"
+        bgColor="#2F734C"
+        [chartType]="'line'">
+      </app-graph-card>
+    </div>
+  </div>
 </div>

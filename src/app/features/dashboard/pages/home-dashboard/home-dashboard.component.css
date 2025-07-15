@@ -104,6 +104,22 @@ h1 {
   background-color: #F44336;
 }
 
+.correlation-section, .scatter-section {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.scatter-section {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.correlation-section {
+  grid-template-columns: 1fr;
+}
+
+
 .sensor-alert-modal {
   position: fixed;
   top: 0;

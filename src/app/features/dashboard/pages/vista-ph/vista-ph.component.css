@@ -22,7 +22,7 @@ h1 {
 
 .graphics {
   display: grid;
-  grid-template-rows: 400px 400px;
+  grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
   gap: 50px;
   background-color: #f9f1dc;
   border-radius: 20px;
@@ -47,7 +47,7 @@ h1 {
   }
 
   .graphics {
-    grid-template-rows: 300px 300px;
+    grid-template-rows: auto;
     padding: 40px;
     gap: 30px;
   }
