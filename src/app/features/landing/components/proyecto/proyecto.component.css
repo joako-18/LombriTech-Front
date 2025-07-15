@@ -1,25 +1,36 @@
+/* Estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F3E9D2;
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+}
+
 .body {
-    height: 100%;
-    width: 100%;
+    min-height: 100vh;
+    width: 80%;
+    margin: auto;
     background-color: #F3E9D2;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 80%;
-    margin: auto;
+    padding: 20px 20px;
 }
 
 h1 {
     color: #6E3002;
     font-size: 6rem;
     font-family: 'Montserrat', sans-serif;
-}
-
-p {
-    color: #6E3002;
-    font-size: 3rem;
-    text-align: justify;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 .card {
@@ -27,9 +38,169 @@ p {
     align-items: center;
     justify-content: center;
     gap: 30px;
+    width: 100%;
+    max-width: 1200px;
 }
 
-img {
+p {
+    color: #6E3002;
+    font-size: 32px;
+    text-align: justify;
+    flex: 1;
+    font-weight: 400;
+}
+
+.imagen-planta {
     width: 500px;
     height: auto;
+    flex-shrink: 0;
+    max-width: 100%;
+}
+
+/* Responsive para tablets grandes */
+@media screen and (max-width: 1200px) {
+    .body {
+        width: 85%;
+    }
+    
+    h1 {
+        font-size: 5rem;
+    }
+    
+    p {
+        font-size: 2.5rem;
+    }
+    
+    .imagen-planta {
+        width: 400px;
+    }
+}
+
+/* Responsive para tablets */
+@media screen and (max-width: 1024px) {
+    .body {
+        width: 90%;
+    }
+    
+    h1 {
+        font-size: 4.5rem;
+        margin-bottom: 30px;
+    }
+    
+    p {
+        font-size: 2.2rem;
+    }
+    
+    .imagen-planta {
+        width: 350px;
+    }
+    
+    .card {
+        gap: 25px;
+    }
+}
+
+/* Responsive para móviles grandes */
+@media screen and (max-width: 768px) {
+    .body {
+        width: 95%;
+        padding: 30px 15px;
+    }
+    
+    h1 {
+        font-size: 3.5rem;
+        margin-bottom: 25px;
+    }
+    
+    .card {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+    
+    p {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    
+    .imagen-planta {
+        width: 280px;
+        order: -1; /* Coloca la imagen arriba en móviles */
+    }
+}
+
+/* Responsive para móviles medianos */
+@media screen and (max-width: 600px) {
+    .body {
+        width: 100%;
+        padding: 20px 10px;
+    }
+    
+    h1 {
+        font-size: 2.8rem;
+        margin-bottom: 20px;
+    }
+    
+    p {
+        font-size: 1.4rem;
+        line-height: 1.5;
+    }
+    
+    .imagen-planta {
+        width: 220px;
+    }
+    
+    .card {
+        gap: 25px;
+    }
+}
+
+/* Responsive para móviles pequeños */
+@media screen and (max-width: 480px) {
+    .body {
+        padding: 15px 8px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+    
+    p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+    
+    .imagen-planta {
+        width: 180px;
+    }
+    
+    .card {
+        gap: 20px;
+    }
+}
+
+/* Responsive para móviles muy pequeños */
+@media screen and (max-width: 320px) {
+    .body {
+        padding: 10px 5px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+    
+    p {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    
+    .imagen-planta {
+        width: 150px;
+    }
+    
+    .card {
+        gap: 15px;
+    }
 }

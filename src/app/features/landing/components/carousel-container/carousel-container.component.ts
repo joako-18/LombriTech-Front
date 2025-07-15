@@ -6,11 +6,10 @@ import { AppComoFuncionaComponent } from '../app-como-funciona/app-como-funciona
 import { BeneficiosComponent } from '../beneficios/beneficios.component';
 import { ProyectoComponent } from '../proyecto/proyecto.component';
 
-
 interface SlideComponent {
   title: string;
   description?: string;
-  component: string; // Identificador del componente
+  component: string;
 }
 
 @Component({
@@ -27,15 +26,12 @@ interface SlideComponent {
   styleUrl: './carousel-container.component.css'
 })
 export class CarouselContainerComponent implements OnInit, OnDestroy {
-  @Input() autoplayDuration = 5000; 
-  @Input() infiniteLoop = true; 
-  @Input() pauseOnHover = true; 
+  @Input() infiniteLoop = true;
+  @Input() enableKeyboardNavigation = true;
+  @Input() showArrows = true;
+  @Input() showIndicators = true;
 
   currentSlide = 0;
-  isAutoplay = true;
-  autoplayInterval: any;
-  private progressInterval: any;
-  progressWidth = 0;
 
   components: SlideComponent[] = [
     {
@@ -61,70 +57,12 @@ export class CarouselContainerComponent implements OnInit, OnDestroy {
   ];
 
   ngOnInit() {
-    if (this.isAutoplay) {
-      this.startAutoplay();
-    }
+    // Inicialización sin autoplay
+    console.log('Carrusel inicializado con navegación manual');
   }
 
   ngOnDestroy() {
-    this.stopAutoplay();
-    this.stopProgress();
-  }
-
-  startAutoplay() {
-    this.stopAutoplay(); 
-    this.startProgress();
-    
-    this.autoplayInterval = setInterval(() => {
-      this.nextSlide();
-    }, this.autoplayDuration);
-  }
-
-  stopAutoplay() {
-    if (this.autoplayInterval) {
-      clearInterval(this.autoplayInterval);
-      this.autoplayInterval = null;
-    }
-    this.stopProgress();
-  }
-
-  startProgress() {
-    this.stopProgress();
-    this.progressWidth = 0;
-    
-    const updateInterval = 50; // Actualizar cada 50ms para suavidad
-    const increment = (100 / this.autoplayDuration) * updateInterval;
-    
-    this.progressInterval = setInterval(() => {
-      this.progressWidth += increment;
-      if (this.progressWidth >= 100) {
-        this.progressWidth = 100;
-        this.stopProgress();
-      }
-    }, updateInterval);
-  }
-
-  stopProgress() {
-    if (this.progressInterval) {
-      clearInterval(this.progressInterval);
-      this.progressInterval = null;
-    }
-  }
-
-  resetProgress() {
-    this.progressWidth = 0;
-    if (this.isAutoplay) {
-      this.startProgress();
-    }
-  }
-
-  toggleAutoplay() {
-    this.isAutoplay = !this.isAutoplay;
-    if (this.isAutoplay) {
-      this.startAutoplay();
-    } else {
-      this.stopAutoplay();
-    }
+    // Limpieza si fuera necesaria
   }
 
   nextSlide() {
@@ -133,7 +71,6 @@ export class CarouselContainerComponent implements OnInit, OnDestroy {
     } else if (this.infiniteLoop) {
       this.currentSlide = 0;
     }
-    this.resetProgress();
   }
 
   previousSlide() {
@@ -142,34 +79,18 @@ export class CarouselContainerComponent implements OnInit, OnDestroy {
     } else if (this.infiniteLoop) {
       this.currentSlide = this.components.length - 1;
     }
-    this.resetProgress();
   }
 
   goToSlide(index: number) {
     if (index >= 0 && index < this.components.length) {
       this.currentSlide = index;
-      this.resetProgress();
-      
-      if (this.isAutoplay) {
-        this.startAutoplay();
-      }
     }
   }
 
-  onMouseEnter() {
-    if (this.isAutoplay && this.pauseOnHover) {
-      this.stopAutoplay();
-    }
-  }
-
-  onMouseLeave() {
-    if (this.isAutoplay && this.pauseOnHover) {
-      this.startAutoplay();
-    }
-  }
-
-  // Navegación con teclado
+  // Navegación con teclado (opcional)
   onKeyDown(event: KeyboardEvent) {
+    if (!this.enableKeyboardNavigation) return;
+    
     switch(event.key) {
       case 'ArrowLeft':
         event.preventDefault();
@@ -179,26 +100,28 @@ export class CarouselContainerComponent implements OnInit, OnDestroy {
         event.preventDefault();
         this.nextSlide();
         break;
-      case ' ': // Espacebar
+      case 'Home':
         event.preventDefault();
-        this.toggleAutoplay();
+        this.goToSlide(0);
+        break;
+      case 'End':
+        event.preventDefault();
+        this.goToSlide(this.components.length - 1);
         break;
     }
   }
 
   // Métodos públicos para control externo
-  public pause() {
-    this.isAutoplay = false;
-    this.stopAutoplay();
-  }
-
-  public play() {
-    this.isAutoplay = true;
-    this.startAutoplay();
-  }
-
   public goTo(slideIndex: number) {
     this.goToSlide(slideIndex);
+  }
+
+  public next() {
+    this.nextSlide();
+  }
+
+  public previous() {
+    this.previousSlide();
   }
 
   // Getters para el template
@@ -212,5 +135,13 @@ export class CarouselContainerComponent implements OnInit, OnDestroy {
 
   get currentComponent(): SlideComponent {
     return this.components[this.currentSlide];
+  }
+
+  get canGoPrevious(): boolean {
+    return this.infiniteLoop || !this.isFirstSlide;
+  }
+
+  get canGoNext(): boolean {
+    return this.infiniteLoop || !this.isLastSlide;
   }
 }

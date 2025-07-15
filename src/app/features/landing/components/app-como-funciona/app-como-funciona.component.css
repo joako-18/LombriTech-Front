@@ -21,7 +21,7 @@
   justify-content: space-between;
   width: 100%; /* Cambiado de max-width a width para usar todo el espacio */
   margin: 0;
-  padding: 20px 0 20px 80px; /* Eliminado padding derecho completamente */
+  padding: 20px 0 20px 100px; /* Eliminado padding derecho completamente */
   min-height: calc(100vh - 70px);
   gap: 20px; /* Espacio entre el contenido y la imagen */
 }
@@ -32,6 +32,7 @@
 }
 
 .como-funciona-content h1 {
+  padding-top: 20px;
   font-size: 5.5rem;
   text-align: left;
   font-weight: bold;
@@ -48,7 +49,7 @@
   color: #6B4423;
   margin-bottom: 40px;
   line-height: 1.6;
-  padding-left: 10px; /* Añadido padding derecho para evitar que el texto se pegue a la imagen */
+  padding-left: 30px; /* Añadido padding derecho para evitar que el texto se pegue a la imagen */
   max-width: 900px; /* Limita el ancho del párrafo para mejor legibilidad */
 }
 
@@ -122,7 +123,6 @@
   
   .como-funciona-content {
     max-width: 100%;
-    padding-right: 0;
   }
   
   .como-funciona-content h1 {
@@ -142,8 +142,7 @@
   
   .image-container img {
     width: 250px;
-    right: 0; /* Centrado en móviles */
-    position: static; /* Vuelve a posicionamiento normal en móviles */
+ 
   }
 }
 
@@ -158,5 +157,7 @@
   
   .image-container img {
     width: 200px;
+    padding-left: 20px; /* Ajustado para móviles pequeños */
+
   }
 }

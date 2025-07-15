@@ -1,35 +1,59 @@
-
-<body>
 <div 
   class="carousel-container" 
-  (mouseenter)="onMouseEnter()" 
-  (mouseleave)="onMouseLeave()"
   (keydown)="onKeyDown($event)"
   tabindex="0"
   role="region"
   aria-label="Carrusel de información sobre vermicompostaje">
   
   <div class="carousel-content">
+    <!-- Slide 1 -->
     <div class="slide" [class.active]="currentSlide === 0">
       <app-que-es-vermicomposta></app-que-es-vermicomposta>
     </div>
 
+    <!-- Slide 2 -->
     <div class="slide" [class.active]="currentSlide === 1">
       <app-app-como-funciona></app-app-como-funciona>
     </div>
 
+    <!-- Slide 3 -->
     <div class="slide" [class.active]="currentSlide === 2">
       <app-beneficios></app-beneficios>
     </div>
     
+    <!-- Slide 4 -->
     <div class="slide" [class.active]="currentSlide === 3">
       <app-proyecto></app-proyecto>
     </div>
   </div>
 
-  <div class="nav-controls">
+  <!-- Controles de navegación con flechas -->
+  <div class="nav-controls" *ngIf="showArrows">
+    <button 
+      class="nav-button nav-button-prev" 
+      (click)="previousSlide()"
+      [disabled]="!canGoPrevious"
+      aria-label="Slide anterior"
+      type="button">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+    
+    <button 
+      class="nav-button nav-button-next" 
+      (click)="nextSlide()"
+      [disabled]="!canGoNext"
+      aria-label="Siguiente slide"
+      type="button">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
   </div>
-  <div class="pagination-indicators">
+
+  <!-- Indicadores de paginación -->
+  <div class="pagination-indicators" *ngIf="showIndicators">
     <div 
       *ngFor="let component of components; let i = index" 
       class="indicator" 
@@ -39,15 +63,19 @@
       role="button"
       tabindex="0">
       
-  
-      <div class="indicator-progress" 
-        [style.width.%]="currentSlide === i && isAutoplay ? progressWidth : (currentSlide === i ? 100 : 0)">
+      <!-- Indicador simple sin progress bar -->
+      <div class="indicator-fill" 
+        [class.filled]="currentSlide === i">
       </div>
       
-      <div class="indicator-tooltip">
-        <strong>{{ component.title }}</strong>
-        <small *ngIf="component.description">{{ component.description }}</small>
-      </div>
+
+
+  <!-- Información del slide actual -->
+  <div class="slide-info">
+    <h3>{{ currentComponent.title }}</h3>
+    <p *ngIf="currentComponent.description">{{ currentComponent.description }}</p>
+    <div class="slide-counter">
+      {{ currentSlide + 1 }} / {{ components.length }}
     </div>
   </div>
 </div>
