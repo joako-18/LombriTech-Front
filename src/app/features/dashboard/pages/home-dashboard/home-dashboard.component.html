@@ -1,5 +1,14 @@
 <div class="dashboard">
   <app-navigate></app-navigate>
+   <div *ngIf="isSensorAlertActive" class="sensor-alert-modal">
+    <app-sensor-alert
+      [sensorName]="'Ph'"
+      [alertDescription]="'Ph = 8.3 es mayor que el máximo permitido 7.5'"
+      [wormImage]="'assets/images/error.png'"
+      [showAlert]="isSensorAlertActive">
+    </app-sensor-alert>
+    <button class="close-alert-button" (click)="toggleAlert()">✖</button>
+  </div>
 
   <div class="main-content">
     <div class="title">

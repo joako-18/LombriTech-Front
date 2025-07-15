@@ -7,9 +7,13 @@ import { SensorDataResponse } from '../../../../core/models/sensor-data.model';
 import { SensorService } from '../../../../core/services/sensor.service';
 import { ModalInicioComponent } from "../../components/modal-inicio/modal-inicio.component";
 import { ModalFinalComponent } from "../../components/modal-final/modal-final.component";
+import { SensorAlertComponent } from "../../components/sensor-alert/sensor-alert.component";
+import { CommonModule } from '@angular/common';
+import { T } from '@angular/cdk/keycodes';
+
 @Component({
   selector: 'app-home-dashboard',
-  imports: [NavigateComponent, RealTimeCardComponent, GraphCardComponent, ModalInicioComponent, ModalFinalComponent],
+  imports: [CommonModule, NavigateComponent, RealTimeCardComponent, GraphCardComponent, ModalInicioComponent, ModalFinalComponent, SensorAlertComponent],
   templateUrl: './home-dashboard.component.html',
   styleUrl: './home-dashboard.component.css'
 })
@@ -18,7 +22,7 @@ export class HomeDashboardComponent implements OnInit {
   labels: string[] = [];
   phData: number[] = [];
   humedadData: number[] = [];
-
+  isSensorAlertActive: boolean = false;
 
   constructor(private sensorService: SensorService) {}
 
@@ -71,4 +75,14 @@ export class HomeDashboardComponent implements OnInit {
     console.log('Terminando muestreo con los siguientes resultados:', data);
     this.isEndSamplingModalVisible = false;
   }
+
+  toggleAlert(): void {
+  this.isSensorAlertActive = !this.isSensorAlertActive;
+  if (this.isSensorAlertActive) {
+    console.log('Alerta de sensor activada.');
+  } else {
+    console.log('Alerta de sensor desactivada.');
+  }
+}
+
 }
