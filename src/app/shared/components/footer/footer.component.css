@@ -1,13 +1,77 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos del footer */
 footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     background-color: #F3E9D2;
-    padding: auto;
+    padding: 20px;
+    width: 100%;
+    position: relative;
+    min-height: 80px;
 }
 
-img {
-    width: 60px;
-    height: 60px;
+/* Enlaces de redes sociales */
+.social-link {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.social-link:hover {
+    transform: scale(1.1);
+}
+
+/* Imágenes de redes sociales */
+.social-link img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Responsividad para tablets */
+@media screen and (max-width: 768px) {
+    footer {
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .social-link img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Responsividad para móviles */
+@media screen and (max-width: 480px) {
+    footer {
+        gap: 10px;
+        padding: 12px;
+        flex-wrap: wrap;
+    }
+    
+    .social-link img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media screen and (max-width: 320px) {
+    footer {
+        gap: 8px;
+        padding: 10px;
+    }
+    
+    .social-link img {
+        width: 35px;
+        height: 35px;
+    }
 }
