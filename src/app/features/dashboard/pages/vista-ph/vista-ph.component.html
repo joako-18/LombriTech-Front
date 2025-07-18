@@ -3,31 +3,36 @@
   <div class="content">
     <h1>Vista de Ph</h1>
     <div class="graphics">
-      <app-graph-card 
-        title="Histograma de Ph"
-        [labels]="labels"
-        [datasets]="getHistogramDataSet(phData, '#4A90E2')"
-        bgColor="#2F734C"
-        [chartType]="'bar'">
-      </app-graph-card>
-
-      <app-graph-card
-        title="Boxplot de Humedad"
-        [labels]="['Humedad']"
-        [datasets]="getBoxplotDataSet(humedadData, '#e67e22')"
-        bgColor="#2F734C"
-        [chartType]="'boxplot'">
-      </app-graph-card>
-
-      <app-graph-card
-        title="Gráfica temporal de Ph"
-        [labels]="labels"
-        [datasets]="getMultipleDataSets([
-          { label: 'Ph', data: phData, color: '#9b59b6' },
-        ])"
-        bgColor="#2F734C"
-        [chartType]="'line'">
-      </app-graph-card>
+      <app-time-series-graphs
+  [title]="'Ph a lo largo del tiempo'"
+  [color]="'#2F734C'"
+  [data]="[
+    { timestamp: '2025-07-01T00:00', value: 22 },
+    { timestamp: '2025-07-01T01:00', value: 21.5 },
+    { timestamp: '2025-07-01T02:00', value: 21 },
+    { timestamp: '2025-07-01T03:00', value: 20.8 },
+    { timestamp: '2025-07-01T04:00', value: 20.5 },
+    { timestamp: '2025-07-01T05:00', value: 20.7 },
+    { timestamp: '2025-07-01T06:00', value: 21.2 },
+    { timestamp: '2025-07-01T07:00', value: 22 },
+    { timestamp: '2025-07-01T08:00', value: 23.5 },
+    { timestamp: '2025-07-01T09:00', value: 24.3 },
+    { timestamp: '2025-07-01T10:00', value: 25 },
+    { timestamp: '2025-07-01T11:00', value: 26 },
+    { timestamp: '2025-07-01T12:00', value: 27 },
+    { timestamp: '2025-07-01T13:00', value: 28 },
+    { timestamp: '2025-07-01T14:00', value: 28.5 },
+    { timestamp: '2025-07-01T15:00', value: 29 },
+    { timestamp: '2025-07-01T16:00', value: 28.7 },
+    { timestamp: '2025-07-01T17:00', value: 28 },
+    { timestamp: '2025-07-01T18:00', value: 27 },
+    { timestamp: '2025-07-01T19:00', value: 26 },
+    { timestamp: '2025-07-01T20:00', value: 25 },
+    { timestamp: '2025-07-01T21:00', value: 24 },
+    { timestamp: '2025-07-01T22:00', value: 23 },
+    { timestamp: '2025-07-01T23:00', value: 22 }
+  ]">
+</app-time-series-graphs>
     </div>
   </div>
 </div>

@@ -1,0 +1,11 @@
+.graph-container {
+  background-color: #f9f1dc;
+  border-radius: 12px;
+  padding: 1rem;
+  color: #6E3002;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}

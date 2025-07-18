@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { NavigateComponent } from '../../components/navigate/navigate.component';
-import { GraphCardComponent } from '../../../../shared/components/graph-card/graph-card.component';
-
+import { TimeSeriesGraphsComponent } from '../../components/time-series-graphs/time-series-graphs.component';
 @Component({
   selector: 'app-vista-turbidez',
-  imports: [NavigateComponent, GraphCardComponent],
+  imports: [NavigateComponent, TimeSeriesGraphsComponent],
   templateUrl: './vista-turbidez.component.html',
   styleUrl: './vista-turbidez.component.css'
 })

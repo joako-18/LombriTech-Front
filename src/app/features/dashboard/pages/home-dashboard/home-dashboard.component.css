@@ -22,33 +22,25 @@
 }
 
 .graphs-container {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto 1fr;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
   background-color: #f9f1dc;
   border-radius: 20px;
   padding: 30px;
 }
 
-.left-graph {
-  grid-column: 1;
-  grid-row: 2;
-  background-color: #f9f1dc;
-  padding: 20px;
-  border-radius: 20px;
+.probability-section {
+  width: 100%;
 }
 
-.right-graphs {
-  grid-column: 2;
-  grid-row: 2; 
-  background-color: #f9f1dc;
-  padding: 20px;
-  border-radius: 20px;
+.correlation-section {
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  gap: 50px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  width: 100%;
 }
+
 
 .title {
   display: flex;
@@ -240,4 +232,12 @@ h1 {
   .main-content {
     padding: 8px;
   }
+}
+
+.probability-section {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 30px;
+  margin-top: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }

@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigateComponent } from "../../components/navigate/navigate.component";
 import { RealTimeCardComponent } from '../../../../shared/components/real-time-card/real-time-card.component';
-import { GraphCardComponent } from '../../../../shared/components/graph-card/graph-card.component';
-import { SensorData } from '../../../../core/models/sensor-data.model';
 import { SensorDataResponse } from '../../../../core/models/sensor-data.model';
 import { SensorService } from '../../../../core/services/sensor.service';
 import { ModalInicioComponent } from "../../components/modal-inicio/modal-inicio.component";
 import { ModalFinalComponent } from "../../components/modal-final/modal-final.component";
 import { SensorAlertComponent } from "../../components/sensor-alert/sensor-alert.component";
 import { CommonModule } from '@angular/common';
-import { T } from '@angular/cdk/keycodes';
-
+import { SensorProbabilityChartComponent } from "../../components/sensor-probability-chart/sensor-probability-chart.component";
+import { GraphCardComponent } from '../../../../shared/components/graph-card/graph-card.component';
 @Component({
   selector: 'app-home-dashboard',
-  imports: [CommonModule, NavigateComponent, RealTimeCardComponent, GraphCardComponent, ModalInicioComponent, ModalFinalComponent, SensorAlertComponent],
+  imports: [CommonModule, GraphCardComponent, NavigateComponent, RealTimeCardComponent, ModalInicioComponent, ModalFinalComponent, SensorAlertComponent, SensorProbabilityChartComponent],
   templateUrl: './home-dashboard.component.html',
   styleUrl: './home-dashboard.component.css'
 })
@@ -85,55 +83,110 @@ export class HomeDashboardComponent implements OnInit {
   }
 }
 
-correlationMatrixData = [
+scatterTempCond = [
   {
-    label: 'Correlaciones',
+    label: 'Temperatura vs Conductividad',
     data: [
-      { x: 0, y: 0, r: 10 }, // Ph vs Ph
-      { x: 1, y: 0, r: 6 },  // Humedad vs Ph
-      { x: 2, y: 0, r: 7 },  // Temp vs Ph
-      { x: 3, y: 0, r: 5 },  // Conductividad vs Ph
-      { x: 1, y: 2, r: 8 },  // Temp vs Humedad
-      { x: 2, y: 3, r: 9 }   // Temp vs Conductividad
+      { x: 22, y: 0.5 },
+      { x: 23, y: 0.6 },
+      { x: 24, y: 0.8 }
     ],
-    backgroundColor: 'rgba(255, 99, 132, 0.5)'
+    backgroundColor: 'rgba(255, 159, 64, 0.7)'
   }
 ];
 
-scatterPhTemp = [
+scatterHumCond = [
   {
-    label: 'Ph vs Temperatura',
+    label: 'Humedad vs Conductividad',
     data: [
-      { x: 6.8, y: 22 },
-      { x: 7.2, y: 23 },
-      { x: 8.3, y: 24 }
+      { x: 60, y: 0.4 },
+      { x: 62, y: 0.6 },
+      { x: 65, y: 0.9 }
     ],
-    backgroundColor: 'rgba(255, 206, 86, 0.7)'
+    backgroundColor: 'rgba(153, 102, 255, 0.7)'
   }
 ];
 
-scatterHumTemp = [
+scatterTurbCond = [
   {
-    label: 'Humedad vs Temperatura',
+    label: 'Turbidez vs Conductividad',
     data: [
-      { x: 60, y: 22 },
-      { x: 62, y: 23 },
-      { x: 65, y: 24 }
+      { x: 1.5, y: 0.5 },
+      { x: 2.0, y: 0.7 },
+      { x: 2.5, y: 0.9 }
+    ],
+    backgroundColor: 'rgba(255, 99, 132, 0.7)'
+  }
+];
+
+scatterTurbPh = [
+  {
+    label: 'Turbidez vs pH',
+    data: [
+      { x: 1.5, y: 6.5 },
+      { x: 2.0, y: 7.0 },
+      { x: 2.5, y: 8.2 }
     ],
     backgroundColor: 'rgba(54, 162, 235, 0.7)'
   }
 ];
 
-scatterPhCond = [
-  {
-    label: 'Ph vs Conductividad',
-    data: [
-      { x: 6.5, y: 0.4 },
-      { x: 7.0, y: 0.6 },
-      { x: 8.0, y: 0.9 }
-    ],
-    backgroundColor: 'rgba(75, 192, 192, 0.7)'
-  }
+densityTemp = {
+  labels: Array.from({ length: 30 }, (_, i) => (20 + i * 0.3).toFixed(1)),
+  datasets: [{
+    label: 'Temperatura',
+    data: [0.01, 0.03, 0.08, 0.15, 0.21, 0.25, 0.23, 0.17, 0.1, 0.05],
+    borderColor: 'rgba(255, 99, 132, 1)',
+    fill: false
+  }]
+};
+
+densityHum = {
+  labels: Array.from({ length: 30 }, (_, i) => (50 + i).toString()),
+  datasets: [{
+    label: 'Humedad',
+    data: [0.02, 0.06, 0.14, 0.22, 0.25, 0.21, 0.14, 0.07, 0.03, 0.01],
+    borderColor: 'rgba(54, 162, 235, 1)',
+    fill: false
+  }]
+};
+
+densityTurb = {
+  labels: Array.from({ length: 30 }, (_, i) => (1 + i * 0.2).toFixed(1)),
+  datasets: [{
+    label: 'Turbidez',
+    data: [0.01, 0.04, 0.12, 0.22, 0.27, 0.22, 0.1, 0.03, 0.01],
+    borderColor: 'rgba(153, 102, 255, 1)',
+    fill: false
+  }]
+};
+
+densityCond = {
+  labels: Array.from({ length: 30 }, (_, i) => (0.2 + i * 0.1).toFixed(2)),
+  datasets: [{
+    label: 'Conductividad',
+    data: [0.02, 0.06, 0.14, 0.22, 0.25, 0.21, 0.14, 0.07, 0.03],
+    borderColor: 'rgba(255, 159, 64, 1)',
+    fill: false
+  }]
+};
+
+densityPh = {
+  labels: Array.from({ length: 30 }, (_, i) => (5.5 + i * 0.1).toFixed(1)),
+  datasets: [{
+    label: 'pH',
+    data: [0.01, 0.03, 0.08, 0.15, 0.21, 0.25, 0.23, 0.17, 0.1, 0.05],
+    borderColor: 'rgba(75, 192, 192, 1)',
+    fill: false
+  }]
+};
+
+dataDeSensores = [
+  { x: 1.1, y: 2.2 },
+  { x: 2.5, y: 3.8 },
+  { x: 3.3, y: 4.1 },
+  { x: 4.8, y: 5.5 },
+  { x: 5.0, y: 5.9 }
 ];
 
 
