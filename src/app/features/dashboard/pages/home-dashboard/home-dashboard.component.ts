@@ -9,6 +9,7 @@ import { SensorAlertComponent } from "../../components/sensor-alert/sensor-alert
 import { CommonModule } from '@angular/common';
 import { SensorProbabilityChartComponent } from "../../components/sensor-probability-chart/sensor-probability-chart.component";
 import { GraphCardComponent } from '../../../../shared/components/graph-card/graph-card.component';
+import jsPDF from 'jspdf'; // Importa jsPDF
 
 @Component({
   selector: 'app-home-dashboard',
@@ -109,6 +110,7 @@ export class HomeDashboardComponent implements OnInit {
   handleEndSampling(data: { worms: number, compost: number, leachate: number }): void {
     console.log('Terminando muestreo con los siguientes resultados:', data);
     this.isEndSamplingModalVisible = false;
+    this.generatePdfReport(data); // Llama a la función para generar el PDF
   }
 
   toggleAlert(): void {
@@ -119,6 +121,81 @@ export class HomeDashboardComponent implements OnInit {
       console.log('Alerta de sensor desactivada.');
     }
   }
+
+  /**
+   * Genera un reporte PDF con los resultados de la medición.
+   * @param data Los datos finales del muestreo.
+   */
+  private generatePdfReport(data: { worms: number, compost: number, leachate: number }): void {
+    const doc = new jsPDF();
+
+    // Título del reporte
+    doc.setFontSize(22);
+    doc.text('Reporte de Medición de LombriTech', 10, 20);
+
+    // Fecha y hora del reporte
+    const now = new Date();
+    doc.setFontSize(10);
+    doc.text(`Fecha del reporte: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 10, 30);
+
+    // Contenido del reporte
+    doc.setFontSize(12);
+    let yOffset = 50; // Posición inicial para el contenido
+
+    doc.text(`Resultados del Muestreo:`, 10, yOffset);
+    yOffset += 10;
+    doc.text(`Lombrices: ${data.worms}`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Compost: ${data.compost}`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Lixiviados: ${data.leachate}`, 20, yOffset);
+    yOffset += 10;
+
+
+    // ***** COMIENZO DEL LUGAR PARA AÑADIR MÁS CONTENIDO AL REPORTE *****
+    // Aquí puedes añadir más datos al reporte PDF.
+    // Puedes acceder a las variables de tu componente como:
+    // - `this.phData`, `this.humedadData`, `this.labels` para los datos de las gráficas
+    // - `this.phValue`, `this.humedadValue`, etc. para los últimos valores registrados
+    // - Cualquier otra información relevante que quieras incluir del componente.
+
+    // Ejemplo: Añadir los datos de las últimas mediciones:
+    doc.text('Últimos valores de sensores registrados:', 10, yOffset + 20);
+    yOffset += 30;
+    doc.text(`PH: ${this.phValue}`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Humedad: ${this.humedadValue}%`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Temperatura: ${this.temperaturaValue}°C`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Conductividad: ${this.conductividadValue} EC`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Turbidez: ${this.turbidezValue}`, 20, yOffset);
+    yOffset += 10;
+
+    // Puedes iterar sobre los datos históricos si los tienes:
+    /*
+    doc.text('Datos históricos (PH):', 10, yOffset + 20);
+    yOffset += 30;
+    this.phData.forEach((ph, index) => {
+        doc.text(`Hora: ${this.labels[index]}, PH: ${ph}`, 20, yOffset);
+        yOffset += 7; // Pequeño incremento para cada línea
+    });
+    */
+
+    // Si tuvieras imágenes de gráficas (requiere html2canvas y jspdf-autotable para tablas)
+    // const canvas = document.getElementById('myChart') as HTMLCanvasElement;
+    // const imgData = canvas.toDataURL('image/png');
+    // doc.addImage(imgData, 'PNG', 10, yOffset, 180, 100);
+    // yOffset += 110;
+
+    // ***** FIN DEL LUGAR PARA AÑADIR MÁS CONTENIDO AL REPORTE *****
+
+
+    // Guardar el PDF
+    doc.save(`reporte-lombri-tech_${now.toLocaleDateString().replace(/\//g, '-')}.pdf`);
+  }
+
 
   // Datos adicionales de gráficas (opcional si aún usas estas)
   scatterTempCond = [
