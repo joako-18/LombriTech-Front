@@ -98,7 +98,8 @@ export class HomeDashboardComponent implements OnInit {
     this.isSamplingModalVisible = true;
   }
 
-  handleInitiateSampling(data: { description: string, worms: number, compost: number }): void {
+  // ¡MODIFICADO AQUÍ! Eliminado 'compost: number' del parámetro de handleInitiateSampling
+  handleInitiateSampling(data: { description: string, worms: number, wormsUnit: string, wormType: string }): void {
     console.log('Iniciando muestreo con los siguientes datos:', data);
     this.isSamplingModalVisible = false;
   }
