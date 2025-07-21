@@ -9,11 +9,11 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif; /* Usar Inter si está disponible, sino una sans-serif genérica */
 }
 
 .modal-content {
-  background-color: #6E3002;
+  background-color: #6E3002; /* Color de fondo del modal */
   padding: 30px 40px;
   border-radius: 15px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
@@ -22,7 +22,7 @@
   gap: 25px;
   max-width: 450px;
   width: 90%;
-  color: #f9f1dc;
+  color: #f9f1dc; /* Color de texto general dentro del modal */
   position: relative;
   animation: fadeIn 0.3s ease-out;
 }
@@ -31,7 +31,7 @@
   font-size: 32px;
   font-weight: 700;
   text-align: center;
-  color: #f9f1dc;
+  color: #f9f1dc; /* Título color crema */
   margin-bottom: 15px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
@@ -46,20 +46,23 @@
 .input-group label {
   font-size: 18px;
   font-weight: 500;
-  color: #f9f1dc;
+  color: #f9f1dc; /* Color de las etiquetas */
 }
 
 .input-group input[type="text"],
-.input-group input[type="number"] {
+.input-group input[type="number"],
+.input-group select { /* Aplicar estilos a los select también */
   padding: 12px 15px;
-  border: none;
+  border: none; /* Eliminar borde por defecto */
   border-radius: 8px;
-  background-color: #f4e8cb;
-  color: #333;
+  background-color: #f4e8cb; /* Fondo del input/select */
+  color: #333; /* Color del texto del input/select */
   font-size: 18px;
-  outline: none;
+  outline: none; /* Eliminar outline al enfocar */
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  width: 100%; /* Por defecto, ocupan todo el ancho */
+  box-sizing: border-box; /* Importante para el padding y border */
 }
 
 .input-group input[type="text"]::placeholder,
@@ -68,13 +71,57 @@
 }
 
 .input-group input[type="text"]:focus,
-.input-group input[type="number"]:focus {
+.input-group input[type="number"]:focus,
+.input-group select:focus { /* Estilos de focus para select también */
   background-color: #f0e1c0;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 0 3px rgba(244, 232, 203, 0.5);
 }
 
+/* Estilos para la combinación de input de cantidad y select de unidad */
+.quantity-with-unit {
+  /* No necesitamos flex-direction: column aquí si el label está encima */
+}
+
+.input-and-select {
+  display: flex; /* Para que el input y el select estén en la misma línea */
+  gap: 10px; /* Espacio entre el input y el select */
+  align-items: center; /* Centra verticalmente */
+}
+
+.input-and-select input {
+  flex-grow: 1; /* El input toma el espacio restante */
+  width: auto; /* Anula el 100% de arriba si es necesario */
+}
+
+.input-and-select select {
+  width: auto; /* El select ajusta su ancho al contenido */
+  min-width: 80px; /* Ancho mínimo para la unidad (ej. "Kg") */
+  /* Reaplicamos estilos específicos para select para la flecha personalizada */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236E3002%22%20d%3D%22M287%2C197.3L153.2%2C63.6c-4.2-4.2-11-4.2-15.2%2C0L0%2C197.3c-4.2%2C4.2-4.2%2C11%2C0%2C15.2l14.8%2C14.8c4.2%2C4.2%2C11%2C4.2%2C15.2%2C0l110.4-110.4l110.4%2C110.4c4.2%2C4.2%2C11%2C4.2%2C15.2%2C0l14.8-14.8C291.2%2C208.3%2C291.2%2C201.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 12px center; /* Centrar la flecha verticalmente */
+  background-size: 10px auto; /* Tamaño de la flecha */
+  padding-right: 35px; /* Espacio para la flecha */
+}
+
+/* Estilo específico para el select de tipo de lombrices */
+#worm-type {
+  /* Reaplicamos los estilos de apariencia y fondo de flecha */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236E3002%22%20d%3D%22M287%2C197.3L153.2%2C63.6c-4.2-4.2-11-4.2-15.2%2C0L0%2C197.3c-4.2%2C4.2-4.2%2C11%2C0%2C15.2l14.8%2C14.8c4.2%2C4.2%2C11%2C4.2%2C15.2%2C0l110.4-110.4l110.4%2C110.4c4.2%2C4.2%2C11%2C4.2%2C15.2%2C0l14.8-14.8C291.2%2C208.3%2C291.2%2C201.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 10px auto;
+  padding-right: 35px;
+}
+
 .initiate-button {
-  background-color: #E75930;
+  background-color: #E75930; /* Color naranja oscuro para el botón (como en la imagen) */
   color: white;
   padding: 15px 30px;
   border: none;
@@ -85,12 +132,12 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   margin-top: 15px;
-  align-self: center;
-  width: fit-content;
+  align-self: center; /* Centra el botón */
+  width: fit-content; /* El botón se ajusta a su contenido */
 }
 
 .initiate-button:hover {
-  background-color: #d74a2a;
+  background-color: #d74a2a; /* Tono ligeramente más oscuro al pasar el ratón */
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
@@ -119,9 +166,21 @@
     font-size: 16px;
   }
 
-  .input-group input {
+  .input-group input,
+  .input-group select { /* También los select en media query */
     padding: 10px 12px;
     font-size: 16px;
+  }
+
+  .input-and-select {
+    flex-direction: column; /* Apilar en pantallas pequeñas */
+    gap: 5px;
+  }
+
+  .input-and-select input,
+  .input-and-select select {
+    width: 100%; /* Ocupan todo el ancho apilados */
+    min-width: unset; /* Elimina el min-width si se apilan */
   }
 
   .initiate-button {
@@ -145,7 +204,8 @@
     font-size: 15px;
   }
 
-  .input-group input {
+  .input-group input,
+  .input-group select { /* También los select en media query */
     padding: 8px 10px;
     font-size: 15px;
   }

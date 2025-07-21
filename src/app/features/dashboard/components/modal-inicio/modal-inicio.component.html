@@ -12,24 +12,24 @@
       />
     </div>
 
-    <div class="input-group">
-      <label for="worms-quantity">Cantidad de lombrices:</label>
-      <input
-        type="number"
-        id="worms-quantity"
-        [(ngModel)]="wormsQuantity"
-        placeholder="0"
-      />
+    <div class="input-group quantity-with-unit"> <label for="worms-quantity">Cantidad de lombrices:</label>
+      <div class="input-and-select"> <input
+          type="number"
+          id="worms-quantity"
+          [(ngModel)]="wormsQuantity"
+          placeholder="0"
+        />
+        <select id="worms-unit" [(ngModel)]="wormsUnit">
+          <option *ngFor="let unit of wormsUnits" [value]="unit">{{ unit }}</option>
+        </select>
+      </div>
     </div>
 
     <div class="input-group">
-      <label for="compost-quantity">Cantidad de composta:</label>
-      <input
-        type="number"
-        id="compost-quantity"
-        [(ngModel)]="compostQuantity"
-        placeholder="0"
-      />
+      <label for="worm-type">Tipo de lombrices:</label>
+      <select id="worm-type" [(ngModel)]="wormType">
+        <option value="" disabled selected>Seleccione un tipo</option> <option *ngFor="let type of commonWormTypes" [value]="type">{{ type }}</option>
+      </select>
     </div>
 
     <button class="initiate-button" (click)="onInitiate()">Iniciar</button>
