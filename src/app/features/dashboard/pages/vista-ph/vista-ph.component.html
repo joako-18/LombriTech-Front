@@ -33,6 +33,18 @@
     { timestamp: '2025-07-01T23:00', value: 22 }
   ]">
 </app-time-series-graphs>
-    </div>
+    <div class="row-graphics">
+    <app-histograma-card
+      [title]="'Histograma de pH'"
+      [dataLabels]="['0-4', '4-5', '5-6', '6-7', '7-8']"
+      [dataValues]="[2, 10, 15, 7, 1]">
+    </app-histograma-card>
+
+    <app-donut-chart
+      [labels]="['Ácido', 'Neutro', 'Alcalino']"
+      [data]="[10, 25, 15]"
+      [colors]="['#f87171', '#60a5fa', '#34d399']">
+    </app-donut-chart>
+  </div>
   </div>
 </div>

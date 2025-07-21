@@ -17,44 +17,45 @@
     </div>
     <div class="cards-container">
       <app-real-time-card
-        title="Humedad"
-        [value]="0"
-        unit="%"
-        color="#4682A9"
-        icon="assets/images/icon-humedad.png">
-      </app-real-time-card>
+  title="Humedad"
+  [value]="humedadValue"
+  unit="%"
+  color="#4682A9"
+  icon="assets/images/icon-humedad.png">
+</app-real-time-card>
 
-      <app-real-time-card
-        title="Conductividad eléctrica"
-        [value]="0"
-        unit="EC"
-        color="#d79e39"
-        icon="assets/images/icon-conductividad.png">
-      </app-real-time-card>
+<app-real-time-card
+  title="Conductividad eléctrica"
+  [value]="conductividadValue"
+  unit="EC"
+  color="#d79e39"
+  icon="assets/images/icon-conductividad.png">
+</app-real-time-card>
 
-      <app-real-time-card
-        title="Temperatura"
-        [value]="0"
-        unit="°C"
-        color="#e1533c"
-        icon="assets/images/icon-temperatura.png">
-      </app-real-time-card>
+<app-real-time-card
+  title="Temperatura"
+  [value]="temperaturaValue"
+  unit="°C"
+  color="#e1533c"
+  icon="assets/images/icon-temperatura.png">
+</app-real-time-card>
 
-      <app-real-time-card
-        title="Ph"
-        [value]="0"
-        unit=""
-        color="#217c61"
-        icon="assets/images/icon-ph.png">
-      </app-real-time-card>
+<app-real-time-card
+  title="Ph"
+  [value]="phValue"
+  unit=""
+  color="#217c61"
+  icon="assets/images/icon-ph.png">
+</app-real-time-card>
 
-      <app-real-time-card
-        title="Turbidez"
-        [value]="0"
-        unit=""
-        color="#8B7A9B"
-        icon="assets/images/icon-turbidez.png">
-      </app-real-time-card>
+<app-real-time-card
+  title="Turbidez"
+  [value]="turbidezValue"
+  unit=""
+  color="#8B7A9B"
+  icon="assets/images/icon-turbidez.png">
+</app-real-time-card>
+
     </div>
     <div class="graphs-container">
   <div class="buttons">
