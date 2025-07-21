@@ -7,43 +7,103 @@
     </div>
 
     <div class="content-2">
-      <div class="datos-personales">
-        <h2>Datos personales</h2>
-        <div class="row">
-          <label>Nombre:</label>
-          <h3>{{ nombre }}</h3>
+      <div class="left-section">
+        <div class="datos-personales">
+          <h2>Datos personales</h2>
+          <div class="row">
+            <label>Nombre:</label>
+            <h3>{{ nombre }}</h3>
+          </div>
+          <div class="row">
+            <label>Correo:</label>
+            <h3>{{ correo }}</h3>
+          </div>
+          <div class="row">
+            <label>Rol:</label>
+            <h3>{{ rol }}</h3>
+          </div>
+          <hr>
         </div>
-        <div class="row">
-          <label>Correo:</label>
-          <h3>{{ correo }}</h3>
+
+        <div class="alertas">
+          <h2>Enviar alerta</h2>
+          <div class="row">
+            <img src="assets/images/icon-telegram.png" alt="Telegram">
+            <p>{{ numeroTelegram }}</p>
+            <div class="edit">
+              <img src="assets/images/icon-editar.png" alt="editar" (click)="openEditModal('telegram')">
+              <img src="assets/images/icon-apagar.png" alt="apagar">
+            </div>
+          </div>
+          <div class="row">
+            <img src="assets/images/icon-correo.png" alt="correo">
+            <p>{{ direccionCorreo }}</p>
+            <div class="edit">
+              <img src="assets/images/icon-editar.png" alt="editar" (click)="openEditModal('email')">
+              <img src="assets/images/icon-apagar.png" alt="apagar">
+            </div>
+          </div>
+          <hr>
         </div>
-        <div class="row">
-          <label>Rol:</label>
-          <h3>{{ rol }}</h3>
-        </div>
-        <hr>
       </div>
 
-      <div class="alertas">
-        <h2>Enviar alerta</h2>
-        <div class="row">
-          <img src="assets/images/icon-telegram.png" alt="Telegram">
-          <p>{{ numeroTelegram }}</p>
-          <div class="edit">
-            <img src="assets/images/icon-editar.png" alt="editar">
-            <img src="assets/images/icon-apagar.png" alt="apagar">
-          </div>
+      <div class="reportes-section">
+        <h2>Reportes</h2>
+        <div class="report-item">
+          <img src="assets/images/icon-pdf.png" alt="PDF">
+          <p>Reporte-01-05-25</p>
         </div>
-        <div class="row">
-          <img src="assets/images/icon-correo.png" alt="correo">
-          <p>{{ direccionCorreo }}</p>
-          <div class="edit">
-            <img src="assets/images/icon-editar.png" alt="editar">
-            <img src="assets/images/icon-apagar.png" alt="apagar">
-          </div>
+        <div class="report-item">
+          <img src="assets/images/icon-pdf.png" alt="PDF">
+          <p>Reporte-01-05-25</p>
         </div>
-        <hr>
+        <div class="report-item">
+          <img src="assets/images/icon-pdf.png" alt="PDF">
+          <p>Reporte-01-05-25</p>
+        </div>
+        <div class="report-item">
+          <img src="assets/images/icon-pdf.png" alt="PDF">
+          <p>Reporte-01-05-25</p>
+        </div>
+        <div class="report-item">
+          <img src="assets/images/icon-pdf.png" alt="PDF">
+          <p>Reporte-01-05-25</p>
+        </div>
+        <div class="report-item">
+          <img src="assets/images/icon-pdf.png" alt="PDF">
+          <p>Reporte-01-05-25</p>
+        </div>
+        <div class="report-item">
+          <img src="assets/images/icon-pdf.png" alt="PDF">
+          <p>Reporte-01-05-25</p>
+        </div>
+        <div class="report-item">
+          <img src="assets/images/icon-pdf.png" alt="PDF">
+          <p>Reporte-01-05-25</p>
+        </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showTelegramModal">
+  <div class="modal-content">
+    <h2>Editar Número de Telegram</h2>
+    <input type="text" [(ngModel)]="editNumeroTelegram" placeholder="Nuevo número de Telegram">
+    <div class="modal-actions">
+      <button class="btn btn-save" (click)="saveTelegram()">Guardar</button>
+      <button class="btn btn-cancel" (click)="closeEditModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showEmailModal">
+  <div class="modal-content">
+    <h2>Editar Dirección de Correo</h2>
+    <input type="email" [(ngModel)]="editDireccionCorreo" placeholder="Nueva dirección de correo">
+    <div class="modal-actions">
+      <button class="btn btn-save" (click)="saveEmail()">Guardar</button>
+      <button class="btn btn-cancel" (click)="closeEditModal()">Cancelar</button>
     </div>
   </div>
 </div>

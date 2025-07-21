@@ -41,14 +41,21 @@
   background-color: #f9f1dc;
   padding: 40px;
   border-radius: 16px;
-  display: flex;
-  flex-direction: column;
+  display: grid; /* Changed to flex for left and right sections */
+  grid-template-columns: 60% 40%; /* Two equal columns */
   gap: 50px;
   min-height: 70vh;
   width: auto;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
   height: auto;
   box-sizing: border-box;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 50px; /* To maintain spacing between "Datos personales" and "Enviar alerta" */
+    flex: 1; /* Allows it to take up available space */
 }
 
 .datos-personales {
@@ -58,7 +65,8 @@
 }
 
 .datos-personales h2,
-.alertas h2 {
+.alertas h2,
+.reportes-section h2 { /* Added .reportes-section h2 */
   font-size: 32px;
   margin-bottom: 20px;
   color: #6E3002;
@@ -97,6 +105,7 @@ h3, p {
 .alertas .edit {
   display: flex;
   gap: 20px;
+  margin-left: auto; /* Pushes the edit icons to the right */
 }
 
 .alertas .edit img {
@@ -107,12 +116,13 @@ h3, p {
 }
 
 .alertas img,
-.datos-personales img {
+.datos-personales img,
+.report-item img { /* Added .report-item img */
   width: 50px;
   height: 50px;
   cursor: pointer;
   object-fit: contain;
-  gap: 30px;
+  /* gap: 30px; This might not be needed here */
 }
 
 hr {
@@ -120,6 +130,122 @@ hr {
   border-top: 4px solid #803300;
   margin: 25px 0;
 }
+
+/* Reportes Section Styles */
+.reportes-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Spacing between report items */
+  padding-left: 50px; /* Add some padding to separate from left section */
+  border-left: 4px solid #803300; /* Separator line */
+}
+
+.report-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.report-item img {
+  width: 40px; /* Adjust size for PDF icon if needed */
+  height: 40px;
+}
+
+.report-item p {
+  font-size: 25px;
+  color: #6E3002;
+  font-weight: 600;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.modal-content {
+  background-color: #6E3002;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 500px;
+  width: 90%;
+  color: #f9f1dc;
+}
+
+.modal-content h2 {
+  font-size: 28px;
+  color: #f9f1dc;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="email"] {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #803300;
+  border-radius: 8px;
+  font-size: 20px;
+  color: #4B1E00;
+  background-color: #fff;
+  box-sizing: border-box; /* Incluir padding y border en el width */
+}
+
+.modal-content input:focus {
+  outline: none;
+  border-color: #6E3002;
+  box-shadow: 0 0 0 3px rgba(110, 48, 2, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end; /* Alinea los botones a la derecha */
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-save {
+  background-color: #f9f1dc;
+  color: #6E3002;
+}
+
+.btn-save:hover {
+  transform: translateY(-2px);
+}
+
+.btn-cancel {
+  background-color: #ccc;
+  color: #4B1E00;
+}
+
+.btn-cancel:hover {
+  background-color: #bbb;
+  transform: translateY(-2px);
+}
+
 
 @media (max-width: 900px) {
   .body {
@@ -157,10 +283,12 @@ hr {
     gap: 30px;
     min-height: auto;
     height: auto;
+    flex-direction: column; /* Stack sections vertically on smaller screens */
   }
 
   .datos-personales h2,
-  .alertas h2 {
+  .alertas h2,
+  .reportes-section h2 {
     font-size: 24px;
   }
 
@@ -179,13 +307,41 @@ hr {
   }
 
   .alertas img,
-  .datos-personales img {
+  .datos-personales img,
+  .report-item img {
     width: 40px;
     height: 40px;
   }
 
   .row {
     gap: 12px;
+  }
+
+  .reportes-section {
+    padding-left: 0;
+    border-left: none; /* Remove border on smaller screens */
+    padding-top: 30px; /* Add space between sections when stacked */
+    border-top: 4px solid #803300; /* Add top border for separation */
+  }
+
+  /* Modal responsive */
+  .modal-content {
+    padding: 25px;
+    max-width: 90%;
+  }
+
+  .modal-content h2 {
+    font-size: 22px;
+  }
+
+  .modal-content input {
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 16px;
   }
 }
 
@@ -213,7 +369,8 @@ hr {
   }
 
   .alertas img,
-  .datos-personales img {
+  .datos-personales img,
+  .report-item img {
     width: 35px;
     height: 35px;
   }
@@ -228,6 +385,25 @@ hr {
     margin: 0 8px 30px 8px;
     padding: 16px;
     height: auto;
+  }
+
+  /* Modal responsive */
+  .modal-content {
+    padding: 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 20px;
+  }
+
+  .modal-content input {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .btn {
+    padding: 8px 15px;
+    font-size: 14px;
   }
 }
 
