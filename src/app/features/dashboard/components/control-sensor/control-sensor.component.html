@@ -8,16 +8,20 @@
 
   <div class="row">
     <label>Valor Mínimo:</label>
-    <input type="number" />
+    <input type="number" [(ngModel)]="valorMinimo" name="valorMinimo" />
   </div>
 
   <div class="row">
     <label>Valor Máximo:</label>
-    <input type="number" />
+    <input type="number" [(ngModel)]="valorMaximo" name="valorMaximo" />
   </div>
 
   <div class="row">
-    <label>Lapso de recolección:</label>
-    <input type="number" />
+    <label>Lapso de recolección (min):</label>
+    <input type="number" [(ngModel)]="intervalo" name="intervalo" />
+  </div>
+
+  <div class="row">
+    <button (click)="guardarAlerta()">Guardar</button>
   </div>
 </div>

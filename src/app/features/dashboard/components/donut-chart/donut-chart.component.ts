@@ -1,28 +1,12 @@
-import {
-  Component,
-  Input,
-  ElementRef,
-  ViewChild,
-  AfterViewInit,
-  OnDestroy
-} from '@angular/core';
-import {
-  Chart,
-  DoughnutController,
-  ArcElement,
-  Tooltip,
-  Legend,
-  ChartConfiguration
-} from 'chart.js';
-
+import { Component, Input, ElementRef, ViewChild, AfterViewInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { Chart, DoughnutController, ArcElement, Tooltip, Legend, ChartConfiguration } from 'chart.js';
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend);
-
 @Component({
   selector: 'app-donut-chart',
   templateUrl: './donut-chart.component.html',
   styleUrls: ['./donut-chart.component.css']
 })
-export class DonutChartComponent implements AfterViewInit, OnDestroy {
+export class DonutChartComponent implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('doughnutCanvas') doughnutCanvas!: ElementRef<HTMLCanvasElement>;
 
   @Input() labels: string[] = [];
@@ -30,15 +14,26 @@ export class DonutChartComponent implements AfterViewInit, OnDestroy {
   @Input() colors: string[] = [];
 
   chart: Chart | undefined;
+  chartInitialized = false;
 
   ngAfterViewInit(): void {
+    this.chartInitialized = true;
     this.createChart();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.chartInitialized && (changes['labels'] || changes['data'] || changes['colors'])) {
+      this.createChart();
+    }
   }
 
   createChart(): void {
     if (this.chart) {
       this.chart.destroy();
     }
+
+    const ctx = this.doughnutCanvas.nativeElement.getContext('2d');
+    if (!ctx) return;
 
     const config: ChartConfiguration<'doughnut'> = {
       type: 'doughnut',
@@ -62,10 +57,7 @@ export class DonutChartComponent implements AfterViewInit, OnDestroy {
       }
     };
 
-    const ctx = this.doughnutCanvas.nativeElement.getContext('2d');
-    if (ctx) {
-      this.chart = new Chart(ctx, config);
-    }
+    this.chart = new Chart(ctx, config);
   }
 
   ngOnDestroy(): void {

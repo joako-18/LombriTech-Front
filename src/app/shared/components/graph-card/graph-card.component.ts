@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, AfterViewInit, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
@@ -8,17 +8,24 @@ Chart.register(...registerables);
   templateUrl: './graph-card.component.html',
   styleUrls: ['./graph-card.component.css'],
 })
-export class GraphCardComponent implements AfterViewInit {
+export class GraphCardComponent implements AfterViewInit, OnChanges {
   @Input() sensor1Name!: string;
   @Input() sensor2Name!: string;
   @Input() title!: string;
   @Input() dataPoints!: { sensor1: number; sensor2: number }[];
 
   @ViewChild('chartCanvas') chartCanvas!: ElementRef;
+  chart: Chart | undefined;
 
   ngAfterViewInit(): void {
     if (this.dataPoints && this.chartCanvas) {
       this.createScatterChart();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dataPoints'] && this.chartCanvas?.nativeElement) {
+      this.updateScatterChart();
     }
   }
 
@@ -28,7 +35,7 @@ export class GraphCardComponent implements AfterViewInit {
       y: dp.sensor2,
     }));
 
-    new Chart(this.chartCanvas.nativeElement, {
+    this.chart = new Chart(this.chartCanvas.nativeElement, {
       type: 'scatter',
       data: {
         datasets: [{
@@ -88,5 +95,20 @@ export class GraphCardComponent implements AfterViewInit {
         }
       }
     });
+  }
+
+  updateScatterChart(): void {
+    if (!this.chart) {
+      this.createScatterChart();
+      return;
+    }
+
+    const scatterData = this.dataPoints.map(dp => ({
+      x: dp.sensor1,
+      y: dp.sensor2,
+    }));
+
+    this.chart.data.datasets[0].data = scatterData;
+    this.chart.update();
   }
 }

@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { SensorProbabilityChartComponent } from "../../components/sensor-probability-chart/sensor-probability-chart.component";
 import { GraphCardComponent } from '../../../../shared/components/graph-card/graph-card.component';
 import jsPDF from 'jspdf'; // Importa jsPDF
+import { EstadisticasService } from '../../../../core/services/estadisticas.service';
 
 @Component({
   selector: 'app-home-dashboard',
@@ -48,10 +49,15 @@ export class HomeDashboardComponent implements OnInit {
   phData: number[] = [];
   humedadData: number[] = [];
 
-  constructor(private sensorService: SensorService) {}
+  corTempHumData: { sensor1: number, sensor2: number }[] = [];
+  corPhTdsData: { sensor1: number, sensor2: number }[] = [];
+  corTempHumValor: number = 0;
+  corPhTdsValor: number = 0;
+
+  constructor(private sensorService: SensorService, private estadisticasService: EstadisticasService) {}
 
   ngOnInit(): void {
-    this.startSensorSimulation(); // Iniciar simulación de sensores
+    /*this.startSensorSimulation(); // Iniciar simulación de sensores
 
     this.sensorService.obtenerDatos().subscribe((data: SensorDataResponse) => {
       console.log('Respuesta recibida:', data);
@@ -61,6 +67,33 @@ export class HomeDashboardComponent implements OnInit {
         this.humedadData.push(data.datos.humedad);
       } else {
         console.error('data.datos es undefined o null:', data);
+      }
+    });*/
+
+    this.estadisticasService.connect();
+    this.estadisticasService.getEstadisticas().subscribe((data) => {
+      const correlaciones = data?.correlaciones_especificas;
+
+      if (correlaciones) {
+        const tempHum = correlaciones['temperatura_humedad'];
+        if (tempHum?.x?.length && tempHum?.y?.length) {
+          this.corTempHumData = tempHum.x.map((x: number, i: number) => ({
+            sensor1: x,
+            sensor2: tempHum.y[i]
+          }));
+          this.corTempHumValor = tempHum.valor ?? 0;
+          console.log('Correlación Temperatura-Humedad:', this.corTempHumData, this.corTempHumValor);
+        }
+
+        const phTds = correlaciones["ph_tds"];
+        if (phTds?.x?.length && phTds?.y?.length) {
+          this.corPhTdsData = phTds.x.map((x: number, i: number) => ({
+            sensor1: x,
+            sensor2: phTds.y[i]
+          }));
+          this.corPhTdsValor = phTds.valor ?? 0;
+          console.log('Correlación pH-TDS:', this.corPhTdsData, this.corPhTdsValor);
+        }
       }
     });
   }

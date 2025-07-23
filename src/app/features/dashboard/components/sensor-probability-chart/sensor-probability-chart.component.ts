@@ -1,25 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import {
-  Chart,
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Title,
-  Tooltip,
-  Legend
-} from 'chart.js';
-
-Chart.register(
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Title,
-  Tooltip,
-  Legend
-);
-
+import { Chart } from 'chart.js';
+import { EstadisticasService } from '../../../../core/services/estadisticas.service';
 @Component({
   selector: 'app-sensor-probability-chart',
   templateUrl: './sensor-probability-chart.component.html',
@@ -29,13 +10,11 @@ export class SensorProbabilityChartComponent implements AfterViewInit {
   @ViewChild('barChartCanvas', { static: false }) barChartCanvas!: ElementRef<HTMLCanvasElement>;
   chart!: Chart;
 
+  constructor(private estadisticasService: EstadisticasService) {}
+
   ngAfterViewInit(): void {
     const ctx = this.barChartCanvas.nativeElement.getContext('2d');
-
-    if (!ctx) {
-      console.error('No se pudo obtener el contexto del canvas.');
-      return;
-    }
+    if (!ctx) return;
 
     this.chart = new Chart(ctx, {
       type: 'bar',
@@ -44,14 +23,14 @@ export class SensorProbabilityChartComponent implements AfterViewInit {
         datasets: [
           {
             label: 'Probabilidad de Subida',
-            data: [0.75, 0.2, 0.6, 0.45, 0.8],
+            data: [0, 0, 0, 0, 0],
             backgroundColor: '#4382af',
             borderColor: '#37678c',
             borderWidth: 1
           },
           {
             label: 'Probabilidad de Bajada',
-            data: [0.1, 0.6, 0.25, 0.3, 0.05],
+            data: [0, 0, 0, 0, 0],
             backgroundColor: '#e6533c',
             borderColor: '#cc4330',
             borderWidth: 1
@@ -61,20 +40,15 @@ export class SensorProbabilityChartComponent implements AfterViewInit {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        backgroundColor: '#f9f1dc',
         scales: {
           y: {
             beginAtZero: true,
             ticks: {
-              callback: function (tickValue: string | number) {
-                const value = typeof tickValue === 'number' ? tickValue : parseFloat(tickValue);
-                if (isNaN(value)) return '';
-                return (value * 100).toFixed(0) + '%';
-              },
+              callback: (val) => `${(Number(val) * 100).toFixed(0)}%`,
               color: '#6E3002'
             },
             grid: {
-              color: 'rgba(110, 48, 2, 0.1)' // líneas sutiles en marrón
+              color: 'rgba(110, 48, 2, 0.1)'
             }
           },
           x: {
@@ -91,17 +65,30 @@ export class SensorProbabilityChartComponent implements AfterViewInit {
             display: true,
             text: 'Probabilidad de Cambio en Sensores',
             color: '#6E3002',
-            font: {
-              size: 18
-            }
+            font: { size: 18 }
           },
           legend: {
-            labels: {
-              color: '#6E3002'
-            }
+            labels: { color: '#6E3002' }
           }
         }
       }
+    });
+
+    this.estadisticasService.connect();
+    this.estadisticasService.getEstadisticas().subscribe((data) => {
+      const subida = data?.probabilidad?.subida || {};
+      const bajada = data?.probabilidad?.bajada || {};
+
+      const sensores = ['temperatura', 'ph', 'humedad', 'ec', 'sst'];
+      const labels = ['Temperatura', 'PH', 'Humedad', 'Conductividad Eléctrica', 'Turbidez'];
+
+      const subidaData = sensores.map((key) => subida[key] ?? 0);
+      const bajadaData = sensores.map((key) => bajada[key] ?? 0);
+
+      this.chart.data.labels = labels;
+      this.chart.data.datasets[0].data = subidaData;
+      this.chart.data.datasets[1].data = bajadaData;
+      this.chart.update();
     });
   }
 }

@@ -1,9 +1,14 @@
-import { Component, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import {
   Chart,
-  ChartConfiguration,
-  ChartDataset,
-  ChartOptions,
   registerables
 } from 'chart.js';
 
@@ -11,12 +16,11 @@ Chart.register(...registerables);
 
 @Component({
   selector: 'app-time-series-graphs',
-  imports: [],
   templateUrl: './time-series-graphs.component.html',
   styleUrl: './time-series-graphs.component.css'
 })
-export class TimeSeriesGraphsComponent {
- @Input() title: string = 'Serie de Tiempo';
+export class TimeSeriesGraphsComponent implements AfterViewInit, OnChanges {
+  @Input() title: string = 'Serie de Tiempo';
   @Input() color: string = '#6E3002';
   @Input() data: { timestamp: string; value: number }[] = [];
 
@@ -27,16 +31,27 @@ export class TimeSeriesGraphsComponent {
     this.createChart();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'] && !changes['data'].firstChange) {
+      this.createChart();  // Redibuja la gráfica si cambian los datos
+    }
+  }
+
   createChart(): void {
-    if (this.chart) this.chart.destroy();
+    if (!this.timeChartCanvas) return;
+
+    const ctx = this.timeChartCanvas.nativeElement.getContext('2d');
+    if (!ctx) return;
 
     const labels = this.data.map(d => d.timestamp);
     const values = this.data.map(d => d.value);
 
-    this.chart = new Chart(this.timeChartCanvas.nativeElement, {
+    if (this.chart) this.chart.destroy();  // Destruir el gráfico anterior
+
+    this.chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: labels,
+        labels,
         datasets: [{
           label: this.title,
           data: values,
@@ -48,6 +63,7 @@ export class TimeSeriesGraphsComponent {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
           x: {
             title: {
