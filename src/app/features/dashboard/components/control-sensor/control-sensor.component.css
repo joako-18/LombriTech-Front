@@ -131,6 +131,28 @@ strong, span {
   color: #fff;
 }
 
+.button-save {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button-save button {
+  padding: 12px 24px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-save button:hover {
+  background-color: #45a049;
+}
+
 @media screen and (max-width: 1024px) {
   .sensor-card {
     gap: 24px;

@@ -54,77 +54,47 @@ export class HomeDashboardComponent implements OnInit {
   corTempHumValor: number = 0;
   corPhTdsValor: number = 0;
 
-  constructor(private sensorService: SensorService, private estadisticasService: EstadisticasService) {}
+  constructor(private estadisticasService: EstadisticasService) {}
 
   ngOnInit(): void {
-    /*this.startSensorSimulation(); // Iniciar simulación de sensores
+  this.estadisticasService.connect();
 
-    this.sensorService.obtenerDatos().subscribe((data: SensorDataResponse) => {
-      console.log('Respuesta recibida:', data);
-      if (data && data.datos) {
-        this.labels.push(this.formatTimestamp(data.timestamp));
-        this.phData.push(data.datos.ph);
-        this.humedadData.push(data.datos.humedad);
-      } else {
-        console.error('data.datos es undefined o null:', data);
+  this.estadisticasService.getEstadisticas().subscribe((data) => {
+    // ⬇️ Asigna valores individuales
+    const valores = data?.valores_individuales;
+    if (valores) {
+      this.humedadValue = valores['humedad'] ?? 0;
+      this.conductividadValue = valores['ec'] ?? 0; // o valores['conductividad'] si así viene
+      this.temperaturaValue = valores['temperatura'] ?? 0;
+      this.phValue = valores['ph'] ?? 0;
+      this.turbidezValue = valores['sst'] ?? 0;
+    }
+
+    // ⬇️ Correlaciones (ya lo tenías)
+    const correlaciones = data?.correlaciones_especificas;
+    if (correlaciones) {
+      const tempHum = correlaciones['temperatura_humedad'];
+      if (tempHum?.x?.length && tempHum?.y?.length) {
+        this.corTempHumData = tempHum.x.map((x: number, i: number) => ({
+          sensor1: x,
+          sensor2: tempHum.y[i]
+        }));
+        this.corTempHumValor = tempHum.valor ?? 0;
+        console.log('Correlación Temperatura-Humedad:', this.corTempHumData, this.corTempHumValor);
       }
-    });*/
 
-    this.estadisticasService.connect();
-    this.estadisticasService.getEstadisticas().subscribe((data) => {
-      const correlaciones = data?.correlaciones_especificas;
-
-      if (correlaciones) {
-        const tempHum = correlaciones['temperatura_humedad'];
-        if (tempHum?.x?.length && tempHum?.y?.length) {
-          this.corTempHumData = tempHum.x.map((x: number, i: number) => ({
-            sensor1: x,
-            sensor2: tempHum.y[i]
-          }));
-          this.corTempHumValor = tempHum.valor ?? 0;
-          console.log('Correlación Temperatura-Humedad:', this.corTempHumData, this.corTempHumValor);
-        }
-
-        const phTds = correlaciones["ph_tds"];
-        if (phTds?.x?.length && phTds?.y?.length) {
-          this.corPhTdsData = phTds.x.map((x: number, i: number) => ({
-            sensor1: x,
-            sensor2: phTds.y[i]
-          }));
-          this.corPhTdsValor = phTds.valor ?? 0;
-          console.log('Correlación pH-TDS:', this.corPhTdsData, this.corPhTdsValor);
-        }
+      const phTds = correlaciones["ph_tds"];
+      if (phTds?.x?.length && phTds?.y?.length) {
+        this.corPhTdsData = phTds.x.map((x: number, i: number) => ({
+          sensor1: x,
+          sensor2: phTds.y[i]
+        }));
+        this.corPhTdsValor = phTds.valor ?? 0;
+        console.log('Correlación pH-TDS:', this.corPhTdsData, this.corPhTdsValor);
       }
-    });
-  }
-
-  // Simulación de sensores
-  private startSensorSimulation(): void {
-    setInterval(() => {
-      this.humedadValue = this.getRandomInt(40, 100);
-      this.conductividadValue = parseFloat((Math.random() * 2).toFixed(2));
-      this.temperaturaValue = this.getRandomInt(15, 35);
-      this.phValue = parseFloat((5 + Math.random() * 3).toFixed(2));
-      this.turbidezValue = this.getRandomInt(0, 100);
-    }, 2000);
-  }
-
-  private getRandomInt(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  private formatTimestamp(timestamp: string): string {
-    const date = new Date(timestamp);
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-  }
-
-  getDataSet(label: string, data: number[], color: string) {
-    return [{ data, label, backgroundColor: color }];
-  }
-
-  getMultipleDataSets(ds: { label: string; data: number[]; color: string }[]) {
-    return ds.map(e => ({ data: e.data, label: e.label, backgroundColor: e.color }));
-  }
+    }
+  });
+}
 
   // Métodos para modales
   openSamplingModal(): void {
@@ -229,112 +199,4 @@ export class HomeDashboardComponent implements OnInit {
     // Guardar el PDF
     doc.save(`reporte-lombri-tech_${now.toLocaleDateString().replace(/\//g, '-')}.pdf`);
   }
-
-
-  // Datos adicionales de gráficas (opcional si aún usas estas)
-  scatterTempCond = [
-    {
-      label: 'Temperatura vs Conductividad',
-      data: [
-        { x: 22, y: 0.5 },
-        { x: 23, y: 0.6 },
-        { x: 24, y: 0.8 }
-      ],
-      backgroundColor: 'rgba(255, 159, 64, 0.7)'
-    }
-  ];
-
-  scatterHumCond = [
-    {
-      label: 'Humedad vs Conductividad',
-      data: [
-        { x: 60, y: 0.4 },
-        { x: 62, y: 0.6 },
-        { x: 65, y: 0.9 }
-      ],
-      backgroundColor: 'rgba(153, 102, 255, 0.7)'
-    }
-  ];
-
-  scatterTurbCond = [
-    {
-      label: 'Turbidez vs Conductividad',
-      data: [
-        { x: 1.5, y: 0.5 },
-        { x: 2.0, y: 0.7 },
-        { x: 2.5, y: 0.9 }
-      ],
-      backgroundColor: 'rgba(255, 99, 132, 0.7)'
-    }
-  ];
-
-  scatterTurbPh = [
-    {
-      label: 'Turbidez vs pH',
-      data: [
-        { x: 1.5, y: 6.5 },
-        { x: 2.0, y: 7.0 },
-        { x: 2.5, y: 8.2 }
-      ],
-      backgroundColor: 'rgba(54, 162, 235, 0.7)'
-    }
-  ];
-
-  densityTemp = {
-    labels: Array.from({ length: 30 }, (_, i) => (20 + i * 0.3).toFixed(1)),
-    datasets: [{
-      label: 'Temperatura',
-      data: [0.01, 0.03, 0.08, 0.15, 0.21, 0.25, 0.23, 0.17, 0.1, 0.05],
-      borderColor: 'rgba(255, 99, 132, 1)',
-      fill: false
-    }]
-  };
-
-  densityHum = {
-    labels: Array.from({ length: 30 }, (_, i) => (50 + i).toString()),
-    datasets: [{
-      label: 'Humedad',
-      data: [0.02, 0.06, 0.14, 0.22, 0.25, 0.21, 0.14, 0.07, 0.03, 0.01],
-      borderColor: 'rgba(54, 162, 235, 1)',
-      fill: false
-    }]
-  };
-
-  densityTurb = {
-    labels: Array.from({ length: 30 }, (_, i) => (1 + i * 0.2).toFixed(1)),
-    datasets: [{
-      label: 'Turbidez',
-      data: [0.01, 0.04, 0.12, 0.22, 0.27, 0.22, 0.1, 0.03, 0.01],
-      borderColor: 'rgba(153, 102, 255, 1)',
-      fill: false
-    }]
-  };
-
-  densityCond = {
-    labels: Array.from({ length: 30 }, (_, i) => (0.2 + i * 0.1).toFixed(2)),
-    datasets: [{
-      label: 'Conductividad',
-      data: [0.02, 0.06, 0.14, 0.22, 0.25, 0.21, 0.14, 0.07, 0.03],
-      borderColor: 'rgba(255, 159, 64, 1)',
-      fill: false
-    }]
-  };
-
-  densityPh = {
-    labels: Array.from({ length: 30 }, (_, i) => (5.5 + i * 0.1).toFixed(1)),
-    datasets: [{
-      label: 'pH',
-      data: [0.01, 0.03, 0.08, 0.15, 0.21, 0.25, 0.23, 0.17, 0.1, 0.05],
-      borderColor: 'rgba(75, 192, 192, 1)',
-      fill: false
-    }]
-  };
-
-  dataDeSensores = [
-    { x: 1.1, y: 2.2 },
-    { x: 2.5, y: 3.8 },
-    { x: 3.3, y: 4.1 },
-    { x: 4.8, y: 5.5 },
-    { x: 5.0, y: 5.9 }
-  ];
 }

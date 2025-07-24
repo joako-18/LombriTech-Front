@@ -21,11 +21,6 @@ export class EstadisticasService {
     this.socket.onerror = (error) => {
       console.error('WebSocket error:', error);
     };
-
-    this.socket.onclose = () => {
-      console.warn('websocket cerrado, reintantando en 5');
-      setTimeout(() => this.connect(), 5000);
-    };
   }
 
   getEstadisticas(): Observable<any> {
