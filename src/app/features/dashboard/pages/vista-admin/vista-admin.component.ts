@@ -25,7 +25,7 @@ export class VistaAdminComponent implements OnInit {
   mostrarModalEdicion: boolean = false;
   isRegistering: boolean = false;
 
-  userToEdit: Partial<User & { apellidos: string; password?: string; password_confirm?: string }> = {};
+  userToEdit: Partial<User & { apellidos: string; password?: string; password_confirm?: string; usuario_telegram?: string }> = {};
   roles: string[] = ['Estudiante', 'Investigador'];
 
   constructor(private userService: UserService, private router: Router) { }
@@ -87,6 +87,7 @@ export class VistaAdminComponent implements OnInit {
     email: string;
     contraseña: string;
     confirmarContraseña: string;
+    usuario_telegram: string;
   }) {
     if (!this.isValidRegistration(newUser)) {
       alert('Por favor, complete todos los campos correctamente.');
@@ -101,7 +102,8 @@ export class VistaAdminComponent implements OnInit {
       correo: newUser.email,
       password: newUser.contraseña,
       password_confirm: newUser.confirmarContraseña,
-      rol: this.mapUserRole(newUser.tipoUsuario)
+      rol: this.mapUserRole(newUser.tipoUsuario),
+      usuario_telegram: newUser.usuario_telegram
     };
 
     this.userService.registerUser(userData).subscribe({
@@ -156,6 +158,7 @@ export class VistaAdminComponent implements OnInit {
       rol: user.rol,
       password: '',
       password_confirm: '',
+      usuario_telegram: user.usuario_telegram || ''
     };
     this.mostrarModalEdicion = true;
   }

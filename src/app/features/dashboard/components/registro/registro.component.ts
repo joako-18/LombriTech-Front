@@ -1,6 +1,13 @@
 // registro.component.ts
 import { Component, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  AbstractControl,
+  ValidationErrors
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserAlertComponent } from '../../../../shared/components/user-alert/user-alert.component';
@@ -28,6 +35,7 @@ export class RegistroComponent {
     email: string;
     contraseña: string;
     confirmarContraseña: string;
+    usuario_telegram: string;
   }>();
 
   constructor(private fb: FormBuilder, private router: Router) {
@@ -37,7 +45,8 @@ export class RegistroComponent {
       apellido: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       contraseña: ['', [Validators.required, Validators.minLength(6)]],
-      confirmarContraseña: ['', [Validators.required]]
+      confirmarContraseña: ['', [Validators.required]],
+      usuario_telegram: ['', [Validators.required, Validators.maxLength(50)]]
     }, { validators: this.passwordMatchValidator.bind(this) });
   }
 
@@ -79,10 +88,10 @@ export class RegistroComponent {
   onSubmit() {
     if (this.registroForm.valid && this.currentStep === 2) {
       this.isSubmitting = true;
-      
+
       const formData = this.registroForm.value;
       this.registrado.emit(formData);
-      
+
       this.showSuccessAlert = true;
       this.isSubmitting = false;
     } else {

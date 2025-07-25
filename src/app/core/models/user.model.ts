@@ -12,6 +12,7 @@ export interface User {
   apellidos: string;
   correo: string;
   rol: string;
+  usuario_telegram?: string;
 }
 
 export interface LoginRequest {

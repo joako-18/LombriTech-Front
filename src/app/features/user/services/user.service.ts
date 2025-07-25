@@ -69,6 +69,7 @@ export class UserService {
     password: string;
     password_confirm: string;
     rol: string;
+    usuario_telegram: string; // 👈 nuevo campo agregado
   }): Observable<User> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.getToken()}`,
