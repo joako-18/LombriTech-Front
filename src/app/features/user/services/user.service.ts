@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User, LoginRequest, TokenResponse } from '../../../core/models/user.model';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  // === AUTENTICACIÓN ===
   login(data: LoginRequest): Observable<TokenResponse> {
     const body = new URLSearchParams();
     body.set('username', data.correo);
@@ -29,7 +31,7 @@ export class UserService {
     );
   }
 
-  setToken(token: string) {
+  setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
   }
 
@@ -37,10 +39,27 @@ export class UserService {
     return localStorage.getItem(this.tokenKey);
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem(this.tokenKey);
   }
 
+  isAuthenticated(): boolean {
+    return !!this.getToken();
+  }
+
+  getUserRole(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const payload: any = jwtDecode(token);
+      return payload.rol || null;
+    } catch {
+      return null;
+    }
+  }
+
+  // === CRUD DE USUARIOS ===
   getUsers(): Observable<User[]> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.getToken()}`,

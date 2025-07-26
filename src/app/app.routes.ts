@@ -18,7 +18,7 @@ import { ControlesComponent } from './features/dashboard/pages/controles/control
 import { ConfiguracionComponent } from './features/dashboard/pages/configuracion/configuracion.component';
 import { VistaErrorComponent } from './shared/components/vista-error/vista-error.component';
 import { VistaTurbidezComponent } from './features/dashboard/pages/vista-turbidez/vista-turbidez.component';
-
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -41,5 +41,68 @@ export const routes: Routes = [
     {path: 'configuracion', component: ConfiguracionComponent },
     {path: 'vista-error', component: VistaErrorComponent },
     {path: 'vista-turbidez', component: VistaTurbidezComponent },
-
+    {
+    path: 'home-dashboard',
+    component: HomeDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'alumno'] }
+    },
+    {
+        path: 'registro',
+        component: RegistroComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['admin'] }
+    },
+    {
+        path: 'vista-conductividad',
+        component: VistaConductividadComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['admin', 'alumno'] }
+    },
+    {
+        path: 'vista-temperatura',
+        component: VistaTemperaturaComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['admin', 'alumno'] }
+    },
+    {
+        path: 'vista-humedad',
+        component: VistaHumedadComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['admin', 'alumno'] }
+    },
+    {
+        path: 'vista-ph',
+        component: VistaPhComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['admin', 'alumno'] }
+    },
+    {
+        path: 'vista-admin',
+        component: VistaAdminComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['admin'] } // solo admin
+    },
+    {
+        path: 'vista-controles',
+        component: ControlesComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['admin', 'alumno'] }
+    },
+    {
+        path: 'configuracion',
+        component: ConfiguracionComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['admin', 'alumno'] }
+    },
+    {
+        path: 'vista-error',
+        component: VistaErrorComponent
+    },
+    {
+        path: 'vista-turbidez',
+        component: VistaTurbidezComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['admin', 'alumno'] }
+    },
 ];

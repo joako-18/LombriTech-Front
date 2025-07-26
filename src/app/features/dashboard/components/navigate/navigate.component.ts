@@ -1,18 +1,24 @@
+// navigate.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../user/services/auth.service';
 
 @Component({
   selector: 'app-navigate',
- imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './navigate.component.html',
   styleUrls: ['./navigate.component.css']
 })
 export class NavigateComponent {
   sidebarOpen = false;
   mostrarEstadisticas = true;
+  userRole: string | null = null;
 
-  constructor(public router: Router) {}
+  constructor(public router: Router, private authService: AuthService) {
+    this.userRole = this.authService.getUserRole();
+  }
 
   toggleSidebar(): void {
     this.sidebarOpen = !this.sidebarOpen;
@@ -27,7 +33,16 @@ export class NavigateComponent {
   }
 
   navigate(ruta: string): void {
+    if (ruta === '/vista-admin' && this.userRole !== 'admin') {
+      return; // evita navegación si no es admin
+    }
+
     this.router.navigate([ruta]);
-    this.closeSidebar(); // Cierra en móvil
+    this.closeSidebar();
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

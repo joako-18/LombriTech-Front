@@ -60,10 +60,17 @@
 
       <span>Configuración</span>
     </li>
-    <li (click)="navigate('/vista-admin')"> 
-      <img src="assets/images/icon-administrador.png" alt="icon-administrador">
-      <span>Administración</span>
-    </li>
+    <li *ngIf="userRole === 'admin'" (click)="navigate('/vista-admin')"> 
+    <img src="assets/images/icon-administrador.png" alt="icon-administrador">
+    <span>Administración</span>
+  </li>
+
+  <li (click)="logout()">
+  <img src="assets/images/icon-salir.png" alt="icon-salir" />
+  <span>Cerrar sesión</span>
+</li>
+
+
   </ul>
 
   <div class="footer">

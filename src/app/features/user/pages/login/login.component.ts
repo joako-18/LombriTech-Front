@@ -25,7 +25,7 @@ export class LoginComponent {
       next: tokenResp => {
         console.log('Login exitoso, token:', tokenResp.access_token);
         this.userService.setToken(tokenResp.access_token);  // Guarda el token en localStorage
-        this.router.navigate(['/vista-admin']); // Navega a la ruta protegida o dashboard
+        this.router.navigate(['/home-dashboard']); // Navega a la ruta protegida o dashboard
       },
       error: err => {
         alert('Error en login: ' + (err.error?.detail || err.message));
