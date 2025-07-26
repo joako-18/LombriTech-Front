@@ -4,12 +4,12 @@ import { RealTimeCardComponent } from '../../../../shared/components/real-time-c
 import { ControlSensorComponent } from '../../components/control-sensor/control-sensor.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ControlActuadorComponent } from '../../components/control-actuador/control-actuador.component';
+import { EstadisticasService } from '../../../../core/services/estadisticas.service';
 
 @Component({
   selector: 'app-controles',
   standalone: true,
-  imports: [NavigateComponent, RealTimeCardComponent, ControlSensorComponent, CommonModule, FormsModule, ControlActuadorComponent],
+  imports: [NavigateComponent, RealTimeCardComponent, ControlSensorComponent, CommonModule, FormsModule ],
   templateUrl: './controles.component.html',
   styleUrls: ['./controles.component.css']
 })
@@ -24,4 +24,29 @@ export class ControlesComponent {
     Ph: '#217c61'
   };
 
+  humedadValue = 0;
+  conductividadValue = 0;
+  temperaturaValue = 0;
+  phValue = 0;
+  turbidezValue = 0;
+
+  constructor(private estadisticasService: EstadisticasService) {}
+
+  ngOnInit(): void {
+  this.estadisticasService.connect();
+
+  this.estadisticasService.getEstadisticas().subscribe((data) => {
+    // ⬇️ Asigna valores individuales
+    const valores = data?.valores_individuales;
+    if (valores) {
+      this.humedadValue = valores['humedad'] ?? 0;
+      this.conductividadValue = valores['ec'] ?? 0; // o valores['conductividad'] si así viene
+      this.temperaturaValue = valores['temperatura'] ?? 0;
+      this.phValue = valores['ph'] ?? 0;
+      this.turbidezValue = valores['sst'] ?? 0;
+    }
+
+  });
+
+}
 }

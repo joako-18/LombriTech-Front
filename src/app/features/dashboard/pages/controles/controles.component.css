@@ -49,6 +49,9 @@ h1 {
   border-radius: 20px;
   padding: 30px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .controles h1 {
@@ -86,7 +89,7 @@ h1 {
 
 .parametros-control {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 50px;
   margin-top: 20px;
 }
