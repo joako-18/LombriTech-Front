@@ -1,36 +1,57 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigateComponent } from '../../components/navigate/navigate.component';
-import { FormsModule } from '@angular/forms'; // Importar FormsModule
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../../user/services/user.service';
 
 @Component({
   selector: 'app-configuracion',
-  imports: [NavigateComponent, FormsModule, CommonModule], // Asegúrate de añadir FormsModule aquí
+  standalone: true,
+  imports: [NavigateComponent, FormsModule, CommonModule],
   templateUrl: './configuracion.component.html',
-  styleUrl: './configuracion.component.css'
+  styleUrls: ['./configuracion.component.css'] // corregido a styleUrls
 })
-export class ConfiguracionComponent {
+export class ConfiguracionComponent implements OnInit {
 
-  nombre: string = 'Joaquin Esau Perez Diaz';
-  correo: string = '233412@ids.upchiapas.edu.mx';
+  nombre: string = '';
+  correo: string = '';
+  rol: string = '';
+
   numeroTelegram: string = '961-249-9197';
-  rol: string = 'Investigador';
   direccionCorreo: string = '233412@ids.upchiapas.edu.mx';
 
-  // Variables para controlar la visibilidad del modal
   showTelegramModal: boolean = false;
   showEmailModal: boolean = false;
 
-  // Variables para el contenido editable en el modal
   editNumeroTelegram: string = '';
   editDireccionCorreo: string = '';
 
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.loadUserData();
+  }
+
+  loadUserData() {
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.nombre = user.Nombre;
+        this.correo = user.Correo;
+        this.rol = user.Rol;
+      },
+      error: (err) => {
+        console.error('Error al cargar datos del usuario:', err);
+        // Aquí podrías redirigir a login si hay error 401 o mostrar mensaje
+      }
+    });
+  }
+
   openEditModal(type: 'telegram' | 'email') {
     if (type === 'telegram') {
-      this.editNumeroTelegram = this.numeroTelegram; // Carga el valor actual
+      this.editNumeroTelegram = this.numeroTelegram;
       this.showTelegramModal = true;
     } else if (type === 'email') {
-      this.editDireccionCorreo = this.direccionCorreo; // Carga el valor actual
+      this.editDireccionCorreo = this.direccionCorreo;
       this.showEmailModal = true;
     }
   }
@@ -41,18 +62,14 @@ export class ConfiguracionComponent {
   }
 
   saveTelegram() {
-    // Aquí puedes añadir validación si es necesario
     this.numeroTelegram = this.editNumeroTelegram;
     this.closeEditModal();
-    // En una aplicación real, aquí enviarías el dato al backend
     alert('Número de Telegram actualizado a: ' + this.numeroTelegram);
   }
 
   saveEmail() {
-    // Aquí puedes añadir validación si es necesario
     this.direccionCorreo = this.editDireccionCorreo;
     this.closeEditModal();
-    // En una aplicación real, aquí enviarías el dato al backend
     alert('Dirección de Correo actualizada a: ' + this.direccionCorreo);
   }
 }
