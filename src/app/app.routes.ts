@@ -45,55 +45,55 @@ export const routes: Routes = [
     path: 'home-dashboard',
     component: HomeDashboardComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['admin', 'alumno'] }
+    data: { roles: ['administrador', 'alumno'] }
     },
     {
         path: 'registro',
         component: RegistroComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['admin'] }
+        data: { roles: ['administrador'] }
     },
     {
         path: 'vista-conductividad',
         component: VistaConductividadComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['admin', 'alumno'] }
+        data: { roles: ['administrador', 'alumno'] }
     },
     {
         path: 'vista-temperatura',
         component: VistaTemperaturaComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['admin', 'alumno'] }
+        data: { roles: ['administrador', 'alumno'] }
     },
     {
         path: 'vista-humedad',
         component: VistaHumedadComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['admin', 'alumno'] }
+        data: { roles: ['administrador', 'alumno'] }
     },
     {
         path: 'vista-ph',
         component: VistaPhComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['admin', 'alumno'] }
+        data: { roles: ['administrador', 'alumno'] }
     },
     {
         path: 'vista-admin',
         component: VistaAdminComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['admin'] } // solo admin
+        data: { roles: ['administrador'] } // solo admin
     },
     {
         path: 'vista-controles',
         component: ControlesComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['admin', 'alumno'] }
+        data: { roles: ['administrador', 'alumno'] }
     },
     {
         path: 'configuracion',
         component: ConfiguracionComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['admin', 'alumno'] }
+        data: { roles: ['administrador', 'alumno'] }
     },
     {
         path: 'vista-error',
@@ -103,6 +103,6 @@ export const routes: Routes = [
         path: 'vista-turbidez',
         component: VistaTurbidezComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['admin', 'alumno'] }
+        data: { roles: ['administrador', 'alumno'] }
     },
 ];

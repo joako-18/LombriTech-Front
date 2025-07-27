@@ -17,8 +17,8 @@ export class ConfiguracionComponent implements OnInit {
   correo: string = '';
   rol: string = '';
 
-  numeroTelegram: string = '961-249-9197';
-  direccionCorreo: string = '233412@ids.upchiapas.edu.mx';
+  numeroTelegram: string = '';
+  direccionCorreo: string = '';
 
   showTelegramModal: boolean = false;
   showEmailModal: boolean = false;
@@ -38,6 +38,8 @@ export class ConfiguracionComponent implements OnInit {
         this.nombre = user.Nombre;
         this.correo = user.Correo;
         this.rol = user.Rol;
+        this.numeroTelegram = user.usuario_telegram;
+        this.direccionCorreo = user.correo;
       },
       error: (err) => {
         console.error('Error al cargar datos del usuario:', err);

@@ -81,11 +81,11 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/admin/users/${userId}`, { headers });
   }
 
-  getCurrentUser(): Observable<{ Nombre: string; Correo: string; Rol: string }> {
+  getCurrentUser(): Observable<{ Nombre: string; Correo: string; Rol: string, usuario_telegram: string, correo: string }> {
   const headers = new HttpHeaders({
     Authorization: `Bearer ${this.getToken()}`,
   });
-  return this.http.get<{ Nombre: string; Correo: string; Rol: string }>(
+  return this.http.get<{ Nombre: string; Correo: string; Rol: string, usuario_telegram: string, correo: string }>(
   `${this.apiUrl}/admin/users/me`,
   { headers }
 );
