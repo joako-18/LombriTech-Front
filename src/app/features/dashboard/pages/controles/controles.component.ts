@@ -40,7 +40,7 @@ export class ControlesComponent {
     const valores = data?.valores_individuales;
     if (valores) {
       this.humedadValue = valores['humedad'] ?? 0;
-      this.conductividadValue = valores['ec'] ?? 0; // o valores['conductividad'] si así viene
+      this.conductividadValue = valores['tds'] ?? 0; // o valores['conductividad'] si así viene
       this.temperaturaValue = valores['temperatura'] ?? 0;
       this.phValue = valores['ph'] ?? 0;
       this.turbidezValue = valores['sst'] ?? 0;
