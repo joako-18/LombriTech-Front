@@ -1,8 +1,8 @@
-// navigate.component.ts
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../user/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navigate',
@@ -11,13 +11,21 @@ import { AuthService } from '../../../user/services/auth.service';
   templateUrl: './navigate.component.html',
   styleUrls: ['./navigate.component.css']
 })
-export class NavigateComponent {
+export class NavigateComponent implements OnDestroy {
   sidebarOpen = false;
   mostrarEstadisticas = true;
   userRole: string | null = null;
+  private roleSubscription?: Subscription;
 
   constructor(public router: Router, private authService: AuthService) {
-    this.userRole = this.authService.getUserRole();
+    // Suscribirse al observable para actualizar rol en tiempo real
+    this.roleSubscription = this.authService.role$.subscribe(role => {
+      this.userRole = role;
+    });
+  }
+
+  ngOnDestroy() {
+    this.roleSubscription?.unsubscribe();
   }
 
   toggleSidebar(): void {
@@ -32,14 +40,13 @@ export class NavigateComponent {
     this.mostrarEstadisticas = !this.mostrarEstadisticas;
   }
 
-  navigate(ruta: string): void {
-    if (ruta === '/vista-admin' && this.userRole !== 'admin') {
-      return; // evita navegación si no es admin
-    }
-
-    this.router.navigate([ruta]);
-    this.closeSidebar();
+navigate(ruta: string): void {
+  if (ruta === '/vista-admin' && this.userRole !== 'administrador') {
+    return; // evita navegación si no es admin
   }
+  this.router.navigate([ruta]);
+  this.closeSidebar();
+}
 
   logout(): void {
     this.authService.logout();
