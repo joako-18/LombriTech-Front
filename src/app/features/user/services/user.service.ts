@@ -81,6 +81,16 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/admin/users/${userId}`, { headers });
   }
 
+  getCurrentUser(): Observable<{ Nombre: string; Correo: string; Rol: string }> {
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${this.getToken()}`,
+  });
+  return this.http.get<{ Nombre: string; Correo: string; Rol: string }>(
+  `${this.apiUrl}/admin/users/me`,
+  { headers }
+);
+}
+
   registerUser(data: {
     nombre: string;
     apellidos: string;
