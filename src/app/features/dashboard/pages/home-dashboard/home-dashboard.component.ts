@@ -11,6 +11,7 @@ import { SensorProbabilityChartComponent } from "../../components/sensor-probabi
 import { GraphCardComponent } from '../../../../shared/components/graph-card/graph-card.component';
 import jsPDF from 'jspdf'; // Importa jsPDF
 import { EstadisticasService } from '../../../../core/services/estadisticas.service';
+import { ReporteService } from '../../../../core/services/reporte.service';
 
 @Component({
   selector: 'app-home-dashboard',
@@ -54,7 +55,9 @@ export class HomeDashboardComponent implements OnInit {
   corTempHumValor: number = 0;
   corPhTdsValor: number = 0;
 
-  constructor(private estadisticasService: EstadisticasService) {}
+  reportesGenerados: { nombre: string, url: string, fecha: string }[] = [];
+
+  constructor(private estadisticasService: EstadisticasService, private reporteService: ReporteService) {}
 
   ngOnInit(): void {
   this.estadisticasService.connect();
@@ -131,72 +134,57 @@ export class HomeDashboardComponent implements OnInit {
    * @param data Los datos finales del muestreo.
    */
   private generatePdfReport(data: { worms: number, compost: number, leachate: number }): void {
-    const doc = new jsPDF();
+  const doc = new jsPDF();
 
-    // Título del reporte
-    doc.setFontSize(22);
-    doc.text('Reporte de Medición de LombriTech', 10, 20);
+  // Título
+  doc.setFontSize(22);
+  doc.text('Reporte de Medición de LombriTech', 10, 20);
 
-    // Fecha y hora del reporte
-    const now = new Date();
-    doc.setFontSize(10);
-    doc.text(`Fecha del reporte: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 10, 30);
+  // Fecha
+  const now = new Date();
+  const fechaHora = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+  doc.setFontSize(10);
+  doc.text(`Fecha del reporte: ${fechaHora}`, 10, 30);
 
-    // Contenido del reporte
-    doc.setFontSize(12);
-    let yOffset = 50; // Posición inicial para el contenido
+  // Contenido
+  doc.setFontSize(12);
+  let yOffset = 50;
+  doc.text(`Resultados del Muestreo:`, 10, yOffset);
+  yOffset += 10;
+  doc.text(`Lombrices: ${data.worms}`, 20, yOffset);
+  yOffset += 10;
+  doc.text(`Compost: ${data.compost}`, 20, yOffset);
+  yOffset += 10;
+  doc.text(`Lixiviados: ${data.leachate}`, 20, yOffset);
+  yOffset += 20;
 
-    doc.text(`Resultados del Muestreo:`, 10, yOffset);
-    yOffset += 10;
-    doc.text(`Lombrices: ${data.worms}`, 20, yOffset);
-    yOffset += 10;
-    doc.text(`Compost: ${data.compost}`, 20, yOffset);
-    yOffset += 10;
-    doc.text(`Lixiviados: ${data.leachate}`, 20, yOffset);
-    yOffset += 10;
+  doc.text('Últimos valores de sensores registrados:', 10, yOffset);
+  yOffset += 10;
+  doc.text(`PH: ${this.phValue}`, 20, yOffset);
+  yOffset += 10;
+  doc.text(`Humedad: ${this.humedadValue}%`, 20, yOffset);
+  yOffset += 10;
+  doc.text(`Temperatura: ${this.temperaturaValue}°C`, 20, yOffset);
+  yOffset += 10;
+  doc.text(`Conductividad: ${this.conductividadValue} EC`, 20, yOffset);
+  yOffset += 10;
+  doc.text(`Turbidez: ${this.turbidezValue}`, 20, yOffset);
+  yOffset += 20;
 
+  // Generar Blob y URL
+  const pdfBlob = doc.output('blob');
+  const blobUrl = URL.createObjectURL(pdfBlob);
+  const nombreArchivo = `reporte-lombri-tech_${now.toLocaleDateString().replace(/\//g, '-')}_${now.getHours()}-${now.getMinutes()}-${now.getSeconds()}.pdf`;
 
-    // ***** COMIENZO DEL LUGAR PARA AÑADIR MÁS CONTENIDO AL REPORTE *****
-    // Aquí puedes añadir más datos al reporte PDF.
-    // Puedes acceder a las variables de tu componente como:
-    // - `this.phData`, `this.humedadData`, `this.labels` para los datos de las gráficas
-    // - `this.phValue`, `this.humedadValue`, etc. para los últimos valores registrados
-    // - Cualquier otra información relevante que quieras incluir del componente.
+  // ⬇️ Guarda el reporte usando el servicio (NO local)
+  this.reporteService.agregarReporte({
+    nombre: nombreArchivo,
+    url: blobUrl,
+    fecha: fechaHora
+  });
 
-    // Ejemplo: Añadir los datos de las últimas mediciones:
-    doc.text('Últimos valores de sensores registrados:', 10, yOffset + 20);
-    yOffset += 30;
-    doc.text(`PH: ${this.phValue}`, 20, yOffset);
-    yOffset += 10;
-    doc.text(`Humedad: ${this.humedadValue}%`, 20, yOffset);
-    yOffset += 10;
-    doc.text(`Temperatura: ${this.temperaturaValue}°C`, 20, yOffset);
-    yOffset += 10;
-    doc.text(`Conductividad: ${this.conductividadValue} EC`, 20, yOffset);
-    yOffset += 10;
-    doc.text(`Turbidez: ${this.turbidezValue}`, 20, yOffset);
-    yOffset += 10;
+  // Opcional: abrir en nueva pestaña
+  window.open(blobUrl, '_blank');
+}
 
-    // Puedes iterar sobre los datos históricos si los tienes:
-    /*
-    doc.text('Datos históricos (PH):', 10, yOffset + 20);
-    yOffset += 30;
-    this.phData.forEach((ph, index) => {
-        doc.text(`Hora: ${this.labels[index]}, PH: ${ph}`, 20, yOffset);
-        yOffset += 7; // Pequeño incremento para cada línea
-    });
-    */
-
-    // Si tuvieras imágenes de gráficas (requiere html2canvas y jspdf-autotable para tablas)
-    // const canvas = document.getElementById('myChart') as HTMLCanvasElement;
-    // const imgData = canvas.toDataURL('image/png');
-    // doc.addImage(imgData, 'PNG', 10, yOffset, 180, 100);
-    // yOffset += 110;
-
-    // ***** FIN DEL LUGAR PARA AÑADIR MÁS CONTENIDO AL REPORTE *****
-
-
-    // Guardar el PDF
-    doc.save(`reporte-lombri-tech_${now.toLocaleDateString().replace(/\//g, '-')}.pdf`);
-  }
 }

@@ -412,3 +412,104 @@ html, body {
   padding: 0;
   overflow-x: hidden;
 }
+
+.alertas p code {
+  background-color: #eee;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* Mejora para la nueva sección de instrucciones */
+.alertas .row {
+  align-items: flex-start;
+}
+
+.alertas .row div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px;
+}
+
+.alertas p {
+  font-size: 22px;
+  font-weight: 500;
+  color: #4B1E00;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.alertas p strong {
+  color: #6E3002;
+}
+
+.alertas p code {
+  background-color: #e0d7c3;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 20px;
+  color: #6E3002;
+}
+
+.alertas img[alt="info"] {
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+}
+
+/* Responsive para las instrucciones */
+@media (max-width: 900px) {
+  .alertas .row div {
+    max-width: 100%;
+  }
+
+  .alertas p {
+    font-size: 18px;
+  }
+
+  .alertas p code {
+    font-size: 16px;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .alertas p {
+    font-size: 16px;
+  }
+
+  .alertas p code {
+    font-size: 14px;
+  }
+
+  .alertas img[alt="info"] {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.report-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.report-item img {
+  width: 24px;
+  height: 24px;
+}
+
+.report-item a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #1a73e8;
+}
+
+.report-item .fecha {
+  font-size: 0.9em;
+  color: #666;
+  margin-left: auto;
+}

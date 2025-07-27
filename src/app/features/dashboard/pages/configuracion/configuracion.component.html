@@ -26,57 +26,34 @@
         </div>
 
         <div class="alertas">
-          <h2>Enviar alerta</h2>
-          <div class="row">
-            <img src="assets/images/icon-telegram.png" alt="Telegram">
-            <p>{{ numeroTelegram }}</p>
-          </div>
-          <div class="row">
-            <img src="assets/images/icon-correo.png" alt="correo">
-            <p>{{ correo }}</p>
-          </div>
-          <hr>
+  <h2>Conecta tu cuenta de Telegram</h2>
+
+  <div class="row">
+        <img src="assets/images/icon-telegram.png" alt="Telegram">
+        <div>
+          <p>1. Abre Telegram y busca nuestro bot: <strong>&#64;lombritech_alert_bot</strong>.</p>
+          <p>2. Inicia una conversación con el bot escribiendo <code>/start</code>.</p>
+          <p>3. El bot te responderá con tu <strong>ID de usuario</strong>.</p>
+          <p>4. Copia ese ID y pégalo en tu perfil para comenzar a recibir notificaciones.</p>
         </div>
       </div>
 
-      <div class="reportes-section">
-        <h2>Reportes</h2>
-        <div class="report-item">
-          <img src="assets/images/icon-pdf.png" alt="PDF">
-          <p>Reporte-01-05-25</p>
-        </div>
-        <div class="report-item">
-          <img src="assets/images/icon-pdf.png" alt="PDF">
-          <p>Reporte-01-05-25</p>
-        </div>
-        <div class="report-item">
-          <img src="assets/images/icon-pdf.png" alt="PDF">
-          <p>Reporte-01-05-25</p>
-        </div>
-        <div class="report-item">
-          <img src="assets/images/icon-pdf.png" alt="PDF">
-          <p>Reporte-01-05-25</p>
-        </div>
-        <div class="report-item">
-          <img src="assets/images/icon-pdf.png" alt="PDF">
-          <p>Reporte-01-05-25</p>
-        </div>
-        <div class="report-item">
-          <img src="assets/images/icon-pdf.png" alt="PDF">
-          <p>Reporte-01-05-25</p>
-        </div>
-        <div class="report-item">
-          <img src="assets/images/icon-pdf.png" alt="PDF">
-          <p>Reporte-01-05-25</p>
-        </div>
-        <div class="report-item">
-          <img src="assets/images/icon-pdf.png" alt="PDF">
-          <p>Reporte-01-05-25</p>
-        </div>
+      <div class="row">
+        <p>¿No sabes cuál es tu ID de Telegram? También puedes usar <strong>&#64;userinfobot</strong> para obtenerlo.</p>
       </div>
-    </div>
+
+      <hr>
+  </div>
+      </div>
+
+      <div class="reportes-section">
+  <h2>Reportes</h2>
+  <div *ngFor="let reporte of reportesGenerados" class="report-item">
+    <img src="assets/images/icon-pdf.png" alt="PDF">
+    <a [href]="reporte.url" target="_blank">{{ reporte.nombre }}</a>
   </div>
 </div>
+
 
 <div class="modal-overlay" *ngIf="showTelegramModal">
   <div class="modal-content">

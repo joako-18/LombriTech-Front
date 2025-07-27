@@ -3,6 +3,7 @@ import { NavigateComponent } from '../../components/navigate/navigate.component'
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../user/services/user.service';
+import { ReporteService } from '../../../../core/services/reporte.service';
 
 @Component({
   selector: 'app-configuracion',
@@ -26,10 +27,13 @@ export class ConfiguracionComponent implements OnInit {
   editNumeroTelegram: string = '';
   editDireccionCorreo: string = '';
 
-  constructor(private userService: UserService) {}
+  reportesGenerados: { nombre: string, url: string, fecha: string }[] = [];
+
+  constructor(private userService: UserService, private reporteService: ReporteService) {}
 
   ngOnInit() {
     this.loadUserData();
+    this.reportesGenerados = this.reporteService.getReportes();
   }
 
   loadUserData() {
