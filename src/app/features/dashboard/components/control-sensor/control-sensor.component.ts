@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertaService } from '../../../../core/services/alerta.service';
@@ -13,6 +13,9 @@ import { AlertaService } from '../../../../core/services/alerta.service';
 export class ControlSensorComponent {
   @Input() sensor: string = 'Humedad';
   @Input() bgColor: string = '#4682A9';
+
+    @Output() alertaGuardada = new EventEmitter<void>(); // Nuevo evento
+
   
   valorMinimo: number = 0;
   valorMaximo: number = 0;
@@ -30,7 +33,10 @@ export class ControlSensorComponent {
     };
 
     this.alertaService.guardarConfiguracion(alerta).subscribe({
-      next: () => console.log('Alerta guardada correctamente'),
+      next: () => {
+        console.log('Alerta guardada correctamente');
+        this.alertaGuardada.emit(); // Emitir evento al padre
+      },
       error: err => console.error('Error al guardar la alerta', err)
     });
   }

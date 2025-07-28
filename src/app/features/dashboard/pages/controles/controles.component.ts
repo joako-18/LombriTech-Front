@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EstadisticasService } from '../../../../core/services/estadisticas.service';
 import { ValoresRealesService } from '../../../../core/services/valores-reales.service';
+import { ModalInformativoComponent } from '../../components/modal-informativo/modal-informativo.component';
 
 @Component({
   selector: 'app-controles',
@@ -15,7 +16,8 @@ import { ValoresRealesService } from '../../../../core/services/valores-reales.s
     RealTimeCardComponent,
     ControlSensorComponent,
     CommonModule,
-    FormsModule
+    FormsModule,
+    ModalInformativoComponent
   ],
   templateUrl: './controles.component.html',
   styleUrls: ['./controles.component.css']
@@ -37,6 +39,9 @@ export class ControlesComponent {
   phValue = 0;
   turbidezValue = 0;
 
+  mostrarModal = false;
+  mensajeModal = '';
+
   constructor(private estadisticasService: EstadisticasService,
               private valoresRealesService: ValoresRealesService
   ) {}
@@ -57,5 +62,14 @@ private actualizarSiCambio(valorActual: number, nuevoValor: any): number {
       return valorActual;
     }
     return nuevoValor !== valorActual ? nuevoValor : valorActual;
+  }
+
+  mostrarMensajeExito(): void {
+    this.mensajeModal = 'Configuración guardada correctamente.';
+    this.mostrarModal = true;
+
+    setTimeout(() => {
+      this.mostrarModal = false;
+    }, 3000);
   }
 }

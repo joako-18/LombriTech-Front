@@ -62,9 +62,15 @@
       </div>
       <div class="parametros-control">
         <app-control-sensor
-          [sensor]="tipoSensorSeleccionado"
-          [bgColor]="colores[tipoSensorSeleccionado]">
-        </app-control-sensor>
+  [sensor]="tipoSensorSeleccionado"
+  [bgColor]="colores[tipoSensorSeleccionado]"
+  (alertaGuardada)="mostrarMensajeExito()">
+</app-control-sensor>
+
+<app-modal-informativo
+ [mensaje]="mensajeModal"
+  [visible]="mostrarModal">
+</app-modal-informativo>
       </div>
     </div>
   </div>
