@@ -56,6 +56,6 @@ export class AlertsService {
       'Content-Type': 'application/json'
     });
 
-    return this.http.post(`http://localhost:8000/alertas/usuario/${userId}`, { mensaje }, { headers });
+    return this.http.post(`https://lombritech.backend.upprojects.online/alertas/usuario/${userId}`, { mensaje }, { headers });
   }
 }
