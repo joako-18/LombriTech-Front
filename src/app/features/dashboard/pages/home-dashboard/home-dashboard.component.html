@@ -1,14 +1,6 @@
 <div class="dashboard">
   <app-navigate></app-navigate>
-   <div *ngIf="isSensorAlertActive" class="sensor-alert-modal">
-    <app-sensor-alert
-      [sensorName]="'Ph'"
-      [alertDescription]="'Ph = 8.3 es mayor que el máximo permitido 7.5'"
-      [wormImage]="'assets/images/error.png'"
-      [showAlert]="isSensorAlertActive">
-    </app-sensor-alert>
-    <button class="close-alert-button" (click)="toggleAlert()">✖</button>
-  </div>
+  <div *ngIf="isSensorAlertActive" class="sensor-alert-modal"> <app-sensor-alert [sensorName]="sensorName" [alertDescription]="alertDescription" [wormImage]="'assets/images/error.png'" [showAlert]="isSensorAlertActive"> </app-sensor-alert> <button class="close-alert-button" (click)="toggleAlert()">✖</button> </div>
 
   <div class="main-content">
     <div class="title">
@@ -85,66 +77,19 @@
   <!-- ✅ Gráficas de correlación -->
   <div class="correlation-section">
     <app-graph-card
-  [sensor1Name]="'Temperatura'"
-  [sensor2Name]="'Humedad'"
-  [title]="'Correlación entre Temperatura y Humedad'"
-  [dataPoints]="[
-    { sensor1: 20, sensor2: 68 },
-    { sensor1: 21, sensor2: 66 },
-    { sensor1: 22, sensor2: 64 },
-    { sensor1: 23, sensor2: 62 },
-    { sensor1: 24, sensor2: 60 },
-    { sensor1: 25, sensor2: 58 },
-    { sensor1: 26, sensor2: 56 },
-    { sensor1: 27, sensor2: 54 },
-    { sensor1: 28, sensor2: 52 },
-    { sensor1: 29, sensor2: 50 },
-    { sensor1: 30, sensor2: 48 },
-    { sensor1: 31, sensor2: 47 },
-    { sensor1: 32, sensor2: 46 },
-    { sensor1: 33, sensor2: 45 }
-  ]">
-</app-graph-card>
+      [sensor1Name]="'Temperatura'"
+      [sensor2Name]="'Humedad'"
+      [title]="'Correlación entre Temperatura y Humedad'"
+      [dataPoints]="corTempHumData">
+    </app-graph-card>
 
 
-    <app-graph-card
-  [sensor1Name]="'PH'"
-  [sensor2Name]="'Turbidez'"
-  [title]="'Correlación entre PH y Turbidez'"
-  [dataPoints]="[
-    { sensor1: 6.5, sensor2: 18 },
-    { sensor1: 6.6, sensor2: 20 },
-    { sensor1: 6.7, sensor2: 21 },
-    { sensor1: 6.8, sensor2: 23 },
-    { sensor1: 6.9, sensor2: 25 },
-    { sensor1: 7.0, sensor2: 27 },
-    { sensor1: 7.1, sensor2: 28 },
-    { sensor1: 7.2, sensor2: 30 },
-    { sensor1: 7.3, sensor2: 32 },
-    { sensor1: 7.4, sensor2: 33 },
-    { sensor1: 7.5, sensor2: 35 }
-  ]">
-</app-graph-card>
-
-
-    <app-graph-card
-  [sensor1Name]="'Conductividad'"
-  [sensor2Name]="'Humedad'"
-  [title]="'Correlación entre Conductividad y Humedad'"
-  [dataPoints]="[
-    { sensor1: 0.8, sensor2: 38 },
-    { sensor1: 0.9, sensor2: 40 },
-    { sensor1: 1.0, sensor2: 43 },
-    { sensor1: 1.1, sensor2: 45 },
-    { sensor1: 1.2, sensor2: 47 },
-    { sensor1: 1.3, sensor2: 49 },
-    { sensor1: 1.4, sensor2: 51 },
-    { sensor1: 1.5, sensor2: 53 },
-    { sensor1: 1.6, sensor2: 55 },
-    { sensor1: 1.7, sensor2: 57 },
-    { sensor1: 1.8, sensor2: 59 }
-  ]">
-</app-graph-card>
+    <app-graph-card 
+      [sensor1Name]="'PH'"
+      [sensor2Name]="'TDS'"
+      [title]="'Correlación entre PH y TDS'"
+      [dataPoints]="corPhTdsData">
+    </app-graph-card>
 
   </div>
 </div>

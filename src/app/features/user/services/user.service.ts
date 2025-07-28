@@ -98,12 +98,25 @@ export class UserService {
     password: string;
     password_confirm: string;
     rol: string;
-    usuario_telegram: string; // 👈 nuevo campo agregado
+    usuario_telegram: string;
   }): Observable<User> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.getToken()}`,
       'Content-Type': 'application/json'
     });
     return this.http.post<User>(`${this.apiUrl}/admin/users`, data, { headers });
+  }
+
+  getUserIdFromToken(): number | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const payload: any = jwtDecode(token);
+      return parseInt(payload.sub, 10);
+    } catch (error) {
+      console.error('Error al decodificar el token:', error);
+      return null;
+    }
   }
 }

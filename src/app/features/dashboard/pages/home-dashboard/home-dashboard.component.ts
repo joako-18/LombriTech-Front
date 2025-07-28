@@ -12,6 +12,7 @@ import { GraphCardComponent } from '../../../../shared/components/graph-card/gra
 import jsPDF from 'jspdf'; // Importa jsPDF
 import { EstadisticasService } from '../../../../core/services/estadisticas.service';
 import { ReporteService } from '../../../../core/services/reporte.service';
+import { AlertsService } from '../../../../core/services/alerts.service';
 
 @Component({
   selector: 'app-home-dashboard',
@@ -55,25 +56,30 @@ export class HomeDashboardComponent implements OnInit {
   corTempHumValor: number = 0;
   corPhTdsValor: number = 0;
 
+  sensorName: string = '';
+  alertDescription: string = '';
+
   reportesGenerados: { nombre: string, url: string, fecha: string }[] = [];
 
-  constructor(private estadisticasService: EstadisticasService, private reporteService: ReporteService) {}
+  constructor(
+    private estadisticasService: EstadisticasService,
+    private reporteService: ReporteService,
+    private alertsService: AlertsService
+  ) {}
 
   ngOnInit(): void {
   this.estadisticasService.connect();
 
   this.estadisticasService.getEstadisticas().subscribe((data) => {
-    // ⬇️ Asigna valores individuales
     const valores = data?.valores_individuales;
     if (valores) {
       this.humedadValue = valores['humedad'] ?? 0;
-      this.conductividadValue = valores['tds'] ?? 0; // o valores['conductividad'] si así viene
+      this.conductividadValue = valores['tds'] ?? 0;
       this.temperaturaValue = valores['temperatura'] ?? 0;
       this.phValue = valores['ph'] ?? 0;
       this.turbidezValue = valores['sst'] ?? 0;
     }
 
-    // ⬇️ Correlaciones (ya lo tenías)
     const correlaciones = data?.correlaciones_especificas;
     if (correlaciones) {
       const tempHum = correlaciones['temperatura_humedad'];
@@ -97,14 +103,32 @@ export class HomeDashboardComponent implements OnInit {
       }
     }
   });
+
+  this.alertsService.connect();
+  this.alertsService.getAlertas().subscribe((mensaje: string) => {
+    this.isSensorAlertActive = true;
+    this.alertDescription = mensaje;
+    this.sensorName = this.detectarSensorDesdeMensaje(mensaje);
+    console.log('[HomeDashboard] Alerta recibida:', mensaje);
+    console.log('[HomeDashboard] Sensor detectado:', this.sensorName);
+
+    this.alertsService.enviarAlertaTelegram(mensaje)?.subscribe({
+      next: () => console.log('[HomeDashboard] Alerta enviada a Telegram correctamente.'),
+      error: (err) => console.error('[HomeDashboard] Error al enviar alerta a Telegram:', err)
+    })
+  });
 }
 
-  // Métodos para modales
+private detectarSensorDesdeMensaje(mensaje: string): string {
+  const sensores = ['temperatura', 'humedad', 'ph', 'turbidez', 'conductividad'];
+  return sensores.find(sensor => mensaje.toLowerCase().includes(sensor)) || 'sensor';
+}
+
+
   openSamplingModal(): void {
     this.isSamplingModalVisible = true;
   }
 
-  // ¡MODIFICADO AQUÍ! Eliminado 'compost: number' del parámetro de handleInitiateSampling
   handleInitiateSampling(data: { description: string, worms: number, wormsUnit: string, wormType: string }): void {
     console.log('Iniciando muestreo con los siguientes datos:', data);
     this.isSamplingModalVisible = false;

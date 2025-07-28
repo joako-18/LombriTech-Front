@@ -27,12 +27,13 @@ export class SensorAlertComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.updateBackgroundColor();
   }
-
+  
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['sensorName']) {
+    if (changes['sensorName']) { 
       this.updateBackgroundColor();
-    }
+      console.log('[SensorAlertComponent] Mostrando alerta para:', this.sensorName, '| Mensaje:', this.alertDescription);
   }
+}
 
   private updateBackgroundColor(): void {
     const lowerCaseSensorName = this.sensorName.toLowerCase();
