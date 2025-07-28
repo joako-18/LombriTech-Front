@@ -9,10 +9,11 @@ import { SensorAlertComponent } from "../../components/sensor-alert/sensor-alert
 import { CommonModule } from '@angular/common';
 import { SensorProbabilityChartComponent } from "../../components/sensor-probability-chart/sensor-probability-chart.component";
 import { GraphCardComponent } from '../../../../shared/components/graph-card/graph-card.component';
-import jsPDF from 'jspdf'; // Importa jsPDF
+import jsPDF from 'jspdf';
 import { EstadisticasService } from '../../../../core/services/estadisticas.service';
 import { ReporteService } from '../../../../core/services/reporte.service';
 import { AlertsService } from '../../../../core/services/alerts.service';
+import { ValoresRealesService } from '../../../../core/services/valores-reales.service';
 
 @Component({
   selector: 'app-home-dashboard',
@@ -32,21 +33,16 @@ import { AlertsService } from '../../../../core/services/alerts.service';
 })
 export class HomeDashboardComponent implements OnInit {
 
-  // Variables para valores aleatorios
   humedadValue = 0;
   conductividadValue = 0;
   temperaturaValue = 0;
   phValue = 0;
   turbidezValue = 0;
 
-  // Estado de alerta de sensor
   isSensorAlertActive: boolean = false;
-
-  // Estado de modales
   isSamplingModalVisible: boolean = false;
   isEndSamplingModalVisible: boolean = false;
 
-  // Gráficas
   labels: string[] = [];
   phData: number[] = [];
   humedadData: number[] = [];
@@ -58,72 +54,85 @@ export class HomeDashboardComponent implements OnInit {
 
   sensorName: string = '';
   alertDescription: string = '';
-
   reportesGenerados: { nombre: string, url: string, fecha: string }[] = [];
 
   constructor(
     private estadisticasService: EstadisticasService,
     private reporteService: ReporteService,
-    private alertsService: AlertsService
+    private alertsService: AlertsService,
+    private valoresRealesService: ValoresRealesService
   ) {}
 
   ngOnInit(): void {
-  this.estadisticasService.connect();
-
-  this.estadisticasService.getEstadisticas().subscribe((data) => {
-    const valores = data?.valores_individuales;
-    if (valores) {
-      this.humedadValue = valores['humedad'] ?? 0;
-      this.conductividadValue = valores['tds'] ?? 0;
-      this.temperaturaValue = valores['temperatura'] ?? 0;
-      this.phValue = valores['ph'] ?? 0;
-      this.turbidezValue = valores['sst'] ?? 0;
-    }
-
-    const correlaciones = data?.correlaciones_especificas;
-    if (correlaciones) {
-      const tempHum = correlaciones['temperatura_humedad'];
-      if (tempHum?.x?.length && tempHum?.y?.length) {
-        this.corTempHumData = tempHum.x.map((x: number, i: number) => ({
-          sensor1: x,
-          sensor2: tempHum.y[i]
-        }));
-        this.corTempHumValor = tempHum.valor ?? 0;
-        console.log('Correlación Temperatura-Humedad:', this.corTempHumData, this.corTempHumValor);
+    this.estadisticasService.connect();
+    this.estadisticasService.getEstadisticas().subscribe((data) => {
+      const valores = data?.valores_individuales;
+      if (valores) {
+        this.humedadValue = this.actualizarSiCambio(this.humedadValue, valores['humedad']);
+        this.conductividadValue = this.actualizarSiCambio(this.conductividadValue, valores['tds']);
+        this.temperaturaValue = this.actualizarSiCambio(this.temperaturaValue, valores['temperatura']);
+        this.phValue = this.actualizarSiCambio(this.phValue, valores['ph']);
+        this.turbidezValue = this.actualizarSiCambio(this.turbidezValue, valores['sst']);
       }
 
-      const phTds = correlaciones["ph_tds"];
-      if (phTds?.x?.length && phTds?.y?.length) {
-        this.corPhTdsData = phTds.x.map((x: number, i: number) => ({
-          sensor1: x,
-          sensor2: phTds.y[i]
-        }));
-        this.corPhTdsValor = phTds.valor ?? 0;
-        console.log('Correlación pH-TDS:', this.corPhTdsData, this.corPhTdsValor);
+      const correlaciones = data?.correlaciones_especificas;
+      if (correlaciones) {
+        const tempHum = correlaciones['temperatura_humedad'];
+        if (tempHum?.x?.length && tempHum?.y?.length) {
+          this.corTempHumData = tempHum.x.map((x: number, i: number) => ({
+            sensor1: x,
+            sensor2: tempHum.y[i]
+          }));
+          this.corTempHumValor = tempHum.valor ?? 0;
+        }
+
+        const phTds = correlaciones["ph_tds"];
+        if (phTds?.x?.length && phTds?.y?.length) {
+          this.corPhTdsData = phTds.x.map((x: number, i: number) => ({
+            sensor1: x,
+            sensor2: phTds.y[i]
+          }));
+          this.corPhTdsValor = phTds.valor ?? 0;
+        }
       }
+    });
+
+    this.valoresRealesService.connect();
+    this.valoresRealesService.getValores().subscribe((valores) => {
+      this.humedadValue = this.actualizarSiCambio(this.humedadValue, valores.humedad);
+      this.conductividadValue = this.actualizarSiCambio(this.conductividadValue, valores.tds);
+      this.temperaturaValue = this.actualizarSiCambio(this.temperaturaValue, valores.temperatura);
+      this.phValue = this.actualizarSiCambio(this.phValue, valores.ph);
+      this.turbidezValue = this.actualizarSiCambio(this.turbidezValue, valores.sst);
+      console.log('[HomeDashboard] Valores reales actualizados:', valores);
+    });
+
+    this.alertsService.connect();
+    this.alertsService.getAlertas().subscribe((mensaje: string) => {
+      this.isSensorAlertActive = true;
+      this.alertDescription = mensaje;
+      this.sensorName = this.detectarSensorDesdeMensaje(mensaje);
+      console.log('[HomeDashboard] Alerta recibida:', mensaje);
+      console.log('[HomeDashboard] Sensor detectado:', this.sensorName);
+
+      this.alertsService.enviarAlertaTelegram(mensaje)?.subscribe({
+        next: () => console.log('[HomeDashboard] Alerta enviada a Telegram correctamente.'),
+        error: (err) => console.error('[HomeDashboard] Error al enviar alerta a Telegram:', err)
+      });
+    });
+  }
+
+  private actualizarSiCambio(valorActual: number, nuevoValor: any): number {
+    if (nuevoValor === undefined || nuevoValor === null || isNaN(nuevoValor)) {
+      return valorActual;
     }
-  });
+    return nuevoValor !== valorActual ? nuevoValor : valorActual;
+  }
 
-  this.alertsService.connect();
-  this.alertsService.getAlertas().subscribe((mensaje: string) => {
-    this.isSensorAlertActive = true;
-    this.alertDescription = mensaje;
-    this.sensorName = this.detectarSensorDesdeMensaje(mensaje);
-    console.log('[HomeDashboard] Alerta recibida:', mensaje);
-    console.log('[HomeDashboard] Sensor detectado:', this.sensorName);
-
-    this.alertsService.enviarAlertaTelegram(mensaje)?.subscribe({
-      next: () => console.log('[HomeDashboard] Alerta enviada a Telegram correctamente.'),
-      error: (err) => console.error('[HomeDashboard] Error al enviar alerta a Telegram:', err)
-    })
-  });
-}
-
-private detectarSensorDesdeMensaje(mensaje: string): string {
-  const sensores = ['temperatura', 'humedad', 'ph', 'turbidez', 'conductividad'];
-  return sensores.find(sensor => mensaje.toLowerCase().includes(sensor)) || 'sensor';
-}
-
+  private detectarSensorDesdeMensaje(mensaje: string): string {
+    const sensores = ['temperatura', 'humedad', 'ph', 'turbidez', 'conductividad'];
+    return sensores.find(sensor => mensaje.toLowerCase().includes(sensor)) || 'sensor';
+  }
 
   openSamplingModal(): void {
     this.isSamplingModalVisible = true;
@@ -141,74 +150,52 @@ private detectarSensorDesdeMensaje(mensaje: string): string {
   handleEndSampling(data: { worms: number, compost: number, leachate: number }): void {
     console.log('Terminando muestreo con los siguientes resultados:', data);
     this.isEndSamplingModalVisible = false;
-    this.generatePdfReport(data); // Llama a la función para generar el PDF
+    this.generatePdfReport(data);
   }
 
   toggleAlert(): void {
     this.isSensorAlertActive = !this.isSensorAlertActive;
-    if (this.isSensorAlertActive) {
-      console.log('Alerta de sensor activada.');
-    } else {
-      console.log('Alerta de sensor desactivada.');
-    }
+    console.log(`Alerta de sensor ${this.isSensorAlertActive ? 'activada' : 'desactivada'}.`);
   }
 
-  /**
-   * Genera un reporte PDF con los resultados de la medición.
-   * @param data Los datos finales del muestreo.
-   */
   private generatePdfReport(data: { worms: number, compost: number, leachate: number }): void {
-  const doc = new jsPDF();
-
-  // Título
-  doc.setFontSize(22);
-  doc.text('Reporte de Medición de LombriTech', 10, 20);
-
-  // Fecha
-  const now = new Date();
-  const fechaHora = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
-  doc.setFontSize(10);
-  doc.text(`Fecha del reporte: ${fechaHora}`, 10, 30);
-
-  // Contenido
-  doc.setFontSize(12);
-  let yOffset = 50;
-  doc.text(`Resultados del Muestreo:`, 10, yOffset);
-  yOffset += 10;
-  doc.text(`Lombrices: ${data.worms}`, 20, yOffset);
-  yOffset += 10;
-  doc.text(`Compost: ${data.compost}`, 20, yOffset);
-  yOffset += 10;
-  doc.text(`Lixiviados: ${data.leachate}`, 20, yOffset);
-  yOffset += 20;
-
-  doc.text('Últimos valores de sensores registrados:', 10, yOffset);
-  yOffset += 10;
-  doc.text(`PH: ${this.phValue}`, 20, yOffset);
-  yOffset += 10;
-  doc.text(`Humedad: ${this.humedadValue}%`, 20, yOffset);
-  yOffset += 10;
-  doc.text(`Temperatura: ${this.temperaturaValue}°C`, 20, yOffset);
-  yOffset += 10;
-  doc.text(`Conductividad: ${this.conductividadValue} EC`, 20, yOffset);
-  yOffset += 10;
-  doc.text(`Turbidez: ${this.turbidezValue}`, 20, yOffset);
-  yOffset += 20;
-
-  // Generar Blob y URL
-  const pdfBlob = doc.output('blob');
-  const blobUrl = URL.createObjectURL(pdfBlob);
-  const nombreArchivo = `reporte-lombri-tech_${now.toLocaleDateString().replace(/\//g, '-')}_${now.getHours()}-${now.getMinutes()}-${now.getSeconds()}.pdf`;
-
-  // ⬇️ Guarda el reporte usando el servicio (NO local)
-  this.reporteService.agregarReporte({
-    nombre: nombreArchivo,
-    url: blobUrl,
-    fecha: fechaHora
-  });
-
-  // Opcional: abrir en nueva pestaña
-  window.open(blobUrl, '_blank');
-}
-
+    const doc = new jsPDF();
+    doc.setFontSize(22);
+    doc.text('Reporte de Medición de LombriTech', 10, 20);
+    const now = new Date();
+    const fechaHora = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+    doc.setFontSize(10);
+    doc.text(`Fecha del reporte: ${fechaHora}`, 10, 30);
+    doc.setFontSize(12);
+    let yOffset = 50;
+    doc.text(`Resultados del Muestreo:`, 10, yOffset);
+    yOffset += 10;
+    doc.text(`Lombrices: ${data.worms}`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Compost: ${data.compost}`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Lixiviados: ${data.leachate}`, 20, yOffset);
+    yOffset += 20;
+    doc.text('Últimos valores de sensores registrados:', 10, yOffset);
+    yOffset += 10;
+    doc.text(`PH: ${this.phValue}`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Humedad: ${this.humedadValue}%`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Temperatura: ${this.temperaturaValue}°C`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Conductividad: ${this.conductividadValue} EC`, 20, yOffset);
+    yOffset += 10;
+    doc.text(`Turbidez: ${this.turbidezValue}`, 20, yOffset);
+    yOffset += 20;
+    const pdfBlob = doc.output('blob');
+    const blobUrl = URL.createObjectURL(pdfBlob);
+    const nombreArchivo = `reporte-lombri-tech_${now.toLocaleDateString().replace(/\//g, '-')}_${now.getHours()}-${now.getMinutes()}-${now.getSeconds()}.pdf`;
+    this.reporteService.agregarReporte({
+      nombre: nombreArchivo,
+      url: blobUrl,
+      fecha: fechaHora
+    });
+    window.open(blobUrl, '_blank');
+  }
 }
