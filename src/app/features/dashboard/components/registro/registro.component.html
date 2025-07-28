@@ -16,6 +16,7 @@
         }
       </h2>
       
+      
       <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
         @if (currentStep === 1) {
           <div class="step-content">
@@ -26,10 +27,11 @@
                 formControlName="tipoUsuario" 
                 class="form-select"
                 [class.error]="registroForm.get('tipoUsuario')?.invalid && registroForm.get('tipoUsuario')?.touched"
+                (change)="onTipoUsuarioChange()"
               >
                 <option value="" disabled>Selecciona tu tipo de usuario</option>
                 <option value="alumno">Alumno</option>
-                <option value="investigador">Investigador</option>
+                <option value="administrador">Administrador</option>
               </select>
               @if (registroForm.get('tipoUsuario')?.invalid && registroForm.get('tipoUsuario')?.touched) {
                 <div class="error-message">
@@ -110,23 +112,22 @@
               }
             </div>
 
-            <!-- 🚀 Nuevo campo de usuario_telegram -->
-<div class="form-group">
-  <label for="usuario_telegram">Usuario de Telegram</label>
-  <input 
-    id="usuario_telegram"
-    type="text"
-    formControlName="usuario_telegram"
-    class="form-input"
-    placeholder="@tu_usuario"
-    [class.error]="registroForm.get('usuario_telegram')?.invalid && registroForm.get('usuario_telegram')?.touched"
-  />
-  @if (registroForm.get('usuario_telegram')?.invalid && registroForm.get('usuario_telegram')?.touched) {
-    <div class="error-message">
-      El usuario de Telegram es requerido y debe tener máximo 50 caracteres
-    </div>
-  }
-</div>
+            <div class="form-group">
+              <label for="usuario_telegram">Usuario de Telegram</label>
+              <input 
+                id="usuario_telegram"
+                type="text"
+                formControlName="usuario_telegram"
+                class="form-input"
+                placeholder="12345678910"
+                [class.error]="registroForm.get('usuario_telegram')?.invalid && registroForm.get('usuario_telegram')?.touched"
+              />
+              @if (registroForm.get('usuario_telegram')?.invalid && registroForm.get('usuario_telegram')?.touched) {
+                <div class="error-message">
+                  El usuario de Telegram es requerido y debe tener máximo 50 caracteres
+                </div>
+              }
+            </div>
 
             <div class="form-group">
               <label for="contraseña">Contraseña</label>

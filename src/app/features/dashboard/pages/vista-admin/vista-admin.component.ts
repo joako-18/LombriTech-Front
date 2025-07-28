@@ -26,7 +26,7 @@ export class VistaAdminComponent implements OnInit {
   isRegistering: boolean = false;
 
   userToEdit: Partial<User & { apellidos: string; password?: string; password_confirm?: string; usuario_telegram?: string }> = {};
-  roles: string[] = ['Estudiante', 'Investigador'];
+  roles: string[] = ['Estudiante', 'Administrador'];
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -144,7 +144,7 @@ export class VistaAdminComponent implements OnInit {
   private mapUserRole(tipoUsuario: string): string {
     switch(tipoUsuario) {
       case 'alumno': return 'Estudiante';
-      case 'investigador': return 'Investigador';
+      case 'administrador': return 'administrador';
       default: return 'Estudiante';
     }
   }

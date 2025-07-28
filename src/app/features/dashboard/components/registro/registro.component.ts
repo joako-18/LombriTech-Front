@@ -1,4 +1,4 @@
-// registro.component.ts
+
 import { Component, Output, EventEmitter } from '@angular/core';
 import {
   FormBuilder,
@@ -67,6 +67,8 @@ export class RegistroComponent {
 
   nextStep() {
     if (this.isStep1Valid() && this.currentStep === 1) {
+      // 🔍 Debug: Verificar el valor seleccionado
+      console.log('Tipo de usuario seleccionado:', this.registroForm.get('tipoUsuario')?.value);
       this.currentStep = 2;
     } else {
       this.markStep1AsTouched();
@@ -90,6 +92,11 @@ export class RegistroComponent {
       this.isSubmitting = true;
 
       const formData = this.registroForm.value;
+      
+      // 🔍 Debug: Verificar todos los datos antes de enviar
+      console.log('Datos del formulario completo:', formData);
+      console.log('Tipo de usuario final:', formData.tipoUsuario);
+      
       this.registrado.emit(formData);
 
       this.showSuccessAlert = true;
@@ -122,5 +129,11 @@ export class RegistroComponent {
 
   onProblemAlertAccept() {
     this.showProblemAlert = false;
+  }
+
+
+  onTipoUsuarioChange() {
+    const tipoUsuario = this.registroForm.get('tipoUsuario')?.value;
+    console.log('Tipo de usuario cambiado a:', tipoUsuario);
   }
 }
