@@ -8,7 +8,7 @@ export class ValoresRealesService {
 
     connect(): void {
         if (this.socket && this.socket.readyState === WebSocket.OPEN) return;
-        this.socket = new WebSocket('ws://localhost:8000/ws/valores-reales');
+        this.socket = new WebSocket('wss://lombritech.backend.upprojects.online/ws/valores-reales');
 
         this.socket.onmessage = (event) => {
             const data = JSON.parse(event.data);

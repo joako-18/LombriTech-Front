@@ -9,7 +9,7 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000'; // Cambia si usas otra URL
+  private apiUrl = 'https://lombritech.backend.upprojects.online'; // Cambia si usas otra URL
   private tokenKey = 'access_token';
 
   constructor(private http: HttpClient) {}

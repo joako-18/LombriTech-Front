@@ -42,7 +42,6 @@ export class VistaAdminComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al cargar usuarios:', err);
-        alert('Error al cargar usuarios: ' + err.message);
         this.router.navigate(['/login']);
       }
     });
@@ -90,7 +89,6 @@ export class VistaAdminComponent implements OnInit {
     usuario_telegram: string;
   }) {
     if (!this.isValidRegistration(newUser)) {
-      alert('Por favor, complete todos los campos correctamente.');
       return;
     }
 
@@ -109,7 +107,6 @@ export class VistaAdminComponent implements OnInit {
     this.userService.registerUser(userData).subscribe({
       next: (registeredUser) => {
         this.isRegistering = false;
-        alert('Usuario registrado correctamente');
         this.closeRegisterModal();
         this.loadUsers();
       },
@@ -124,7 +121,6 @@ export class VistaAdminComponent implements OnInit {
           errorMessage += `: ${err.message}`;
         }
         
-        alert(errorMessage);
       }
     });
   }
@@ -182,14 +178,13 @@ export class VistaAdminComponent implements OnInit {
 
       this.userService.updateUser(id!, updateData).subscribe({
         next: updatedUser => {
-          alert('Usuario actualizado correctamente');
           this.closeEditModal();
           this.loadUsers();
         },
-        error: err => alert('Error al actualizar usuario: ' + err.message)
+        error: err => console.error('Error al actualizar usuario:', err)
       });
     } else {
-      alert('Por favor, complete todos los campos y asegure que las contraseñas coincidan.');
+      console.error('Por favor, complete todos los campos y asegure que las contraseñas coincidan.');
     }
   }
 
@@ -197,10 +192,10 @@ export class VistaAdminComponent implements OnInit {
     if (confirm('¿Está seguro de que desea eliminar este usuario?')) {
       this.userService.deleteUser(userId).subscribe({
         next: () => {
-          alert('Usuario eliminado');
+          console.log('Usuario eliminado');
           this.loadUsers();
         },
-        error: err => alert('Error al eliminar usuario: ' + err.message)
+        error: err => console.error('Error al eliminar usuario:', err)
       });
     }
   }

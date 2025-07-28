@@ -15,7 +15,7 @@ export interface AlertConfig {
 })
 
 export class AlertaService {
-  private apiUrl = "http://localhost:8000/alertas";
+  private apiUrl = "https://lombritech.backend.upprojects.online/alertas";
 
   constructor(private http: HttpClient) {}
 

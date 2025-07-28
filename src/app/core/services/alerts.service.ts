@@ -17,8 +17,8 @@ export class AlertsService {
     if (this.socket && this.socket.readyState !== WebSocket.CLOSED) {
       return;
     }
-    
-    this.socket = new WebSocket('ws://localhost:8000/ws/alertas');
+
+    this.socket = new WebSocket('wss://lombritech.backend.upprojects.online/ws/alertas');
 
     this.socket.onopen = () => {
       console.log('[AlertsService] WebSocket conectado');

@@ -28,7 +28,6 @@ export class LoginComponent {
         this.router.navigate(['/home-dashboard']); // Navega a la ruta protegida o dashboard
       },
       error: err => {
-        alert('Error en login: ' + (err.error?.detail || err.message));
         console.error('Error login:', err);
       }
     });

@@ -21,7 +21,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-
+    background-color: #F3E9D2;
     display: flex;
     flex-direction: column;
     justify-content: center;
